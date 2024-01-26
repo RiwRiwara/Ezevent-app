@@ -1,40 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Image } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import HomeScreen from './screens/HomeScreen';
+import SplashScreen from './screens/SplashScreen';
 
-export default function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Stack = createStackNavigator();
 
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('./assets/Logo.png')}
-        style={styles.logo}
-      />
-
-      <Text style={styles.title}>EZEVENT</Text>
-      <View style={{ width: 130, height: 5, backgroundColor: '#FF9B38', marginBottom: 20 }}></View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Splash" headerMode="none">
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#44A9C9',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  }
-});
+export default App;
