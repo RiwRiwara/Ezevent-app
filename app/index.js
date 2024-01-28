@@ -2,12 +2,21 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { Image } from 'react-native';
 import { useFonts } from 'expo-font';
+import { Link } from 'expo-router';
 
 export default function SplashScreenComponent({ navigation }) {
-    const [fontsLoaded, fontError] = useFonts({
-        'IBMPlexSansThai-Bold': require('../assets/fonts/IBMPlexSansThai-Bold.ttf'),
-    });
-    
+  const [fontsLoaded, fontError] = useFonts({
+    'IBMPlexSansThai-Bold': require('../assets/fonts/IBMPlexSansThai-Bold.ttf'),
+  });
+  const [testApi, setTestApi] = React.useState('');
+
+  useEffect(() => {
+    fetch('https://ezevent.online/api/test')
+      .then((response) => response.json())
+      .then((json) => setTestApi(json.message))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image
@@ -17,12 +26,8 @@ export default function SplashScreenComponent({ navigation }) {
 
       <Text style={styles.title}>EZEVENT</Text>
       <View style={styles.separator} />
-
-      <Button
-        title="Go Home"
-        onPress={() => navigation.navigate('Home')} // Assuming your Home screen is named 'Home'
-        style={styles.homeButton}
-      />
+      <Text>{testApi}</Text>
+      <Link href="/home">Home</Link>
     </View>
   );
 }

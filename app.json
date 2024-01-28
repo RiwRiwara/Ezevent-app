@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "ezevent-app",
+    "scheme": "ezevent",
     "slug": "ezevent-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -22,6 +25,7 @@
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
@@ -38,7 +42,8 @@
             "./assets/fonts/IBMPlexSansThai-SemiBold.ttf"
           ]
         }
-      ]
+      ],
+      "expo-router"
     ]
   }
 }
