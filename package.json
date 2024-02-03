@@ -9,11 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/ibm-plex-sans-thai": "^0.2.3",
     "@gluestack-style/react": "^1.0.45",
     "@gluestack-ui/config": "^1.1.1",
     "@gluestack-ui/themed": "^1.1.2",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
+    "@types/react": "~18.2.45",
     "expo": "~50.0.3",
     "expo-constants": "~15.4.5",
     "expo-font": "~11.10.2",
