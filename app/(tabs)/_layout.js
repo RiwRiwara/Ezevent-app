@@ -1,5 +1,4 @@
 import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { Image } from 'expo-image';
 import icons from "../../config/icons";
 import { COLORS } from "../../config/color";
@@ -60,7 +59,7 @@ export default () => {
                 paddingTop: 16,
               }}>
                 <Image
-                  source={focused ? icons.Inbox : icons.Inbox}
+                  source={focused ? icons.Inbox : icons.InboxOutline }
                   contentFit="contain"
                   style={{
                     height: 25,
