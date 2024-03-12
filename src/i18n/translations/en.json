@@ -5,5 +5,14 @@
     "back": "Back",
     "myevent": "My Event",
     "me": "Me",
-    "change_lang": "Change Language"
+
+    "edit_profile": "Edit Profile",
+    "push_noti": "Push Notifications",
+    "change_lang": "Change Language",
+    "manage_account": "Manage Account",
+    "language":"English",
+
+    "enable_noti": "Enable Notifications",
+    "send_noti_email": "Send Notifications to Email",
+    "send_noti_sms":"Send Notifications to SMS"
 }
