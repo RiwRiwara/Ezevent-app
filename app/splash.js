@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Image } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Link } from 'expo-router';
-
+import { config } from "../config/gluestack-ui.config"
+import { GluestackUIProvider, Button, ButtonText } from "@gluestack-ui/themed";
 export default function SplashScreenComponent({ navigation }) {
   const [fontsLoaded, fontError] = useFonts({
     'IBMPlexSansThai-Bold': require('../assets/fonts/IBMPlexSansThai-Bold.ttf'),
@@ -18,17 +19,30 @@ export default function SplashScreenComponent({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../assets/Logo.png')}
-        style={styles.logo}
-      />
 
-      <Text style={styles.title}>EZEVENT</Text>
-      <View style={styles.separator} />
-      <Text>{testApi}</Text>
-      <Link href="/home">Home</Link>
-    </View>
+    <GluestackUIProvider config={config}>
+      <View style={styles.container}>
+
+        <Button size="md" variant="solid" action="primary" isDisabled={false} isFocusVisible={false} >
+          <ButtonText>Add </ButtonText>
+        </Button>
+
+
+        <Button>
+          <ButtonText>Hello world</ButtonText>
+        </Button>
+
+        <Image
+          source={require('../assets/Logo.png')}
+          style={styles.logo}
+        />
+
+        <Text style={styles.title}>EZEVENT</Text>
+        <View style={styles.separator} />
+        <Text>{testApi}</Text>
+        <Link href="/home">Home</Link>
+      </View>
+    </GluestackUIProvider>
   );
 }
 

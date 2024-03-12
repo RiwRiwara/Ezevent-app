@@ -10,15 +10,16 @@
   },
   "dependencies": {
     "@expo-google-fonts/ibm-plex-sans-thai": "^0.2.3",
-    "@gluestack-style/react": "^1.0.45",
-    "@gluestack-ui/config": "^1.1.1",
-    "@gluestack-ui/themed": "^1.1.2",
+    "@gluestack-style/react": "^1.0.48",
+    "@gluestack-ui/config": "^1.1.10",
+    "@gluestack-ui/themed": "^1.1.9",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "@types/react": "~18.2.45",
     "expo": "~50.0.3",
     "expo-constants": "~15.4.5",
     "expo-font": "~11.10.2",
+    "expo-image": "~1.10.6",
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.6",
     "expo-status-bar": "~1.11.1",
@@ -34,8 +35,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.4.0",
     "react-native-web": "~0.19.6",
-    "typescript": "^5.3.0",
-    "expo-image": "~1.10.6"
+    "typescript": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
