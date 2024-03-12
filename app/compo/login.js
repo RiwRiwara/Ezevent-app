@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: 200,
-    height: 300,
+    width: 400,
+    height: 350,
     borderRadius: 10, // Rounded corners
   },
 });

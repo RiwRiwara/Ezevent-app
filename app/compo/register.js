@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import icons from "../../config/icons";
-import loginimage from "../../assets/loginimage.png";
 import { COLORS } from "../../config/color";
-import { useNavigation } from "@react-navigation/native";
 import {
   GluestackUIProvider,
   Button,
@@ -13,27 +11,12 @@ import {
   Input,
   InputField,
   HStack,
-  ButtonIcon,
-  FormControl,
-  FormControlLabel,
-  FormControlLabelText,
-  FormControlHelper,
-  FormControlHelperText,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
   Select,
   SelectTrigger,
   SelectInput,
-  SelectIcon,
   SelectPortal,
-  SelectBackdrop,
   SelectContent,
-  SelectDragIndicatorWrapper,
-  SelectDragIndicator,
   SelectItem,
-  AlertCircleIcon,
-  ChevronDownIcon,
   CheckIcon,
   Checkbox,
   CheckboxIndicator,
@@ -45,6 +28,9 @@ import { config } from "@gluestack-ui/config";
 const Register = ({ onSubmit }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
 
   const [selectedGender, setSelectedGender] = useState("");
   const handleLogin = () => {
@@ -107,10 +93,9 @@ const Register = ({ onSubmit }) => {
                 placeholderTextColor={COLORS.neutral7}
               />
             </Input>
-            <Select style={{ color: COLORS.neutral7 }}>
+            <Select>
               <SelectTrigger
                 borderColor={COLORS.neutral9}
-                style={{ color: COLORS.neutral7 }}
               >
                 <SelectInput
                   py="$2"
@@ -119,7 +104,7 @@ const Register = ({ onSubmit }) => {
                 />
               </SelectTrigger>
               <SelectPortal style={{ color: COLORS.neutral7 }}>
-                <SelectContent>
+                <SelectContent style={{ color: COLORS.neutral7 }}>
                   <SelectItem
                     label="Male"
                     value="Male"
@@ -139,20 +124,94 @@ const Register = ({ onSubmit }) => {
               </SelectPortal>
             </Select>
             <Text style={styles.text}>Date of birth </Text>
-            <HStack space="md" py="$2">
-                
+            <HStack space="xl">
+              {/* Day */}
+              <Select style={{ width: "25%" }}>
+                <SelectTrigger borderColor={COLORS.neutral9}>
+                  <SelectInput
+                    placeholder="Day"
+                    value={day}
+                    onChangeText={setDay}
+                    placeholderTextColor={COLORS.neutral7}
+                  />
+                </SelectTrigger>
+                <SelectPortal>
+                  <SelectContent>
+                    {[...Array(31)].map((_, index) => (
+                      <SelectItem
+                        key={index}
+                        label={`${index + 1}`}
+                        value={`${index + 1}`}
+                      />
+                    ))}
+                  </SelectContent>
+                </SelectPortal>
+              </Select>
+              {/* Month */}
+              <Select style={{ width: "35%" }}>
+                <SelectTrigger borderColor={COLORS.neutral9}>
+                  <SelectInput
+                    placeholder="Month"
+                    value={month}
+                    onChangeText={setMonth}
+                    placeholderTextColor={COLORS.neutral7}
+                  />
+                </SelectTrigger>
+                <SelectPortal>
+                  <SelectContent>
+                    {[
+                      "January",
+                      "February",
+                      "March",
+                      "April",
+                      "May",
+                      "June",
+                      "July",
+                      "August",
+                      "September",
+                      "October",
+                      "November",
+                      "December",
+                    ].map((month, index) => (
+                      <SelectItem key={index} label={month} value={month} />
+                    ))}
+                  </SelectContent>
+                </SelectPortal>
+              </Select>
+              {/* Year */}
+              <Select style={{ width: "30%" }}>
+                <SelectTrigger borderColor={COLORS.neutral9}>
+                  <SelectInput
+                    placeholder="Year"
+                    value={year}
+                    onChangeText={setYear}
+                    placeholderTextColor={COLORS.neutral7}
+                  />
+                </SelectTrigger>
+                <SelectPortal>
+                  <SelectContent>
+                    {[...Array(100)].map((_, index) => (
+                      <SelectItem
+                        key={index}
+                        label={`${new Date().getFullYear() - index}`}
+                        value={`${new Date().getFullYear() - index}`}
+                      />
+                    ))}
+                  </SelectContent>
+                </SelectPortal>
+              </Select>
             </HStack>
             <Checkbox style={styles.description}>
-                <CheckboxIndicator mr="$2" style={styles.description}>
-                    <CheckboxIcon as={CheckIcon} />
-                </CheckboxIndicator>
-                <CheckboxLabel style={styles.description}>you accept our privacy and detail in our application</CheckboxLabel>
+              <CheckboxIndicator mr="$2" style={styles.description}>
+                <CheckboxIcon as={CheckIcon} />
+              </CheckboxIndicator>
+              <CheckboxLabel style={styles.description}>
+                you accept our privacy and detail in our application
+              </CheckboxLabel>
             </Checkbox>
             <Button size="md" bg="#D05F00">
               <ButtonText>Create new account now</ButtonText>
             </Button>
-
-
           </VStack>
         </VStack>
       </View>

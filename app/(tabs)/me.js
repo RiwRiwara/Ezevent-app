@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { COLORS } from "../../config/color";
 import Login from "../compo/login";
 import Register from "../compo/register";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Me = () => {
   const styles = StyleSheet.create({
@@ -33,56 +34,60 @@ const Me = () => {
   };
 
   return (
-    <View>
-      {isLoggedIn ? (
-        <>
-          {/* Your "me" content goes here */}
-          <Button onPress={() => router.push("/profile/settings")}>
-            <Text>Settings</Text>
-          </Button>
-          <Button onPress={() => setIsLoggedIn(false)}>
-            <Text>Logout</Text>
-          </Button>
-        </>
-      ) : (
-        <>
-          {isRegisterMode ? ( // Display Register content when in register mode
-            <View>
-              <BottomSheet
-                snapPoints={snapPoints}
-                enablePanDownToClose={true}
-                backgroundStyle={{ backgroundColor: COLORS.gray0 }}
-              >
-                <View style={{ padding: 30 }}>
-                  <Register />
-                  <TouchableOpacity onPress={() => setIsRegisterMode(false)}>
-                    <Text style={{ color: COLORS.primary7,fontSize: 16 }}>Back to Login</Text>
-                  </TouchableOpacity>
-                </View>
-              </BottomSheet>
-            </View>
-          ) : (
-            // Display Login content when not in register mode
-            <View>
-              <BottomSheet
-                snapPoints={snapPoints}
-                enablePanDownToClose={true}
-                backgroundStyle={{ backgroundColor: COLORS.gray0 }}
-              >
-                <View style={{ padding: 30 }}>
-                  <Login />
-                  <TouchableOpacity onPress={() => setIsRegisterMode(true)}>
-                    <Text style={{ color: COLORS.primary7,fontSize: 16 }}>
-                      Don't have an account? Register
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </BottomSheet>
-            </View>
-          )}
-        </>
-      )}
-    </View>
+    <GestureHandlerRootView>
+      <View>
+        {isLoggedIn ? (
+          <>
+            {/* Your "me" content goes here */}
+            <Button onPress={() => router.push("/profile/settings")}>
+              <Text>Settings</Text>
+            </Button>
+            <Button onPress={() => setIsLoggedIn(false)}>
+              <Text>Logout</Text>
+            </Button>
+          </>
+        ) : (
+          <>
+            {isRegisterMode ? ( // Display Register content when in register mode
+              <View>
+                <BottomSheet
+                  snapPoints={snapPoints}
+                  enablePanDownToClose={true}
+                  backgroundStyle={{ backgroundColor: COLORS.gray0 }}
+                >
+                  <View style={{ padding: 30 }}>
+                    <Register />
+                    <TouchableOpacity onPress={() => setIsRegisterMode(false)}>
+                      <Text style={{ color: COLORS.primary7, fontSize: 16 }}>
+                        Back to Login
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </BottomSheet>
+              </View>
+            ) : (
+              // Display Login content when not in register mode
+              <View>
+                <BottomSheet
+                  snapPoints={snapPoints}
+                  enablePanDownToClose={true}
+                  backgroundStyle={{ backgroundColor: COLORS.gray0 }}
+                >
+                  <View style={{ padding: 30 }}>
+                    <Login />
+                    <TouchableOpacity onPress={() => setIsRegisterMode(true)}>
+                      <Text style={{ color: COLORS.primary7, fontSize: 16 }}>
+                        Don't have an account? Register
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </BottomSheet>
+              </View>
+            )}
+          </>
+        )}
+      </View>
+    </GestureHandlerRootView>
   );
 };
 
