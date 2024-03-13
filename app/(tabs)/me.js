@@ -53,7 +53,7 @@ const Me = () => {
               <View style={{ padding: 30 }}>
                 <Login/>
                 <Button onPress={() => setIsLoggedIn(true)}>
-                  <Text>Login</Text>
+                  <Text>Test Login</Text>
                 </Button>
               </View>
             </BottomSheet>

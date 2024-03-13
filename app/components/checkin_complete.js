@@ -17,9 +17,11 @@ import {
   GluestackUIProvider,
 } from "@gluestack-ui/themed";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Checkin_complete() {
   const [showAlertDialog, setShowAlertDialog] = React.useState(false);
+  const { t } = useTranslation();
 
   return (
     <GluestackUIProvider config={config}>
@@ -47,14 +49,13 @@ function Checkin_complete() {
               />
 
               <Heading size="lg" color="#053F5C">
-                Check In Complete!
+              {t('checkin_complete')}
               </Heading>
             </VStack>
           </AlertDialogHeader>
           <AlertDialogBody w={350}>
             <Text size="sm" textAlign="center" color="#053F5C">
-              waiting for response , can check in email and message, please
-              recheck junk email.
+            {t('checkin_text')}
             </Text>
           </AlertDialogBody>
           <AlertDialogFooter borderTopWidth="$0">
@@ -67,7 +68,7 @@ function Checkin_complete() {
                 setShowAlertDialog(false);
               }}
             >
-              <ButtonText>Okay</ButtonText>
+              <ButtonText>{t('okay')}</ButtonText>
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

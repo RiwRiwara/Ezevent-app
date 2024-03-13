@@ -15,8 +15,11 @@ import {
   ButtonIcon,
 } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
+import { useTranslation } from "react-i18next";
 
 const Login = ({ onSubmit }) => {
+  const { t } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,7 +35,7 @@ const Login = ({ onSubmit }) => {
           <HStack space="md" py="$2" style={styles.container}>
             <HStack>
               <Image source={icons.info} style={{ width: 20, height: 20 }} />
-              <Text style={styles.description}> English</Text>
+              <Text style={styles.description}>{t('language')}</Text>
             </HStack>
             <Image source={icons.reject} style={{ width: 20, height: 20 }} />
           </HStack>
@@ -42,40 +45,40 @@ const Login = ({ onSubmit }) => {
             </View>
             <View style={styles.text}>
               <View style={styles.header}>
-                <Text style={styles.description}>Welcome to </Text>
+                <Text style={styles.description}>{t('login1')}</Text>
                 <Text style={styles.title}>Ezevent</Text>
                 <Text style={styles.description}>
-                  Application for explore events and manage event{" "}
+                  {t('login2')}{" "}
                 </Text>
                 <Text style={styles.description}>
-                  {" "}
-                  if you need to join please enter mobile number.
+                  {/* {" "} */}
+                  {t('login3')}
                 </Text>
               </View>
             </View>
           </VStack>
           <VStack space="md" py="$2">
-            <Input borderColor= {COLORS.neutral9}>
+            <Input borderColor={COLORS.neutral9}>
               <InputField
                 style={styles.input}
                 py="$2"
-                placeholder="Email"
+                placeholder={t('email')}
                 placeholderTextColor={COLORS.neutral7}
               />
             </Input>
-            <Input borderColor= {COLORS.neutral9}>
+            <Input borderColor={COLORS.neutral9}>
               <InputField
                 style={styles.input}
                 py="$2"
-                placeholder="Password"
+                placeholder={t('password')}
                 placeholderTextColor={COLORS.neutral7}
               />
             </Input>
             <Button size="sm" bg="#D05F00">
-              <ButtonText>Login</ButtonText>
+              <ButtonText>{t('loginbtn')}</ButtonText>
             </Button>
             <Text style={styles.description}>
-              Don't have an account? register
+              {t('login4')} {t('register')}
             </Text>
           </VStack>
         </VStack>

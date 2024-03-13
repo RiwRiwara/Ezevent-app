@@ -5,6 +5,10 @@
     "back":"ย้อนกลับ",
     "myevent": "อีเวนต์ของฉัน",
     "me": "ฉัน",
+    "email": "อีเมล์",
+    "password": "รหัสผ่าน",
+    "loginbtn": "เข้าสู่ระบบ",
+    "register": "สมัครสมาชิก",
 
     "edit_profile": "แก้ไขโปรไฟล์",
     "push_noti": "การแจ้งเตือน",
@@ -14,6 +18,49 @@
 
     "enable_noti": "แจ้งเตือน",
     "send_noti_email": "แจ้งเตือนผ่านอีเมล์",
-    "send_noti_sms":"แจ้งเตือนผ่านข้อความ"
+    "send_noti_sms":"แจ้งเตือนผ่านข้อความ",
+
+    "login1" : "ยินดีต้อนรับสู่",
+    "login2" : "แอปพลิเคชั่นสำหรับสำรวจกิจกรรมและจัดการกิจกรรม",
+    "login3" : "หากคุณต้องการเข้าร่วมกรุณากรอกหมายเลขโทรศัพท์มือถือ",
+    "login4" : "คุณยังไม่มีบัญชี?",
+
+    "okay" : "ตกลง",
+    "cancel_complete" : "ยกเลิกสำเร็จ",
+    "cancel_text" : "รอการตอบกลับ สามารถตรวจสอบอีเมลและข้อความได้ โปรดตรวจสอบอีเมลขยะอีกครั้ง",
+    "checkin_complete" : "เช็คอินสำเร็จ",
+    "checkin_text" : "รอการตอบกลับ สามารถตรวจสอบอีเมลและข้อความได้ โปรดตรวจสอบอีเมลขยะอีกครั้ง",
+    "review_complete" : "ประเมินสำเร็จ",
+    "review_text" : "ขอบคุณสำหรับโอกาส คุณจะได้รับรางวัล",
+    "save_complete" : "บันทึกสำเร็จ",
+    "save_text" : "กิจกรรมได้บันทึกในกิจกรรมของฉันที่บันทึกไว้",
+    "submit_complete" : "ส่งสำเร็จ",
+    "submit_text" : "รอการตอบกลับ สามารถตรวจสอบอีเมลและข้อความได้ โปรดตรวจสอบอีเมลขยะอีกครั้ง",
+
+    "organize_summary1" : "สวัสดิการ",
+    "organize_summary2" : "ทะเบียน",
+    "organize_summary3" : "ประสานงาน",
+    "organize_summary4" : "ความปลอดภัย",
+    "organize_summary5" : "สร้างสรรค์",
+    "organize_summary6" : "ออกแบบ",
+    "organize_summary7" : "สถานที่",
+    "organize_summary8" : "บัญชี",
+    "organize_summary9" : "ทำสคริปส์",
+    "organize_summary10" : "ฉาก",
+    "organize_summary11" : "อื่นๆ",
+
+    "participant_summary1" : "การศึกษา",
+    "participant_summary2" : "ความบันเทิง",
+    "participant_summary3" : "การกุศล",
+    "participant_summary4" : "สัมมนา",
+    "participant_summary5" : "การเงินการบัญชี",
+    "participant_summary6" : "เกมและอีสปอร์ต",
+    "participant_summary7" : "สนุกสนาน",
+    "participant_summary8" : "นิทรรศการ",
+    "participant_summary9" : "ศิลปะ และ การออกแบบ",
+    "participant_summary10" : "เทคโนโลยี",
+    "participant_summary11" : "อื่นๆ"
+
+
 
 }
