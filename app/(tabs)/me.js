@@ -55,17 +55,16 @@ const Me = () => {
               backgroundStyle={{ backgroundColor: COLORS.gray0 }}
             >
               <View style={{ padding: 30 }}>
-                <Login/>
+                <Login />
                 <Button onPress={() => setIsLoggedIn(true)}>
                   <Text>Test Login</Text>
                 </Button>
-                </BottomSheet>
               </View>
-            )}
-          </>
-        )}
-      </View>
-    </GestureHandlerRootView>
+            </BottomSheet>
+          </View>
+        </>
+      )}
+    </View>
   );
 };
 

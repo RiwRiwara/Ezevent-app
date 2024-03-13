@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { View } from '@gluestack-ui/themed';
 import { Image } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Link } from 'expo-router';
 import { config } from "../config/gluestack-ui.config"
-import { GluestackUIProvider, Button, ButtonText } from "@gluestack-ui/themed";
+import { GluestackUIProvider, Button, ButtonText, Text } from "@gluestack-ui/themed";
 export default function SplashScreenComponent({ navigation }) {
   const [fontsLoaded, fontError] = useFonts({
     'IBMPlexSansThai-Bold': require('../assets/fonts/IBMPlexSansThai-Bold.ttf'),
@@ -21,24 +22,20 @@ export default function SplashScreenComponent({ navigation }) {
   return (
 
     <GluestackUIProvider config={config}>
-      <View style={styles.container}>
 
-        <Button size="md" variant="solid" action="primary" isDisabled={false} isFocusVisible={false} >
-          <ButtonText>Add </ButtonText>
-        </Button>
+      <View style={styles.container} backgroundColor="$neutral6">
 
 
-        <Button>
-          <ButtonText>Hello world</ButtonText>
-        </Button>
 
         <Image
           source={require('../assets/Logo.png')}
           style={styles.logo}
         />
 
-        <Text style={styles.title}>EZEVENT</Text>
-        <View style={styles.separator} />
+        <Text color="$gray0" fontSize={36} fontWeight="$bold" >EZEVENT</Text>
+        
+        <View style={styles.separator} my={10}/>
+        
         <Text>{testApi}</Text>
         <Link href="/home">Home</Link>
       </View>
@@ -49,15 +46,9 @@ export default function SplashScreenComponent({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#44A9C9',
+    // backgroundColor: '#44A9C9',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#fff',
-    fontFamily: 'IBMPlexSansThai-Bold',
   },
   logo: {
     width: 200,
