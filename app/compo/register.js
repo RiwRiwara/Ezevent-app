@@ -31,8 +31,6 @@ const Register = ({ onSubmit }) => {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-
-  const [selectedGender, setSelectedGender] = useState("");
   const handleLogin = () => {
     // Call onSubmit function with username and password
     onSubmit(username, password);
@@ -94,9 +92,7 @@ const Register = ({ onSubmit }) => {
               />
             </Input>
             <Select>
-              <SelectTrigger
-                borderColor={COLORS.neutral9}
-              >
+              <SelectTrigger borderColor={COLORS.neutral9}>
                 <SelectInput
                   py="$2"
                   placeholder="Gender"
@@ -129,11 +125,10 @@ const Register = ({ onSubmit }) => {
               <Select style={{ width: "25%" }}>
                 <SelectTrigger borderColor={COLORS.neutral9}>
                   <SelectInput
+                    py="$2"
                     placeholder="Day"
-                    value={day}
-                    onChangeText={setDay}
                     placeholderTextColor={COLORS.neutral7}
-                  />
+                  /> 
                 </SelectTrigger>
                 <SelectPortal>
                   <SelectContent>
@@ -151,9 +146,8 @@ const Register = ({ onSubmit }) => {
               <Select style={{ width: "35%" }}>
                 <SelectTrigger borderColor={COLORS.neutral9}>
                   <SelectInput
-                    placeholder="Month"
-                    value={month}
-                    onChangeText={setMonth}
+                    py="$2"
+                    placeholder="Mouth"
                     placeholderTextColor={COLORS.neutral7}
                   />
                 </SelectTrigger>
@@ -182,9 +176,8 @@ const Register = ({ onSubmit }) => {
               <Select style={{ width: "30%" }}>
                 <SelectTrigger borderColor={COLORS.neutral9}>
                   <SelectInput
+                    py="$2"
                     placeholder="Year"
-                    value={year}
-                    onChangeText={setYear}
                     placeholderTextColor={COLORS.neutral7}
                   />
                 </SelectTrigger>
