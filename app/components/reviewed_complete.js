@@ -17,9 +17,11 @@ import {
   GluestackUIProvider,
 } from "@gluestack-ui/themed";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Reviewed_complete() {
   const [showAlertDialog, setShowAlertDialog] = React.useState(false);
+  const { t } = useTranslation();
 
   return (
     <GluestackUIProvider config={config}>
@@ -47,13 +49,13 @@ function Reviewed_complete() {
               />
 
               <Heading size="lg" color="#053F5C">
-                Reviewed Complete!
+              {t('review_complete')}
               </Heading>
             </VStack>
           </AlertDialogHeader>
           <AlertDialogBody w={300}>
             <Text size="sm" textAlign="center" color="#053F5C">
-              Thank you for opportunity. You will receive reward
+            {t('review_text')}
             </Text>
           </AlertDialogBody>
           <AlertDialogFooter borderTopWidth="$0">
@@ -66,7 +68,7 @@ function Reviewed_complete() {
                 setShowAlertDialog(false);
               }}
             >
-              <ButtonText>Okay</ButtonText>
+              <ButtonText>{t('okay')}</ButtonText>
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

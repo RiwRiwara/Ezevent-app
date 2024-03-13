@@ -5,6 +5,10 @@
     "back": "Back",
     "myevent": "My Event",
     "me": "Me",
+    "email": "Email",
+    "password": "Password",
+    "loginbtn": "Login",
+    "register": "Register",
 
     "edit_profile": "Edit Profile",
     "push_noti": "Push Notifications",
@@ -14,5 +18,51 @@
 
     "enable_noti": "Enable Notifications",
     "send_noti_email": "Send Notifications to Email",
-    "send_noti_sms":"Send Notifications to SMS"
+    "send_noti_sms":"Send Notifications to SMS",
+
+    "login1" : "Welcome to ",
+    "login2" : "Application for explore events and manage event",
+    "login3" : "if you need to join please enter mobile number.",
+    "login4" : "Don't have an account?",
+
+    "okay" : "Okay",
+    "cancel_complete" : "Canceled Complete!",
+    "cancel_text" : "waiting for response , can check in email and message, please recheck junk email.",
+    "checkin_complete" : "Check In Complete!",
+    "checkin_text" : "waiting for response , can check in email and message, pleaserecheck junk email.",
+    "review_complete" : "Reviewed Complete!",
+    "review_text" : "Thank you for opportunity. You will receive reward",
+    "save_complete" : "Save Complete!",
+    "save_text" : "Event has save in to my event saved.",
+    "submit_complete" : "Submit Complete!",
+    "submit_text" : "waiting for response , can check in email and message, pleaserecheck junk email.",
+
+    "organize_summary1" : "Welfare",
+    "organize_summary2" : "Registration",
+    "organize_summary3" : "Coordinator",
+    "organize_summary4" : "Safety",
+    "organize_summary5" : "Creative",
+    "organize_summary6" : "Designer",
+    "organize_summary7" : "Location",
+    "organize_summary8" : "Account Executive",
+    "organize_summary9" : "Script Writer",
+    "organize_summary10" : "Stage",
+    "organize_summary11" : "Other",
+
+    "participant_summary1" : "Education",
+    "participant_summary2" : "Entertainment",
+    "participant_summary3" : "Charity",
+    "participant_summary4" : "Seminar",
+    "participant_summary5" : "Finance and Accounting",
+    "participant_summary6" : "Game and E-sports",
+    "participant_summary7" : "Funny",
+    "participant_summary8" : "Exhibition",
+    "participant_summary9" : "Art and Design",
+    "participant_summary10" : "Technology",
+    "participant_summary11" : "Other"
+
+
+
+    
+
 }

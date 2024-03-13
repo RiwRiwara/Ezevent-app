@@ -4,13 +4,14 @@ import '../../src/i18n/i18n.config';
 import { useTranslation } from "react-i18next";
 
 const inbox = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <View>
       <Text>{t('inbox')}</Text>
+      
     </View>
   );
-}
+};
 
 export default inbox

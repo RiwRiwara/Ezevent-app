@@ -4,18 +4,34 @@ import { useRouter } from 'expo-router';
 import { useTranslation } from "react-i18next";
 import { COLORS } from '../../config/color';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import {config} from '../../config/gluestack-ui.config';
-import { GluestackUIProvider,Switch  } from "@gluestack-ui/themed";
+import { config } from '../../config/gluestack-ui.config';
+import { VStack, Button, GluestackUIProvider, Switch } from "@gluestack-ui/themed";
 
 const SettingsRow = ({ label, icon, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.row}>
-      <Text style={styles.rowLabel}>{label}</Text>
+    <Button onPress={onPress}
+      flexDirection='row'
+      alignItems='center'
+      justifyContent='flex-start'
+      height='50px'
+      backgroundColor={COLORS.white}
+      mb='10px'
+      paddingLeft='15px'
+      paddingRight='10px'
+      
+    >
+      <Text fontSize= "2em" fontWeight= '$bold' style={styles.rowLabel}>{label}</Text>
       <View style={styles.rowSpacer} />
-      <View style={styles.rowIcon}>
+      <View 
+      width= '32px'
+      height= '32px'
+      mr= '20px'
+      flexDirection= 'row'
+      alignItems= 'center'
+      justifyContent= 'center'>
         <FeatherIcon color={COLORS.primary9} name={icon} size={20} />
       </View>
-    </TouchableOpacity>
+    </Button>
   );
 };
 
@@ -33,7 +49,7 @@ const Settings = () => {
 
   return (
     <GluestackUIProvider config={config}>
-      <View>
+      <VStack>
         <SettingsRow
           label={t('edit_profile')}
           icon="edit"
@@ -48,11 +64,19 @@ const Settings = () => {
             router.push('/profile/settings_notification');
           }}
         />
-        <TouchableOpacity onPress={changeLanguage} style={styles.row}>
+        <Button onPress={changeLanguage}
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='flex-start'
+          height='50px'
+          backgroundColor={COLORS.white}
+          mb='10px'
+          paddingLeft='15px'
+          paddingRight='10px'>
           <Text style={styles.rowLabel}>{t('change_lang')}</Text>
           <View style={styles.rowSpacer} />
           <Text style={styles.rowLabel}>{t('language')}</Text>
-        </TouchableOpacity>
+        </Button>
         <SettingsRow
           label={t('manage_account')}
           icon="user"
@@ -60,36 +84,14 @@ const Settings = () => {
             // handle onPress
           }}
         />
-      </View>
+      </VStack>
     </GluestackUIProvider>
 
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    height: 50,
-    backgroundColor: COLORS.white,
-    borderRadius: 8,
-    marginBottom: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
-  },
-  rowIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 9999,
-    marginRight: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   rowLabel: {
-    fontSize: 17,
-    fontWeight: '400',
     color: COLORS.primary9,
   },
   rowSpacer: {
