@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@expo-google-fonts/ibm-plex-sans-thai": "^0.2.3",
-    "@gluestack-style/react": "^1.0.45",
-    "@gluestack-ui/config": "^1.1.1",
-    "@gluestack-ui/themed": "^1.1.2",
+    "@gluestack-style/react": "^1.0.48",
+    "@gluestack-ui/config": "^1.1.10",
+    "@gluestack-ui/themed": "^1.1.9",
     "@gorhom/bottom-sheet": "^4.6.1",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",

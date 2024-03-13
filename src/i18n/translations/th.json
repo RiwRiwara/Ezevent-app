@@ -4,5 +4,16 @@
     "setting": "ตั้งค่า",
     "back":"ย้อนกลับ",
     "myevent": "อีเวนต์ของฉัน",
-    "change_lang": "เปลี่ยนภาษา"
+    "me": "ฉัน",
+
+    "edit_profile": "แก้ไขโปรไฟล์",
+    "push_noti": "การแจ้งเตือน",
+    "change_lang": "เปลี่ยนภาษา",
+    "manage_account": "จัดการบัญชี",
+    "language":"ไทย",
+
+    "enable_noti": "แจ้งเตือน",
+    "send_noti_email": "แจ้งเตือนผ่านอีเมล์",
+    "send_noti_sms":"แจ้งเตือนผ่านข้อความ"
+
 }
