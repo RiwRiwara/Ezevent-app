@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import icons from "../../config/icons";
 import loginimage from "../../assets/loginimage.png";
 import { COLORS } from "../../config/color";
+import { useNavigation } from "@react-navigation/native";
 import {
   GluestackUIProvider,
   Button,
@@ -23,6 +24,11 @@ const Login = ({ onSubmit }) => {
   const handleLogin = () => {
     // Call onSubmit function with username and password
     onSubmit(username, password);
+  };
+
+  const handleRegisterClick = () => {
+    // Navigate to the Register page when the text is clicked
+    navigation.navigate("register"); // Replace "Register" with the name of your register page
   };
 
   return (
@@ -55,7 +61,7 @@ const Login = ({ onSubmit }) => {
             </View>
           </VStack>
           <VStack space="md" py="$2">
-            <Input borderColor= {COLORS.neutral9}>
+            <Input borderColor={COLORS.neutral9}>
               <InputField
                 style={styles.input}
                 py="$2"
@@ -63,7 +69,7 @@ const Login = ({ onSubmit }) => {
                 placeholderTextColor={COLORS.neutral7}
               />
             </Input>
-            <Input borderColor= {COLORS.neutral9}>
+            <Input borderColor={COLORS.neutral9}>
               <InputField
                 style={styles.input}
                 py="$2"
@@ -74,9 +80,6 @@ const Login = ({ onSubmit }) => {
             <Button size="sm" bg="#D05F00">
               <ButtonText>Login</ButtonText>
             </Button>
-            <Text style={styles.description}>
-              Don't have an account? register
-            </Text>
           </VStack>
         </VStack>
       </View>
@@ -110,8 +113,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: 200,
-    height: 300,
+    width: 400,
+    height: 350,
     borderRadius: 10, // Rounded corners
   },
 });

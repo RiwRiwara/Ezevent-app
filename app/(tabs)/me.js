@@ -1,14 +1,13 @@
 import { Button } from "@gluestack-ui/themed";
 import { useRouter } from "expo-router";
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import "../../src/i18n/i18n.config";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useMemo } from "react";
 import { COLORS } from "../../config/color";
 import Login from "../compo/login";
+import Register from "../compo/register";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Me = () => {
   const styles = StyleSheet.create({
@@ -24,44 +23,104 @@ const Me = () => {
   });
 
   const router = useRouter();
-  const { t } = useTranslation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegisterMode, setIsRegisterMode] = useState(false); // State to track login/register mode
 
   const snapPoints = useMemo(() => ["95%"], []);
 
+  const handleModeChange = () => {
+    setIsLoggedIn(!isLoggedIn);
+    setIsRegisterMode(!isRegisterMode); // Toggle register mode
+  };
+
   return (
-    <View>
-      {isLoggedIn ? (
-        <>
-          {/* Your "me" content goes here */}
-          <Button onPress={() => router.push("/profile/settings")}>
-            <Text>{t("setting")}</Text>
-          </Button>
-          <Button onPress={() => setIsLoggedIn(false)}>
-            <Text>Logout</Text>
-          </Button>
-        </>
-      ) : (
-        <>
-          {/* Login page content */}
-          <View>
-            <BottomSheet
-              snapPoints={snapPoints}
-              enablePanDownToClose={true}
-              backgroundStyle={{ backgroundColor: COLORS.gray0 }}
-            >
-              <View style={{ padding: 30 }}>
-                <Login/>
-                <Button onPress={() => setIsLoggedIn(true)}>
-                  <Text>Login</Text>
-                </Button>
+    <GestureHandlerRootView>
+      <View>
+        {isLoggedIn ? (
+          <>
+            {/* Your "me" content goes here */}
+            <Button onPress={() => router.push("/profile/settings")}>
+              <Text>Settings</Text>
+            </Button>
+            <Button onPress={() => setIsLoggedIn(false)}>
+              <Text>Logout</Text>
+            </Button>
+          </>
+        ) : (
+          <>
+            {isRegisterMode ? ( // Display Register content when in register mode
+              <View>
+                <BottomSheet
+                  snapPoints={snapPoints}
+                  enablePanDownToClose={true}
+                  backgroundStyle={{ backgroundColor: COLORS.gray0 }}
+                >
+                  <View style={{ padding: 30 }}>
+                    <Register />
+                    <TouchableOpacity onPress={() => setIsRegisterMode(false)}>
+                      <Text style={{ color: COLORS.primary7, fontSize: 16 }}>
+                        Back to Login
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </BottomSheet>
               </View>
-            </BottomSheet>
-          </View>
-        </>
-      )}
-    </View>
+            ) : (
+              // Display Login content when not in register mode
+              <View>
+                <BottomSheet
+                  snapPoints={snapPoints}
+                  enablePanDownToClose={true}
+                  backgroundStyle={{ backgroundColor: COLORS.gray0 }}
+                >
+                  <View style={{ padding: 30 }}>
+                    <Login />
+                    <TouchableOpacity onPress={() => setIsRegisterMode(true)}>
+                      <Text style={{ color: COLORS.primary7, fontSize: 16 }}>
+                        Don't have an account? Register
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </BottomSheet>
+              </View>
+            )}
+          </>
+        )}
+      </View>
+    </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row", // Keep this for horizontal arrangement
+    justifyContent: "space-between", // Align icons to opposite sides
+  },
+  text: {
+    alignItems: "left",
+  },
+  header: {
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: COLORS.primary6,
+  },
+  description: {
+    fontSize: 16,
+    color: COLORS.primary7, // Light text
+  },
+  imageContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  image: {
+    width: 200,
+    height: 300,
+    borderRadius: 10, // Rounded corners
+  },
+});
 
 export default Me;
