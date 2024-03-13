@@ -13,11 +13,7 @@ const home = () => {
   return (
     <View>
       <Text>{t("home")}</Text>
-      <Canceled_complete />
       <Reviewed_complete />
-      <Save_complete />
-      <Submit_complete />
-      <Checkin_complete />
     </View>
   );
 };

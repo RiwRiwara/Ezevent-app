@@ -1,78 +1,70 @@
-import { config } from "@gluestack-ui/config";
+import React, { useCallback, useRef, useState } from "react";
+import { StyleSheet } from "react-native";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import {
-  AlertDialog,
-  AlertDialogBackdrop,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogBody,
-  Center,
+  VStack,
+  Icon,
+  Heading,
   Button,
   ButtonText,
-  Icon,
-  VStack,
-  Heading,
+  GluestackUIProvider,
   Text,
   CheckCircleIcon,
-  GluestackUIProvider,
+  View,
 } from "@gluestack-ui/themed";
-import React from "react";
+import { config } from "../../config/gluestack-ui.config";
 
-function Save_complete() {
-  const [showAlertDialog, setShowAlertDialog] = React.useState(false);
+export default function Save_complete() {
+  const sheetRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const snapPoints = ["90%"];
+
+  const handlesnapPress = useCallback((index) => {
+    sheetRef.current.snapToIndex(index);
+    setIsOpen(true);
+  }, []);
 
   return (
     <GluestackUIProvider config={config}>
-      <Center h={300}>
-        <Button onPress={() => setShowAlertDialog(true)}>
-          <ButtonText>Submit</ButtonText>
+      <View>
+        <Button onPress={() => handlesnapPress(0)}>
+          <ButtonText>Open</ButtonText>
         </Button>
-      </Center>
-      <AlertDialog
-        isOpen={showAlertDialog}
-        onClose={() => {
-          setShowAlertDialog(false);
-        }}
-      >
-        <AlertDialogBackdrop />
-        <AlertDialogContent alignItems="center">
-          <AlertDialogHeader borderBottomWidth="$0">
+        <BottomSheet
+          ref={sheetRef}
+          snapPoints={snapPoints}
+          enablePanDownToClose={true}
+          onClose={() => setIsOpen(false)}
+        >
+          <BottomSheetView style={styles.container}>
+            <Icon
+              as={CheckCircleIcon}
+              color="$success7"
+              $dark-color="$success300"
+              w={100}
+              h={100}
+              alignSelf="center"
+            />
             <VStack space="sm" alignItems="center">
-              <Icon
-                as={CheckCircleIcon}
-                color="$success700"
-                $dark-color="$success300"
-                w={100}
-                h={100}
-              />
-
               <Heading size="lg" color="#053F5C">
                 Save Complete
               </Heading>
             </VStack>
-          </AlertDialogHeader>
-          <AlertDialogBody w={350}>
             <Text size="sm" textAlign="center" color="#053F5C">
               Event has save in to my event saved.
             </Text>
-          </AlertDialogBody>
-          <AlertDialogFooter borderTopWidth="$0">
-            <Button
-              variant="outline"
-              size="sm"
-              action="secondary"
-              mr="$3"
-              onPress={() => {
-                setShowAlertDialog(false);
-              }}
-            >
-              <ButtonText>Okay</ButtonText>
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </BottomSheetView>
+        </BottomSheet>
+      </View>
     </GluestackUIProvider>
   );
 }
 
-export default Save_complete;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
