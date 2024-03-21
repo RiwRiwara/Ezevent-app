@@ -9,7 +9,6 @@ const myevent = () => {
   const {t} = useTranslation();
   return (
     <View>
-      {/* <Text>{t('myevent')}</Text> */}
       <Participant_summary_type />
       <Organizer_summary_type />
     </View>

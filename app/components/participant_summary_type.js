@@ -6,12 +6,13 @@ import {
     ButtonGroup,
     Button,
     Box,
+    View,
     GluestackUIProvider,
 } from "@gluestack-ui/themed";
 import { COLORS } from "../../config/color";
 import React from "react";
 
-import CustomBox from "../components/CustomBox"
+import CustomBox from "./CustomBox"
 
 import Education from "../../assets/participants/Education.jpg"
 import Entertainment from "../../assets/participants/Entertainment.jpg"
@@ -35,7 +36,7 @@ function participant_summary_type() {
 
     return (
         <GluestackUIProvider config={config}>
-            <div style={{ width: "100%", overflowX: "auto" }}>
+            <View style={{ width: "100%", overflowX: "auto" }}>
                 <HStack
                     space="md"
                     reversed={false}
@@ -119,7 +120,7 @@ function participant_summary_type() {
                         />
                     </ButtonGroup>
                 </HStack>
-            </div>
+            </View>
         </GluestackUIProvider>
     );
 }
