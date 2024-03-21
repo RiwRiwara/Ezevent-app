@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useMemo } from "react";
-import { COLORS } from "../../config/color";
-import Login from "../compo/login";
-import Register from "../compo/register";
+import { COLORS } from "../config/color";
+import Login from "../app/compo/login";
+import Register from "../app/compo/register";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Me = () => {

@@ -28,6 +28,7 @@ export const gluestackUIConfig = createConfig({
     mr: 'marginRight',
     ml: 'marginLeft',
     rounded: 'borderRadius',
+    
   } as const,
   tokens: {
     colors: {
@@ -444,7 +445,7 @@ export const gluestackUIConfig = createConfig({
       primary3: "#F2BF73",
       primary2: "#F2DFA6",
       primary1: "#F2EFC9",
-      primary0: "#F2FFFC",
+      primary0: "#FFF3E7",
       secondary9: "#223D43",
       secondary8: "#31555C",
       secondary7: "#416D76",

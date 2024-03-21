@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@expo-google-fonts/ibm-plex-sans-thai": "^0.2.3",
-    "@gluestack-style/react": "^1.0.48",
     "@gluestack-ui/config": "^1.1.10",
     "@gluestack-ui/themed": "^1.1.9",
     "@gorhom/bottom-sheet": "^4.6.1",
@@ -25,6 +24,7 @@
     "expo-router": "~3.4.6",
     "expo-status-bar": "~1.11.1",
     "i18next": "^23.9.0",
+    "lucide-react-native": "^0.359.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^14.0.5",
@@ -37,10 +37,13 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^14.1.0",
     "react-native-web": "~0.19.6",
+    "styled-components": "^6.1.8",
     "typescript": "^5.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@gluestack-style/babel-plugin-styled-resolver": "^1.0.5",
+    "dotenv": "^16.4.5"
   },
   "private": true
 }

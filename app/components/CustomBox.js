@@ -1,11 +1,11 @@
-import { config } from "@gluestack-ui/config";
+import React from "react"
+import { StyledProvider } from "@gluestack-style/react"
+
 import {
     Box,
     Image,
     Text,
 } from "@gluestack-ui/themed";
-import { COLORS } from "../../config/color";
-import React from "react";
 
 function CustomBox({ color, text, num, imageUri }) {
     return (
@@ -13,12 +13,12 @@ function CustomBox({ color, text, num, imageUri }) {
             <Text size="md" bold={true} position="absolute" top="3px" left="5px" color='white'>{text}</Text>
             <Text size="lg" bold={true} position="absolute" bottom="0px" left="5px" color='white'>{num}</Text>
             <Image
+                alt=""
                 size="md"
                 borderRadius="$none"
                 position="absolute"
                 bottom="-35px"
                 right="-30px"
-                transform="rotate(40deg)"
                 width="100px"
                 height="100px"
                 source={

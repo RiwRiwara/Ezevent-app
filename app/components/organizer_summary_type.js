@@ -5,6 +5,8 @@ import {
     Text,
     ButtonGroup,
     Button,
+    Box,
+    View,
     GluestackUIProvider,
 } from "@gluestack-ui/themed";
 import { COLORS } from "../../config/color";
@@ -25,14 +27,14 @@ import Other from "../../assets/oraganizer/orther.jpg"
 
 import { useTranslation } from "react-i18next";
 
-import CustomBox from "../components/CustomBox"
+import CustomBox from "./CustomBox"
 
 function organizer_summary_type() {
     const { t } = useTranslation();
 
     return (
         <GluestackUIProvider config={config}>
-            <div style={{ width: "100%", overflowX: "auto" }}>
+            <View style={{ width: "100%", overflowX: "auto" }}>
                 <HStack
                     space="md"
                     reversed={false}
@@ -109,7 +111,7 @@ function organizer_summary_type() {
                             imageUri={Other} />
                     </ButtonGroup>
                 </HStack>
-            </div>
+            </View>
         </GluestackUIProvider>
     );
 }
