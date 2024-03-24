@@ -4,13 +4,24 @@ import React, { useState } from "react";
 import { ScrollView, Box, Text } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
 
-const ScrollableList = ({ items }) => {
+const ScrollableList = () => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
+
+  const items = [
+    { label: "All" },
+    { label: "Education" },
+    { label: "Entertainment" },
+    { label: "Charity" },
+    { label: "Seminar" },
+    { label: "Funny" },
+    { label: "Technology" },
+  ];
 
   return (
     <ScrollView
       horizontal={true}
       contentContainerStyle={{ flexDirection: "row" }}
+      indicatorStyle = "white"
       onContentSizeChange={(contentWidth, _) =>
         setScrollContentWidth(contentWidth)
       }
@@ -19,7 +30,6 @@ const ScrollableList = ({ items }) => {
         scrollContentWidth > 0 && styles.overflowBackground,
       ]}
     >
-      {/* Mapping through items and rendering Box components */}
       {items.map((item, index) => (
         <Box key={index} p={10} bg="$primary0">
           <Text color="$neutral9">{item.label}</Text>

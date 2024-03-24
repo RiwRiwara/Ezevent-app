@@ -2,7 +2,7 @@ import { createStyle } from '@gluestack-style/react';
 
 export const Button = createStyle({
   'borderRadius': '$sm',
-  'backgroundColor': '$primary500',
+  'backgroundColor': '$primary4',
   'flexDirection': 'row',
   'justifyContent': 'center',
   'alignItems': 'center',
@@ -36,64 +36,64 @@ export const Button = createStyle({
   'variants': {
     action: {
       primary: {
-        'bg': '$primary500',
+        'bg': '$primary4',
         'borderColor': '$primary300',
 
         ':hover': {
-          bg: '$primary600',
+          bg: '$primary6',
           borderColor: '$primary400',
         },
 
         ':active': {
-          bg: '$primary700',
-          borderColor: '$primary700',
+          bg: '$primary7',
+          borderColor: '$primary7',
         },
 
         '_text': {
-          'color': '$primary600',
+          'color': '$primary6',
           ':hover': {
-            color: '$primary600',
+            color: '$primary6',
           },
           ':active': {
-            color: '$primary700',
+            color: '$primary7',
           },
         },
 
         '_icon': {
-          'color': '$primary600',
+          'color': '$primary6',
           ':hover': {
-            color: '$primary600',
+            color: '$primary6',
           },
           ':active': {
-            color: '$primary700',
+            color: '$primary7',
           },
         },
 
         '_spinner': {
           'props': {
-            color: '$primary600',
+            color: '$primary6',
           },
           ':hover': {
             props: {
-              color: '$primary600',
+              color: '$primary6',
             },
           },
           ':active': {
             props: {
-              color: '$primary700',
+              color: '$primary7',
             },
           },
         },
 
         '_dark': {
           'bg': '$primary400',
-          'borderColor': '$primary700',
+          'borderColor': '$primary7',
           ':hover': {
-            bg: '$primary500',
+            bg: '$primary4',
             borderColor: '$primary400',
           },
           ':active': {
-            bg: '$primary600',
+            bg: '$primary6',
             borderColor: '$primary300',
           },
           '_text': {
@@ -414,6 +414,7 @@ export const Button = createStyle({
           },
         },
       },
+
     },
 
     variant: {
@@ -507,6 +508,24 @@ export const Button = createStyle({
           },
         },
       },
+      filled: {
+        'bg': '$primary4',
+        ':hover': {
+          bg: '$primary5',
+        },
+        ':active': {
+          bg: '$primary5',
+        },
+        '_dark': {
+          'bg': '$backgroundDark0',
+          ':hover': {
+            bg: '$backgroundDark50',
+          },
+          ':active': {
+            bg: '$backgroundDark100',
+          },
+        },
+      },
     },
 
     size: {
@@ -583,6 +602,28 @@ export const Button = createStyle({
     },
   },
   'compoundVariants': [
+    {
+      action: 'primary',
+      variant: 'filled',
+      value: {
+        'bg': '$primary4',
+        ':hover': {
+          bg: '$primary5',
+        },
+        ':active': {
+          bg: '$primary5',
+        },
+        '_dark': {
+          'bg': '$backgroundDark0',
+          ':hover': {
+            bg: '$backgroundDark50',
+          },
+          ':active': {
+            bg: '$backgroundDark100',
+          },
+        },
+      },
+    },
     {
       action: 'primary',
       variant: 'link',
@@ -768,30 +809,30 @@ export const Button = createStyle({
       variant: 'solid',
       value: {
         _text: {
-          'color': '$textLight0',
+          'color': '$gray0',
           ':hover': {
-            color: '$textLight0',
+            color: '$gray0',
           },
           ':active': {
-            color: '$textLight0',
+            color: '$gray0',
           },
         },
         _icon: {
-          'color': '$textLight0',
+          'color': '$gray0',
           ':hover': {
-            color: '$textLight0',
+            color: '$gray0',
           },
           ':active': {
-            color: '$textLight0',
+            color: '$gray0',
           },
         },
         _spinner: {
-          'props': { color: '$textLight0' },
+          'props': { color: '$gray0' },
           ':hover': {
-            props: { color: '$textLight0' },
+            props: { color: '$gray0' },
           },
           ':active': {
-            props: { color: '$textLight0' },
+            props: { color: '$gray0' },
           },
         },
         _dark: {
@@ -1024,7 +1065,7 @@ export const Button = createStyle({
   '_web': {
     ':focusVisible': {
       outlineWidth: '$0.5',
-      outlineColor: '$primary700',
+      outlineColor: '$primary7',
       outlineStyle: 'solid',
       _dark: {
         outlineColor: '$primary300',

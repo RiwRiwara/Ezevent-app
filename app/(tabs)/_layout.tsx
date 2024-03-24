@@ -1,9 +1,8 @@
 // Code: app/(tabs)/_layout.js
+import React, { useState } from "react";
 import { Tabs } from "expo-router";
-import { Platform } from "react-native";
-import { Text, View } from "@gluestack-ui/themed";
-import { useToken } from "@gluestack-ui/themed";
-import { useStyled } from "@gluestack-ui/themed"
+import { Platform, TouchableWithoutFeedback } from "react-native";
+import { Text, View, useStyled } from "@gluestack-ui/themed";
 import {
   CalendarCheck,
   Inbox,
@@ -13,12 +12,21 @@ import {
 } from "lucide-react-native";
 
 export default () => {
-  const styled = useStyled()
+  const styled = useStyled();
 
-  const tabBackground =  styled.config.tokens.colors.neutral6
+  const tabBackground = styled.config.tokens.colors.neutral6;
   const gray0 = styled.config.tokens.colors.gray0;
   const neutral6 = styled.config.tokens.colors.neutral6;
-  const gray9 = styled.config.tokens.colors.gray9;
+
+  const [isHeld, setIsHeld] = useState(false);
+
+  const handleLongPress = () => {
+    setIsHeld(true);
+  };
+
+  const handlePressOut = () => {
+    setIsHeld(false);
+  };
 
   return (
     <Tabs
@@ -54,7 +62,7 @@ export default () => {
                 <Text
                   fontSize="$2xs"
                   fontWeight={focused ? "$bold" : "$normal"}
-                  color={gray0}
+                  color="$gray0"
                 >
                   Explore
                 </Text>
@@ -80,7 +88,7 @@ export default () => {
                 <Text
                   fontSize="$2xs"
                   fontWeight={focused ? "$bold" : "$normal"}
-                  color={gray0}
+                  color="$gray0"
                 >
                   Inbox
                 </Text>
@@ -95,26 +103,33 @@ export default () => {
           title: "",
           tabBarIcon: ({ focused }) => {
             return (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: gray0,
-                  width: Platform.OS == "ios" ? 70 : 80,
-                  height: Platform.OS == "ios" ? 70 : 80,
-                  top: Platform.OS == "ios" ? -10 : -20,
-                  borderRadius: Platform.OS == "ios" ? 25 : 40,
-                  borderColor: neutral6,
-                  borderWidth: 3,
-                  shadowColor: gray9,
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.5,
-                  shadowRadius: 3,
-                  elevation: 5,
-                }}
+              <TouchableWithoutFeedback
+                onLongPress={handleLongPress}
+                onPressOut={handlePressOut}
+                delayLongPress={100}
               >
-                <QrCode size={50} strokeWidth={2} color={neutral6} />
-              </View>
+                <View
+                  style={{
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.5,
+                    shadowRadius: 3,
+                    elevation: 5,
+                  }}
+                  bg={isHeld ? "$gray1" : "$gray0"}
+                  w={80}
+                  h={80}
+                  top={Platform.OS == "ios" ? -10 : -20}
+                  borderRadius={Platform.OS == "ios" ? 35 : 40}
+                  alignItems="center"
+                  justifyContent="center"
+                  borderWidth= {3}
+                  borderColor="$neutral6"
+                  shadowColor="$neutral9"
+
+                >
+                  <QrCode size={50} strokeWidth={2} color={neutral6} />
+                </View>
+              </TouchableWithoutFeedback>
             );
           },
         }}
@@ -136,7 +151,7 @@ export default () => {
                 <Text
                   fontSize="$2xs"
                   fontWeight={focused ? "$bold" : "$normal"}
-                  color={gray0}
+                  color="$gray0"
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
@@ -164,7 +179,7 @@ export default () => {
                 <Text
                   fontSize="$2xs"
                   fontWeight={focused ? "$bold" : "$normal"}
-                  color={gray0}
+                  color="$gray0"
                 >
                   Me
                 </Text>
