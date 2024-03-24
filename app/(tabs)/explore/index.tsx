@@ -1,33 +1,49 @@
 // explore/index.tsx
 import React from "react";
-import { VStack, HStack, View, Text } from "@gluestack-ui/themed";
 import ScrollableList from "../../components/exploreComponent/ScrollableList";
-import { StyleSheet } from "react-native";
+import EventScrollableList from "../../components/exploreComponent/EventScrollableList";
+import TitleBar from "../../components/common/TitleBar";
+
+import { Search } from "lucide-react-native";
+
+import {
+  useStyled,
+  VStack,
+  HStack,
+  View,
+  Text,
+  Button,
+} from "@gluestack-ui/themed";
 
 const Explore = () => {
-  const items = [
-    { label: "All" },
-    { label: "Education" },
-    { label: "Entertainment" },
-    { label: "Charity" },
-    { label: "Seminar" },
-    { label: "Funny" },
-    { label: "Technology" },
-  ];
+  const styled = useStyled();
 
   return (
-    <VStack space="md" reversed={false}>
-     <HStack style={styles.header}>
-        <Text style={styles.headerText}>Explore</Text>
-        <Text style={styles.headerText}>Explore</Text>
+    <VStack reversed={false}>
+      <HStack
+        justifyContent="space-between"
+        p={10}
+        h={50}
+        backgroundColor="$neutral6"
+        alignItems="center"
+      >
+        <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
+          Explore
+        </Text>
+        <Search
+          size={30}
+          strokeWidth={2}
+          color={styled.config.tokens.colors.gray0}
+        />
       </HStack>
 
+      <ScrollableList />
 
-      <View p="$0">
-        <VStack space="md" reversed={false}>
-          <ScrollableList items={items} />
-        </VStack>
-      </View>
+      <TitleBar title="New Events" button={true} />
+      <EventScrollableList />
+
+      <TitleBar title="Other events" />
+      <EventScrollableList imgWidth={150} imgHeight={200} />
 
       <View p="$2">
         <VStack space="md" reversed={false}></VStack>
@@ -36,13 +52,4 @@ const Explore = () => {
   );
 };
 
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-  },
-
-});
 export default Explore;
