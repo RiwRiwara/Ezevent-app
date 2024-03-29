@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { ScrollView, Box, Text, Image } from "@gluestack-ui/themed";
 import { StyleSheet, View, Dimensions } from "react-native";
+import EventCard from "./EventCard";
 
-const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
+const EventCardScroller = ({
+  items = [
+    { title: "Event 1", img: "https://via.placeholder.com/150" },
+    { title: "Event 2", img: "https://via.placeholder.com/150" },
+    { title: "Event 3", img: "https://via.placeholder.com/150" },
+    { title: "Event 4", img: "https://via.placeholder.com/150" },
+    { title: "Event 5", img: "https://via.placeholder.com/150" },
+  ],
+}) => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
-  const itemWidth = 200; // Width of each item
-  const screenWidth = Dimensions.get("window").width; // Width of screen
-
-  const items = [
-    { alt: "All" },
-    { alt: "Education" },
-    { alt: "Entertainment" },
-    { alt: "Entertainmentsd" },
-  ];
 
   return (
     <ScrollView
-      p={10}
+    py={5}
+    px={10}
       horizontal={true}
       contentContainerStyle={{
         flexDirection: "row",
@@ -32,19 +33,11 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
       ]}
     >
       {items.map((item, index) => {
-        return (
-          <View key={index}>
-            <Image
-              w={imgWidth}
-              h={imgHeight}
-              alt={item.alt}
-              my={10}
-              borderRadius={10}
-              mr={15}
-              source="https://p-u.popcdn.net/event_details/posters/000/016/995/large/e6ff105e47e89a7df7eb3cce3aa8bcd1f79869ae.png?1709262054"
-            />
-          </View>
-        );
+        return <EventCard 
+          key={index} 
+          title={item.title}
+          img={item.img}
+        />;
       })}
     </ScrollView>
   );
@@ -57,4 +50,4 @@ const styles = StyleSheet.create({
   overflowBackground: {},
 });
 
-export default EventScrollableList;
+export default EventCardScroller;

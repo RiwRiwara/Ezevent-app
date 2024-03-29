@@ -7,6 +7,7 @@ import SplashScreenComponent from './splash';
 import { config } from "../config/gluestack-ui.config";
 import { GluestackUIProvider, Text, Image, View } from "@gluestack-ui/themed";
 import { SafeAreaView } from '@gluestack-ui/themed';
+import { SessionProvider } from '../providers/ctx';
 export default function StackLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [fontError, setFontError] = useState(false);
@@ -29,12 +30,14 @@ export default function StackLayout() {
     <FontLoader>
       <GluestackUIProvider config={config}>
         <SafeAreaView flex={1} backgroundColor='$neutral6'>
-          <Stack >
+          <SessionProvider>
+            <Stack >
+              <Stack.Screen name="(tabs)"
+                options={{ headerShown: false }}
+              />
 
-            <Stack.Screen name="(tabs)"
-              options={{ headerShown: false }}
-            />
-          </Stack >
+            </Stack >
+          </SessionProvider>
         </SafeAreaView>
       </GluestackUIProvider>
     </FontLoader>

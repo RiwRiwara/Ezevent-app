@@ -1,11 +1,12 @@
 import { createStyle } from '@gluestack-style/react';
 
 export const Button = createStyle({
-  'borderRadius': '$sm',
+  'borderRadius': '$lg',
   'backgroundColor': '$primary4',
   'flexDirection': 'row',
   'justifyContent': 'center',
   'alignItems': 'center',
+
 
   '_text': {
     color: '$textLight0',
@@ -41,7 +42,7 @@ export const Button = createStyle({
 
         ':hover': {
           bg: '$primary6',
-          borderColor: '$primary400',
+          borderColor: '$primary4',
         },
 
         ':active': {
@@ -86,11 +87,11 @@ export const Button = createStyle({
         },
 
         '_dark': {
-          'bg': '$primary400',
+          'bg': '$primary4',
           'borderColor': '$primary7',
           ':hover': {
             bg: '$primary4',
-            borderColor: '$primary400',
+            borderColor: '$primary4',
           },
           ':active': {
             bg: '$primary6',
@@ -102,7 +103,7 @@ export const Button = createStyle({
               color: '$primary300',
             },
             ':active': {
-              color: '$primary200',
+              color: '$primary2',
             },
           },
           '_icon': {
@@ -111,7 +112,7 @@ export const Button = createStyle({
               color: '$primary300',
             },
             ':active': {
-              color: '$primary200',
+              color: '$primary2',
             },
           },
           '_spinner': {
@@ -120,7 +121,7 @@ export const Button = createStyle({
               props: { color: '$primary300' },
             },
             ':active': {
-              props: { color: '$primary200' },
+              props: { color: '$primary2' },
             },
           },
 

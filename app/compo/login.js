@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import icons from "../../config/icons";
-import loginimage from "../../assets/loginimage.png";
+// import loginimage from "../../assets/loginimage.png";
 import { COLORS } from "../../config/color";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -47,7 +47,7 @@ const Login = ({ onSubmit }) => {
           </HStack>
           <VStack>
             <View style={styles.imageContainer}>
-              <Image source={loginimage} style={styles.image} />
+              {/* <Image source={loginimage} style={styles.image} /> */}
             </View>
             <View style={styles.text}>
               <View style={styles.header}>

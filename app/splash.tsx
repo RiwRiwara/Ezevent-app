@@ -20,17 +20,16 @@ export default function SplashScreenComponent() {
           w={200}
           h={200}
           alt="Splash Screen Logo"
-          my={30}
+          my={20}
           source={require("../assets/Logo.png")}
         />
-
 
 
         <Text color="$gray0" fontSize={36} p={10} fontWeight="$bold">
           EZEVENT
         </Text>
 
-        <View w={130} h={5} my={20} backgroundColor="$primary5" />
+        <View w={130} h={8} my={15} backgroundColor="$primary5" />
       </View>
     </GluestackUIProvider>
   );
