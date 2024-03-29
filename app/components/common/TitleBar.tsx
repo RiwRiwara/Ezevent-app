@@ -15,7 +15,7 @@ const TitleBar = ({ title, button = false }) => {
       px={15}
       py={10}
       height={48}
-      backgroundColor="$gray0"
+      bg="$gray0"
       alignItems="center"
     >
       <Text fontSize="$title_4" fontWeight="$bold" color="$neutral9">

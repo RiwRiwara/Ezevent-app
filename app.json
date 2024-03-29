@@ -2,7 +2,7 @@
   "expo": {
     "name": "ezevent-app",
     "scheme": "ezevent",
-    "slug": "ezevent-app",
+    "slug": "ezevent",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -44,6 +44,15 @@
         }
       ],
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "cadbeaff-6298-4b77-96db-c576d01fc368"
+      }
+    },
+    "owner": "awirut352629"
   }
 }

@@ -1,28 +1,28 @@
 import { createStyle } from '@gluestack-style/react';
 
 export const Input = createStyle({
-  'borderWidth': 1,
-  'borderColor': '$backgroundLight300',
+  'borderWidth': 1.5,
+  'borderColor': '$neutral9',
   'borderRadius': '$sm',
   'flexDirection': 'row',
   'overflow': 'hidden',
   'alignContent': 'center',
 
   ':hover': {
-    borderColor: '$borderLight400',
+    borderColor: '$neutral4',
   },
 
   ':focus': {
-    'borderColor': '$primary700',
+    'borderColor': '$primary7',
     ':hover': {
-      borderColor: '$primary700',
+      borderColor: '$primary7',
     },
   },
 
   ':disabled': {
     'opacity': 0.4,
     ':hover': {
-      borderColor: '$backgroundLight300',
+      borderColor: '$neutral9',
     },
   },
 
@@ -37,19 +37,19 @@ export const Input = createStyle({
   },
 
   '_dark': {
-    'borderColor': '$borderDark700',
+    'borderColor': '$gray7',
     ':hover': {
-      borderColor: '$borderDark400',
+      borderColor: '$gray4',
     },
     ':focus': {
-      'borderColor': '$primary400',
+      'borderColor': '$primary4',
       ':hover': {
-        borderColor: '$primary400',
+        borderColor: '$primary4',
       },
     },
     ':disabled': {
       ':hover': {
-        borderColor: '$borderDark700',
+        borderColor: '$gray7',
       },
     },
   },
@@ -122,9 +122,9 @@ export const Input = createStyle({
         'borderRadius': 0,
         'borderBottomWidth': '$1',
         ':focus': {
-          borderColor: '$primary700',
+          borderColor: '$primary7',
           _web: {
-            boxShadow: 'inset 0 -1px 0 0 $primary700',
+            boxShadow: 'inset 0 -1px 0 0 $primary7',
           },
         },
         ':invalid': {
@@ -156,9 +156,9 @@ export const Input = createStyle({
         },
         '_dark': {
           ':focus': {
-            borderColor: '$primary400',
+            borderColor: '$primary4',
             _web: {
-              boxShadow: 'inset 0 -1px 0 0 $primary400',
+              boxShadow: 'inset 0 -1px 0 0 $primary4',
             },
           },
           ':invalid': {
@@ -198,9 +198,9 @@ export const Input = createStyle({
           },
         },
         ':focus': {
-          borderColor: '$primary700',
+          borderColor: '$primary7',
           _web: {
-            boxShadow: 'inset 0 0 0 1px $primary700',
+            boxShadow: 'inset 0 0 0 1px $primary7',
           },
         },
         ':invalid': {
@@ -231,9 +231,9 @@ export const Input = createStyle({
         },
         '_dark': {
           ':focus': {
-            borderColor: '$primary400',
+            borderColor: '$primary4',
             _web: {
-              boxShadow: 'inset 0 0 0 1px $primary400',
+              boxShadow: 'inset 0 0 0 1px $primary4',
             },
           },
           ':invalid': {
@@ -275,9 +275,9 @@ export const Input = createStyle({
           },
         },
         ':focus': {
-          borderColor: '$primary700',
+          borderColor: '$primary7',
           _web: {
-            boxShadow: 'inset 0 0 0 1px $primary700',
+            boxShadow: 'inset 0 0 0 1px $primary7',
           },
         },
         ':invalid': {
@@ -309,9 +309,9 @@ export const Input = createStyle({
 
         '_dark': {
           ':focus': {
-            borderColor: '$primary400',
+            borderColor: '$primary4',
             _web: {
-              boxShadow: 'inset 0 0 0 1px $primary400',
+              boxShadow: 'inset 0 0 0 1px $primary4',
             },
           },
           ':invalid': {
