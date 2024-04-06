@@ -7,6 +7,8 @@ import { Settings } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import RadarChart from "react-svg-radar-chart";
+import "react-svg-radar-chart/build/css/index.css";
 import {
   useStyled,
   VStack,
@@ -23,6 +25,31 @@ const me = () => {
   const styled = useStyled();
   const { session } = useSession();
   const [showActionsheet, setShowActionsheet] = useState(false);
+  const captions = {
+    learnings: "Learning Skill",
+    problemsolving: "Problem-Solving Skill",
+    communication: "Communication Skill",
+    professional: "Professional Skill",
+    knowledge: "Knowledge",
+    Leadership : "Leadership",
+    thinking : "Thinking",
+    teamwork : "Teamwork Skill",
+  };
+  const data = [
+    {
+      data: {
+        learnings: 0.8,
+        problemsolving: 0.5,
+        communication: 0.4,
+        professional: 0.5,
+        knowledge: 0.4,
+        Leadership : 0.5,
+        thinking : 0.5,
+        teamwork : 0.9,
+      },
+      meta: { color: "#58FCEC" },
+    },
+  ]
 
   return (
     <View bg="$gray0">
@@ -98,7 +125,6 @@ const me = () => {
             Badges
           </Text>
         </Box>
-        <ScrollableList />
         <HStack justifyContent="space-between" p="$2">
           <HStack>
             <CalendarCheck2
@@ -128,11 +154,18 @@ const me = () => {
             </Text>
           </HStack>
         </HStack>
-        <Box bg="$gray1" w="$full" alignItems="center" p="$3">
+        <Box bg="$gray0" w="$full" alignItems="center" p="$3">
           <Text fontSize="$sm" fontWeight="$bold" color="$neutral9">
             Spider Chart
           </Text>
         </Box>
+        <VStack alignItems="center">
+          <RadarChart
+            captions={{ ...captions}}
+            data={data}
+            size={450}
+          />
+        </VStack>
         <VStack alignItems="center">
           <HStack p="$3" alignItems="center">
             <VStack alignItems="center">
