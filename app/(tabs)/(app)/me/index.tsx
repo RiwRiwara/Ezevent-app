@@ -128,8 +128,10 @@ const me = () => {
             </Text>
           </HStack>
         </HStack>
-        <Box w="$100" h="$100" bg="$gray1" alignItems="center">
-          <Text color="$primary8">Spider Chart</Text>
+        <Box bg="$gray1" w="$full" alignItems="center" p="$3">
+          <Text fontSize="$sm" fontWeight="$bold" color="$neutral9">
+            Spider Chart
+          </Text>
         </Box>
         <VStack alignItems="center">
           <HStack p="$3" alignItems="center">
