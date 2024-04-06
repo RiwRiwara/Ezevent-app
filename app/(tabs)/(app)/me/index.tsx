@@ -21,6 +21,7 @@ import {
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
 
+
 const me = () => {
   const styled = useStyled();
   const { session } = useSession();
