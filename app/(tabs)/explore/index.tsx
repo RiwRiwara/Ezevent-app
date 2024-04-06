@@ -57,6 +57,7 @@ const Explore = () => {
       {/* Body */}
       <ScrollView>
         <TitleBar title="New Events" button={true} />
+        
         <EventScrollableList />
         <TitleBar title="Other events" />
         <EventCardScroller />

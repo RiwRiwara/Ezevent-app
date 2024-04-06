@@ -182,6 +182,7 @@ export default () => {
         <Tabs.Screen
           name="(app)/myevent/index"
           options={{
+            // href:null,
             title: "",
             tabBarIcon: ({ focused }) => {
               return (
@@ -211,18 +212,21 @@ export default () => {
           })}
         />
         <Tabs.Screen
-          name="(app)/me/index"
+          name="(app)/me"
           options={{
             title: "",
             tabBarIcon: ({ focused }) => {
               return setTabBarButton(focused);
             },
+            headerShown: false,
           }}
           listeners={() => ({
             tabPress: (event) => onPressTab(event),
           })}
         />
       </Tabs>
+      
+      
 
       <SigninSlideUp isPreSigninVisible={isPreSigninVisible} toggleModal={toggleModal} />
     </>

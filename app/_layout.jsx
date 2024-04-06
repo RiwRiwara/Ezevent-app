@@ -8,9 +8,12 @@ import { config } from "../config/gluestack-ui.config";
 import { GluestackUIProvider, Text, Image, View } from "@gluestack-ui/themed";
 import { SafeAreaView } from '@gluestack-ui/themed';
 import { SessionProvider } from '../providers/ctx';
+import { useTranslation } from "react-i18next";
+
 export default function StackLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [fontError, setFontError] = useState(false);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,6 +28,14 @@ export default function StackLayout() {
   if (!fontsLoaded && !fontError) {
     return <SplashScreenComponent />;
   }
+  
+  const changeLanguage = () => {
+    if (i18n.language === "en") {
+      i18n.changeLanguage("th");
+    } else {
+      i18n.changeLanguage("en");
+    }
+  };
 
   return (
     <FontLoader>
