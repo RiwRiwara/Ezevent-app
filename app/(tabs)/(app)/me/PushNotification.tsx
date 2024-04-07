@@ -4,7 +4,7 @@ import { useSession } from "@providers/ctx";
 import { HStack, Switch, VStack, Text } from "@gluestack-ui/themed";
 import { useTranslation } from "react-i18next";
 
-const Push_Notification = () => {
+const PushNotification = () => {
 
   const { t } = useTranslation();
 
@@ -45,4 +45,4 @@ const Push_Notification = () => {
   );
 };
 
-export default Push_Notification;
+export default PushNotification;

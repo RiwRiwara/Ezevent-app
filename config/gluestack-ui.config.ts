@@ -2,10 +2,16 @@ import { AnimationResolver } from '@gluestack-style/animation-resolver';
 import { MotionAnimationDriver } from '@gluestack-style/legend-motion-animation-driver';
 import { createConfig, createComponents } from '@gluestack-style/react';
 import * as componentsTheme from './theme';
-// import fonts
-import {
+import { useFonts,
+  IBMPlexSansThai_100Thin,
+  IBMPlexSansThai_200ExtraLight,
+  IBMPlexSansThai_300Light,
   IBMPlexSansThai_400Regular,
-  IBMPlexSansThai_700Bold,} from "@expo-google-fonts/ibm-plex-sans-thai"
+  IBMPlexSansThai_500Medium,
+  IBMPlexSansThai_600SemiBold,
+  IBMPlexSansThai_700Bold,
+
+ } from '@expo-google-fonts/ibm-plex-sans-thai';
 
 export const gluestackUIConfig = createConfig({
   aliases: {
@@ -617,6 +623,12 @@ export const gluestackUIConfig = createConfig({
     fontfamilies: {
       'regular': IBMPlexSansThai_400Regular,
       'bold': IBMPlexSansThai_700Bold,
+      'medium': IBMPlexSansThai_500Medium,
+      'light': IBMPlexSansThai_300Light,
+      'thin': IBMPlexSansThai_100Thin,
+      'extraLight': IBMPlexSansThai_200ExtraLight,
+      'semiBold': IBMPlexSansThai_600SemiBold,
+      
     },
     fontWeights: {
       hairline: '100',

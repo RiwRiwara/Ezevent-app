@@ -7,6 +7,23 @@ interface User {
   last_name: string;
   email: string;
   role: any; 
+  mobile_number: string;
+  short_bio: string;
+  gender: string;
+  personality: string;
+  date_of_birth: string;
+  address : string;
+  city: string;
+  province: string;
+  district: string;
+  zipcode: string;
+  facebook : string;
+  line : string;
+  instagram : string;
+  profile_img : string;
+  sub_img_1 : string;
+  sub_img_2 : string;
+  sub_img_3 : string;
 }
 
 interface SignInResponse {
@@ -20,7 +37,7 @@ const AuthContext = React.createContext<{
   signIn: (response: SignInResponse) => void;
   signOut: () => void;
   session?: string | null;
-  user?: User | null; // Add user property to store user data
+  user?: User | null; 
   isLoading: boolean;
 }>({
   signIn: () => null,
