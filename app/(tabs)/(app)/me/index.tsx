@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "@i18n/i18n.config";
 import ScrollableList from "@components/exploreComponent/ScrollableList";
-import { Redirect } from "expo-router";
+import { Redirect, Link  } from "expo-router";
 import { useSession } from "@providers/ctx";
-import { Settings } from "lucide-react-native";
+import { SettingsIcon } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -66,11 +66,13 @@ const me = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$neutral8">
             My Profile
           </Text>
-          <Settings
-            size={30}
-            strokeWidth={2}
-            color={styled.config.tokens.colors.neutral8}
-          />
+          <Link href={"/(app)/me/Setting"} asChild>
+          <SettingsIcon
+                size={30}
+                strokeWidth={2}
+                color={styled.config.tokens.colors.neutral9}
+              />
+          </Link>
         </HStack>
         {/* Body */}
         <HStack>
