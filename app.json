@@ -33,13 +33,13 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/fonts/IBMPlexSansThai-Bold.ttf",
-            "./assets/fonts/IBMPlexSansThai-Thin.ttf",
-            "./assets/fonts/IBMPlexSansThai-ExtraLight.ttf",
-            "./assets/fonts/IBMPlexSansThai-Light.ttf",
-            "./assets/fonts/IBMPlexSansThai-Medium.ttf",
-            "./assets/fonts/IBMPlexSansThai-Regular.ttf",
-            "./assets/fonts/IBMPlexSansThai-SemiBold.ttf"
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_100Thin.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_200ExtraLight.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_300Light.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_400Regular.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_500Medium.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/ibm-plex-sans-thai/IBMPlexSansThai_700Bold.ttf"
           ]
         }
       ],

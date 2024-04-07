@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, Box, Text, Image } from "@gluestack-ui/themed";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+
+import { GetLastestEvent } from "@services/api/event/ApiEvent";
 
 const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
-  const itemWidth = 200; // Width of each item
-  const screenWidth = Dimensions.get("window").width; // Width of screen
+  const [latestEvents, setLatestEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    console.log("Fetching latest events...");
+    GetLastestEvent()
+      .then((data) => {
+        console.log("Finished fetching latest events");
+        console.log("Latest events:", data.events);
+        setLatestEvents(data.events);
+      })
+      .catch((error) => {
+        console.error("Error fetching latest events:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const items = [
     { alt: "All" },
@@ -31,21 +50,27 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
         scrollContentWidth > 0 && styles.overflowBackground,
       ]}
     >
-      {items.map((item, index) => {
-        return (
-          <View key={index}>
-            <Image
-              w={imgWidth}
-              h={imgHeight}
-              alt={item.alt}
-              my={10}
-              borderRadius={10}
-              mr={15}
-              source="https://p-u.popcdn.net/event_details/posters/000/016/995/large/e6ff105e47e89a7df7eb3cce3aa8bcd1f79869ae.png?1709262054"
-            />
-          </View>
-        );
-      })}
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <>
+          {latestEvents.map((event, index) => {
+            return (
+              <View key={index}>
+                <Image
+                  w={imgWidth}
+                  h={imgHeight}
+                  alt={event.event_name}
+                  my={10}
+                  borderRadius={10}
+                  mr={15}
+                  source={{ uri: event.getBannerImage }}
+                />
+              </View>
+            );
+          })}
+        </>
+      )}
     </ScrollView>
   );
 };

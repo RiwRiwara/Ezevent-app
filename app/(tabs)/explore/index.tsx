@@ -4,10 +4,11 @@ import ScrollableList from "@components/exploreComponent/ScrollableList";
 import EventScrollableList from "@components/exploreComponent/EventScrollableList";
 import EventCardScroller from "@components/exploreComponent/EventCardScroller";
 import TitleBar from "@components/common/TitleBar";
-
 import { Search } from "lucide-react-native";
 import { useSession } from "../../../providers/ctx";
-import Toast from "react-native-toast-message";
+
+import {GetAllEvents} from "@services/api/event/ApiEvent";
+
 import {
   useStyled,
   VStack,
@@ -17,14 +18,13 @@ import {
   Text,
   Button,
 } from "@gluestack-ui/themed";
-
+import { useState, useEffect } from "react";
 import { useHandleSignOutByApi } from "@services/auth/SignOut";
 
 const Explore = () => {
   const styled = useStyled();
   const handleSignOut = useHandleSignOutByApi();
-  const { user } = useSession();
-  const { session } = useSession();
+
 
 
   return (
@@ -57,7 +57,7 @@ const Explore = () => {
       {/* Body */}
       <ScrollView>
         <TitleBar title="New Events" button={true} />
-        
+
         <EventScrollableList />
         <TitleBar title="Other events" />
         <EventCardScroller />

@@ -1,6 +1,15 @@
 // service/FontLoader.tsx
 import React, { useEffect, useState } from 'react';
-import { useFonts } from 'expo-font';
+import { useFonts,
+  IBMPlexSansThai_100Thin,
+  IBMPlexSansThai_200ExtraLight,
+  IBMPlexSansThai_300Light,
+  IBMPlexSansThai_400Regular,
+  IBMPlexSansThai_500Medium,
+  IBMPlexSansThai_600SemiBold,
+  IBMPlexSansThai_700Bold,
+
+ } from '@expo-google-fonts/ibm-plex-sans-thai';
 
 interface FontLoaderProps {
   children: React.ReactNode;
@@ -8,9 +17,13 @@ interface FontLoaderProps {
 
 const FontLoader: React.FC<FontLoaderProps> = ({ children }) => {
   const [fontsLoaded] = useFonts({
-    'IBMPlexSansThai-Medium': require('../assets/fonts/IBMPlexSansThai-Medium.ttf'),
-    'IBMPlexSansThai-Regular': require('../assets/fonts/IBMPlexSansThai-Regular.ttf'),
-    'IBMPlexSansThai-SemiBold': require('../assets/fonts/IBMPlexSansThai-SemiBold.ttf'),
+    IBMPlexSansThai_100Thin,
+    IBMPlexSansThai_200ExtraLight,
+    IBMPlexSansThai_300Light,
+    IBMPlexSansThai_400Regular,
+    IBMPlexSansThai_500Medium,
+    IBMPlexSansThai_600SemiBold,
+    IBMPlexSansThai_700Bold,
   });
 
   const [isReady, setIsReady] = useState(false);
