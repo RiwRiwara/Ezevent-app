@@ -3,9 +3,6 @@ import "@i18n/i18n.config";
 import { useSession } from "@providers/ctx";
 import { Settings } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import RadarChart from "react-svg-radar-chart";
 import { IMAGE_URLS, DEFAULT_IMAGES } from "@constants/azure/azureimageurl";
 
 import {
