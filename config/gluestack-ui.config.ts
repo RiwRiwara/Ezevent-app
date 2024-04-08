@@ -620,7 +620,7 @@ export const gluestackUIConfig = createConfig({
       '6xl': 72,
       '7xl': 90,
     },
-    fontfamilies: {
+    fontFamilies: {
       'regular': IBMPlexSansThai_400Regular,
       'bold': IBMPlexSansThai_700Bold,
       'medium': IBMPlexSansThai_500Medium,

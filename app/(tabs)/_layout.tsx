@@ -180,7 +180,7 @@ export default () => {
           }}
         />
         <Tabs.Screen
-          name="(app)/myevent/index"
+          name="(app)/myevent"
           options={{
             // href:null,
             title: "",
