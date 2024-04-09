@@ -114,6 +114,70 @@ export default () => {
           }}
         />
         <Tabs.Screen
+          name="explore/calender"
+          options={{
+            href:null,
+            title: "",
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View alignItems="center">
+                  <FolderClosed
+                    size={focused ? 36 : 30}
+                    strokeWidth={2}
+                    fill={focused ? gray0 : "none"}
+                    color={focused ? neutral6 : gray0}
+                  />
+
+                  <Text
+                    fontSize="$2xs"
+                    fontWeight={focused ? "$bold" : "$normal"}
+                    color="$gray0"
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    My Event
+                  </Text>
+                </View>
+              );
+            },
+          }}
+          listeners={() => ({
+            tabPress: (event) => onPressTab(event),
+          })}
+        />
+         <Tabs.Screen
+          name="explore/search_result"
+          options={{
+            href:null,
+            title: "",
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View alignItems="center">
+                  <FolderClosed
+                    size={focused ? 36 : 30}
+                    strokeWidth={2}
+                    fill={focused ? gray0 : "none"}
+                    color={focused ? neutral6 : gray0}
+                  />
+
+                  <Text
+                    fontSize="$2xs"
+                    fontWeight={focused ? "$bold" : "$normal"}
+                    color="$gray0"
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    My Event
+                  </Text>
+                </View>
+              );
+            },
+          }}
+          listeners={() => ({
+            tabPress: (event) => onPressTab(event),
+          })}
+        />
+        <Tabs.Screen
           name="(app)/inbox"
           options={{
             title: "",
