@@ -64,15 +64,15 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
                 alignItems="center"
                 space="md"
               >
-                <Input w="$5/6">
+                <Input w="80%">
                   <InputField placeholder="Enter Keyboard" />
                 </Input>
                 <Button
-                  w="$1/6"
+                  w="20%"
                   backgroundColor="$neutral6"
                   onPress={onClose}
                 >
-                  <ButtonText>Find</ButtonText>
+                  <ButtonText fontSize="$sm">Find</ButtonText>
                 </Button>
               </HStack>
               <VStack bg="$gray0" w="$full" mt={10}>
@@ -85,43 +85,43 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
                     Activity Type
                   </Text>
                 </Box>
-                <HStack space="sm" mt={10}>
+                <HStack space="xs" mt={10}>
                   <Button w="$30%" variant="search" action="search">
-                    <ButtonText>Entertainment</ButtonText>
+                    <ButtonText fontSize="$xs">Entertainment</ButtonText>
                   </Button>
                   <Button w="$40%" variant="search" action="search">
-                    <ButtonText>Finance&Accounting</ButtonText>
+                    <ButtonText fontSize="$xs">Finance&Accounting</ButtonText>
                   </Button>
                   <Button w="$30%" variant="search" action="search">
-                    <ButtonText>Seminar</ButtonText>
+                    <ButtonText fontSize="$xs">Seminar</ButtonText>
                   </Button>
                 </HStack>
-                <HStack space="sm" mt={10}>
-                  <Button w="$16%" variant="search" action="search">
-                    <ButtonText>Funny</ButtonText>
+                <HStack space="xs" mt={10}>
+                  <Button w="$20%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Funny</ButtonText>
                   </Button>
-                  <Button w="$26%" variant="search" action="search">
-                    <ButtonText>Art&Design</ButtonText>
-                  </Button>
-                  <Button w="$18%" variant="search" action="search">
-                    <ButtonText>Charity</ButtonText>
-                  </Button>
-                  <Button w="$40%" variant="search" action="search">
-                    <ButtonText>Game&E-sports</ButtonText>
-                  </Button>
-                </HStack>
-                <HStack space="sm" mt={10}>
-                  <Button w="$23%" variant="search" action="search">
-                    <ButtonText>Technology</ButtonText>
-                  </Button>
-                  <Button w="$22%" variant="search" action="search">
-                    <ButtonText>Exhibition</ButtonText>
+                  <Button w="$30%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Art&Design</ButtonText>
                   </Button>
                   <Button w="$20%" variant="search" action="search">
-                    <ButtonText>Education</ButtonText>
+                    <ButtonText fontSize="$xs">Charity</ButtonText>
                   </Button>
-                  <Button w="$15%" variant="search" action="search">
-                    <ButtonText>Other</ButtonText>
+                  <Button w="$30%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Game&E-sports</ButtonText>
+                  </Button>
+                </HStack>
+                <HStack space="xs" mt={10}>
+                  <Button w="$25%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Technology</ButtonText>
+                  </Button>
+                  <Button w="$25%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Exhibition</ButtonText>
+                  </Button>
+                  <Button w="$25%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Education</ButtonText>
+                  </Button>
+                  <Button w="$25%" variant="search" action="search">
+                    <ButtonText fontSize="$xs">Other</ButtonText>
                   </Button>
                 </HStack>
                 <Box bg="$secondary1" w="$full">

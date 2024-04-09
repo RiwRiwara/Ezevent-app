@@ -4,6 +4,7 @@ import ScrollableList from "@components/exploreComponent/ScrollableList";
 import EventScrollableList from "@components/exploreComponent/EventScrollableList";
 import EventCardScroller from "@components/exploreComponent/EventCardScroller";
 import SearchFilter from "@components/exploreComponent/SearchFilter";
+import Calendars from "@components/exploreComponent/Calendars";
 import TitleBar from "@components/common/TitleBar";
 import { Search } from "lucide-react-native";
 import { useSession } from "@providers/ctx";
@@ -19,13 +20,16 @@ import {
   Button,
 } from "@gluestack-ui/themed";
 import { useState, useEffect } from "react";
+import { CalendarCheck } from "lucide-react-native";
 import { useHandleSignOutByApi } from "@services/auth/SignOut";
 
 const Explore = () => {
   const styled = useStyled();
   const handleSignOut = useHandleSignOutByApi();
-  const [showActionsheet, setShowActionsheet] = React.useState(false);
-  const handleClose = () => setShowActionsheet(!showActionsheet);
+  const [showSearchFilter, setShowSearchFilter] = React.useState(false);
+  const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
+  const [showCalendars, setShowCalendars] = React.useState(false);
+  const handleCloseCalendars = () => setShowCalendars(!showCalendars);
 
   const [refreshing, setRefreshing] = useState(false);
   const [componentRefreshing, setComponentRefreshing] = useState(false);
@@ -59,14 +63,14 @@ const Explore = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             Explore
           </Text>
-          <Button onPress={handleClose} backgroundColor="$neutral6">
+          <Button px={9} onPress={handleCloseSearchFilter} backgroundColor="$neutral6">
             <Search
               size={30}
               strokeWidth={2}
               color={styled.config.tokens.colors.gray0}
             />
           </Button>
-          <SearchFilter isOpen={showActionsheet} onClose={handleClose} />
+          <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
         </HStack>
         <ScrollableList />
       </VStack>
@@ -81,10 +85,29 @@ const Explore = () => {
           />
         }
       >
-        <TitleBar title="New Events" button={true} />
-
+        
+        <HStack
+          justifyContent="space-between"
+          px={15}
+          py={10}
+          height={48}
+          bg="$gray0"
+          alignItems="center"
+        >
+          <Text fontSize="$title_4" fontWeight="$bold" color="$neutral9">
+            New Events
+          </Text>
+          <Button px={0} onPress={handleCloseCalendars} backgroundColor="$gray0">
+            <CalendarCheck
+              size={36}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.neutral9}
+            />
+          </Button>
+          <Calendars isOpen={showCalendars} onClose={handleCloseCalendars} />
+        </HStack>
         <EventScrollableList refreshing={componentRefreshing} />
-
+        
         <TitleBar title="Other events" />
         <EventCardScroller refreshing={componentRefreshing} />
 
