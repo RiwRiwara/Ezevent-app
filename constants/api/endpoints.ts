@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   LOGIN: "/login",
   LOGOUT: "/logout",
   REGISTER: "/register",
+  CHECK_SESSION: "/check-session",
 
   // Event
   EVENT_DETAIL_BY_ID: "/event/:event_id/detail",

@@ -1,5 +1,5 @@
 // Code: app/(tabs)/_layout.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Stack } from "expo-router";
 import {
   Platform,
@@ -20,12 +20,18 @@ import {
 
 export default () => {
   const { session } = useSession();
+  const {verifySession} = useSession();
   const styled = useStyled();
   const tabBackground = styled.config.tokens.colors.neutral6;
   const gray0 = styled.config.tokens.colors.gray0;
   const neutral6 = styled.config.tokens.colors.neutral6;
   const [isHeld, setIsHeld] = useState(false);
   const [isPreSigninVisible, setIsPreSigninVisible] = useState(false);
+
+  useEffect(() => {
+    verifySession();
+  }, []);
+
 
   const toggleModal = () => {
     setIsPreSigninVisible(!isPreSigninVisible);
