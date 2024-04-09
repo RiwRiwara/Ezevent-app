@@ -1,21 +1,24 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { View} from 'react-native'
 import { Redirect, Stack } from "expo-router";
 import { useSession } from "@providers/ctx";
-// import ButtonSet from "@components/common/ButtonSet";
 import {
-  Button,
-  ButtonText,
-  ButtonIcon,
-  ButtonSpinner,
-  ButtonGroup,
+  useStyled,
+  Text,
+  HStack,
+  VStack,
+  Box,
+  Image,
+  Center,
+  ScrollView,
 } from "@gluestack-ui/themed";
+
 const inbox = () => {
+  const styled = useStyled();
   return (
     <View>
-      <Text>inbox</Text>
-      {/* <ButtonSet title="Add" color="$gray5" /> */}
-      
+      <Text>inbox</Text>  
+          
     </View>
   );
 };

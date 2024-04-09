@@ -7,8 +7,8 @@ const ButtonSet = ({ title, color }) => {
 
   return (
     <ButtonGroup>
-      <Button bg={color}>
-        <ButtonText>{title}</ButtonText>
+      <Button bg={color} w={100} h={30} borderRadius={2}>
+        <ButtonText fontSize="$small_2" alignItems="center" color="$gray0">{title}</ButtonText>
       </Button>
     </ButtonGroup>
   );
