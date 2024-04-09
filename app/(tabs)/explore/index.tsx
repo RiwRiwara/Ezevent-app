@@ -3,11 +3,12 @@ import React from "react";
 import ScrollableList from "@components/exploreComponent/ScrollableList";
 import EventScrollableList from "@components/exploreComponent/EventScrollableList";
 import EventCardScroller from "@components/exploreComponent/EventCardScroller";
+import SearchFilter from "@components/exploreComponent/SearchFilter";
 import TitleBar from "@components/common/TitleBar";
 import { Search } from "lucide-react-native";
-import { useSession } from "../../../providers/ctx";
+import { useSession } from "@providers/ctx";
 
-import {GetAllEvents} from "@services/api/event/ApiEvent";
+import { GetAllEvents } from "@services/api/event/ApiEvent";
 
 import {
   useStyled,
@@ -17,6 +18,21 @@ import {
   ScrollView,
   Text,
   Button,
+  ButtonText,
+  Actionsheet,
+  ActionsheetBackdrop,
+  ActionsheetContent,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetDragIndicator,
+  KeyboardAvoidingView,
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+  Input,
+  InputSlot,
+  InputIcon,
+  InputField,
+  Box,
 } from "@gluestack-ui/themed";
 import { useState, useEffect } from "react";
 import { useHandleSignOutByApi } from "@services/auth/SignOut";
@@ -24,8 +40,8 @@ import { useHandleSignOutByApi } from "@services/auth/SignOut";
 const Explore = () => {
   const styled = useStyled();
   const handleSignOut = useHandleSignOutByApi();
-
-
+  const [showActionsheet, setShowActionsheet] = React.useState(false);
+  const handleClose = () => setShowActionsheet(!showActionsheet);
 
   return (
     <View bg="$gray0">
@@ -45,11 +61,14 @@ const Explore = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             Explore
           </Text>
-          <Search
-            size={30}
-            strokeWidth={2}
-            color={styled.config.tokens.colors.gray0}
-          />
+          <Button onPress={handleClose} backgroundColor="$neutral6">
+            <Search
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.gray0}
+            />
+          </Button>
+          <SearchFilter isOpen={showActionsheet} onClose={handleClose} />
         </HStack>
         <ScrollableList />
       </VStack>
