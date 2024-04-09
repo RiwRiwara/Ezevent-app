@@ -64,6 +64,7 @@ const Explore = () => {
 
         <View bg="$gray0" minHeight={200}></View>
       </ScrollView>
+      
     </View>
   );
 };

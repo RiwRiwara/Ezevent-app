@@ -15,6 +15,7 @@ module.exports = function (api) {
             '@constants' : './constants',
             '@utils' : './utils',
             '@assets' : './assets',
+            '@models' : './models',
           }
         }
       ]

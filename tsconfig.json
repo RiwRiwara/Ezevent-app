@@ -9,6 +9,7 @@
       "@constants/*" : ["constants/*"],
       "@utils/*" : ["utils/*"],
       "@assets/*" : ["assets/*"],
+      "@models/*" : ["models/*"],
     }
   },
   "extends": "expo/tsconfig.base"

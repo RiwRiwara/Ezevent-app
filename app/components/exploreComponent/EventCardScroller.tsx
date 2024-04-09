@@ -58,16 +58,26 @@ const EventCardScroller = ({
       })} */}
 
       {loading ? (
-        <ActivityIndicator size="large" color="#000" />
+        // <ActivityIndicator size="large" color="#000" />
+        <>
+          {[...Array(10)].map((_, index) => (
+            <View key={index}>
+              <Image
+                w={200}
+                h={90}
+                alt="Loading..." 
+                mr={10}
+                source={{
+                  uri: "https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=6c09b95233eb5ffk4f46u9soryvb0lwvdtee43ke6oe6mkol&ep=v1_gifs_search&rid=200w.gif&ct=g",
+                }}
+              />
+            </View>
+          ))}
+        </>
       ) : (
         <>
           {events.map((event, index) => {
-            return (
-              <EventCard
-                key={index}
-                event={event}
-              />
-            );
+            return <EventCard key={index} event={event} />;
           })}
         </>
       )}

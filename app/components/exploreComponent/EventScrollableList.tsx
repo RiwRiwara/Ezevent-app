@@ -51,7 +51,23 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
       ]}
     >
       {loading ? (
-        <ActivityIndicator size="large" color="#000" />
+        <>
+          {[...Array(5)].map((_, index) => (
+            <View key={index}>
+              <Image
+                w={imgWidth}
+                h={imgHeight}
+                alt="Loading..."
+                my={10}
+                borderRadius={10}
+                mr={15}
+                source={{
+                  uri: "https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=6c09b95233eb5ffk4f46u9soryvb0lwvdtee43ke6oe6mkol&ep=v1_gifs_search&rid=200w.gif&ct=g",
+                }}
+              />
+            </View>
+          ))}
+        </>
       ) : (
         <>
           {latestEvents.map((event, index) => {

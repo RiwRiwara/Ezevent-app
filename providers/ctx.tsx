@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStorageState } from './useStorageState';
+// import { User } from '@models/User';
 
 interface User {
   user_id: string;

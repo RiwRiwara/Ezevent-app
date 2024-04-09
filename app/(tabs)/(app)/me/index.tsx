@@ -49,7 +49,7 @@ const me = () => {
   ];
 
   return (
-    <ScrollView>
+    <ScrollView bg="$gray0">
       <VStack reversed={false}>
         <HStack
           justifyContent="space-between"
@@ -83,7 +83,9 @@ const me = () => {
                 <AvatarFallbackText>Robert Fox</AvatarFallbackText>
                 <AvatarImage
                   source={{
-                    uri: IMAGE_URLS.userprofile + "/" + user?.profile_img || DEFAULT_IMAGES.userprofile,
+                    uri:
+                      IMAGE_URLS.userprofile + "/" + user?.profile_img ||
+                      DEFAULT_IMAGES.userprofile,
                   }}
                 />
               </Avatar>
@@ -98,16 +100,19 @@ const me = () => {
             <VStack bg="$primary0" w="$2/4" p="$3" alignItems="center">
               <Text color="$neutral8"> INTP</Text>
             </VStack>
-
           </HStack>
           <Box bg="$gray0" w="$full" alignItems="center" pt={10}>
-            <Text color="$primary8">Hello my name is  {user?.first_name || "Robert Fox"} {user?.last_name || "Fox"}</Text>
+            <Text color="$primary8">
+              Hello my name is {user?.first_name || "Robert Fox"}{" "}
+              {user?.last_name || "Fox"}
+            </Text>
           </Box>
         </VStack>
 
         <Box bg="$gray0" w="$full" alignItems="center" p="$3">
           <Text fontSize="$sm" color="$gray9">
-          {user?.short_bio || "Hello My name is Robert i study in thailand and i love cat , My hobbies is playing game and let adventure in real world i can’t do anything that it will improve the world"}
+            {user?.short_bio ||
+              "Hello My name is Robert i study in thailand and i love cat , My hobbies is playing game and let adventure in real world i can’t do anything that it will improve the world"}
           </Text>
         </Box>
         <VStack alignItems="center">
