@@ -114,7 +114,7 @@ export default () => {
           }}
         />
         <Tabs.Screen
-          name="(app)/inbox/index"
+          name="(app)/inbox"
           options={{
             title: "",
             tabBarIcon: ({ focused }) => {
