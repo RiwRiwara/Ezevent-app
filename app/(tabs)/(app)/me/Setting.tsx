@@ -38,7 +38,7 @@ const Setting = () => {
         ></Edit>
       </HStack>
 
-      <TouchableOpacity onPress={() => {router.push('/(app)/me/Push_Notification');}}>
+      <TouchableOpacity onPress={() => {router.push('/(app)/me/PushNotification');}}>
       <HStack
         justifyContent="space-between"
         px={15}

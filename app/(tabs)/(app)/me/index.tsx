@@ -4,7 +4,7 @@ import { useSession } from "@providers/ctx";
 import { Settings } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { IMAGE_URLS, DEFAULT_IMAGES } from "@constants/azure/azureimageurl";
-
+import { Redirect, Link } from "expo-router";
 import {
   useStyled,
   VStack,
@@ -61,11 +61,13 @@ const me = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$neutral8">
             My Profile
           </Text>
-          <Settings
-            size={30}
-            strokeWidth={2}
-            color={styled.config.tokens.colors.neutral8}
-          />
+          <Link href={"/(app)/me/Setting"} asChild>
+            <Settings
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.neutral8}
+            />
+          </Link>
         </HStack>
         <HStack>
           <Button w="$full">
