@@ -10,9 +10,8 @@ import {
     VStack,
     Text,
     Center,
-    AlertIcon,
-    CheckCircleIcon,
     useStyled,
+    Image,
 } from '@gluestack-ui/themed';
 import { Ellipsis } from 'lucide-react-native';
 const DATA = [
@@ -38,32 +37,17 @@ const Item = ({title}: InboxProps) => (
   </View>
 );
 
-const inbox = () => {
+const Search_result = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
   return (
     <View>
         <Box py="$10">
-          <Heading size="xl" p="$4" pb="$3" color="$neutral9">Inbox</Heading>
-          <HStack justifyContent="space-between" mr='$3'>
-            <HStack>
-            <Box bg="$warning2" borderRadius={5} ml='$3' justifyContent="center">
-              <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" mx={10} p="$0.5">
-              Unread
-              </Text>
-            </Box>
-            <Box bg="$neutral9" borderRadius={5} mx='$2' justifyContent="center">
-                <Text fontSize="$small_3" fontWeight="$bold" color="$white" mx={10} p="$0.5">
-                For Staff
-                </Text>
-            </Box>
-            <Box bg="$warning2" borderRadius={5} justifyContent="center">
-                <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" mx={10} p="$0.5">
-                For Participant
-                </Text>
-            </Box>
-            </HStack>
+          <HStack mx='$3' justifyContent="space-between">
+            <Heading size="xl" color="$neutral9">Search Result</Heading>
+            <Center>
             <Ellipsis size={25} strokeWidth={2} color={neutral9}/>
+            </Center>
           </HStack>
           <FlatList
             data={DATA}
@@ -78,29 +62,39 @@ const inbox = () => {
                 py="$2"
               >
               <Link href="(app)/inbox/inbox_detail" asChild>
-              <HStack space="md" justifyContent="space-between">
+              <HStack space="md">
                 <Center>
-                  <AlertIcon as={CheckCircleIcon} color='$neutral9'  size="xl"  mr="$3" ml='$3'/>
+                  <Image
+                    size="md"
+                    mr="$3" 
+                    ml='$3'
+                    source={{
+                        uri: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    }}
+                    />
                 </Center>
                 <VStack>
                   <Text
-                    color="$neutral9"
+                    color="$rose600"
                     fontWeight="$bold"
+                    size='2xs'
                   >
-                    for staff / Help the world by your hand
+                    Sun, 26 Nov 2023 
                   </Text>
-                  <Text color="$black">
-                  ปรับเปลี่ยนเวลาการจัดกิจกรรมด่วน
+                  <Text 
+                  color="$neutral9"
+                  size='md'
+                  >
+                  Help the world by your hand
                   </Text>
-                </VStack>
-                <Text
+                  <Text
                   fontSize="$xs"
                   color="$coolGray800"
                   alignSelf="center"
-                  bold
                 >
-                  24 min ago
+                  Help the world by plant the tree and give the<br />earth cooling, I need volunteer more than 100 
                 </Text>
+                </VStack>
               </HStack>
               </Link>
               </Box>
@@ -111,4 +105,4 @@ const inbox = () => {
   );
 };
 
-export default inbox;
+export default Search_result;
