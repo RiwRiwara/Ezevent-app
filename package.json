@@ -36,6 +36,7 @@
     "react-i18next": "^14.0.5",
     "react-icons": "^5.0.1",
     "react-native": "0.73.6",
+    "react-native-calendars": "^1.1304.1",
     "react-native-date-picker": "^4.4.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "~2.14.0",
