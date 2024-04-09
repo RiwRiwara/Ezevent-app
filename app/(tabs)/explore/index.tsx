@@ -8,8 +8,7 @@ import Calendars from "@components/exploreComponent/Calendars";
 import TitleBar from "@components/common/TitleBar";
 import { Search } from "lucide-react-native";
 import { useSession } from "@providers/ctx";
-
-import { GetAllEvents } from "@services/api/event/ApiEvent";
+import { RefreshControl } from "react-native";
 
 import {
   useStyled,
@@ -19,21 +18,6 @@ import {
   ScrollView,
   Text,
   Button,
-  ButtonText,
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicatorWrapper,
-  ActionsheetDragIndicator,
-  KeyboardAvoidingView,
-  FormControl,
-  FormControlLabel,
-  FormControlLabelText,
-  Input,
-  InputSlot,
-  InputIcon,
-  InputField,
-  Box,
 } from "@gluestack-ui/themed";
 import { useState, useEffect } from "react";
 import { CalendarCheck } from "lucide-react-native";
@@ -46,6 +30,20 @@ const Explore = () => {
   const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
   const [showCalendars, setShowCalendars] = React.useState(false);
   const handleCloseCalendars = () => setShowCalendars(!showCalendars);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const [componentRefreshing, setComponentRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    if (!refreshing) {
+      setRefreshing(true);
+      setComponentRefreshing(!componentRefreshing);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    }
+  };
+
 
   return (
     <View bg="$gray0">
@@ -78,7 +76,16 @@ const Explore = () => {
       </VStack>
 
       {/* Body */}
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#000"
+          />
+        }
+      >
+        
         <HStack
           justifyContent="space-between"
           px={15}
@@ -99,9 +106,10 @@ const Explore = () => {
           </Button>
           <Calendars isOpen={showCalendars} onClose={handleCloseCalendars} />
         </HStack>
-        <EventScrollableList />
+        <EventScrollableList refreshing={componentRefreshing} />
+        
         <TitleBar title="Other events" />
-        <EventCardScroller />
+        <EventCardScroller refreshing={componentRefreshing} />
 
         <View bg="$gray0" minHeight={200}></View>
       </ScrollView>

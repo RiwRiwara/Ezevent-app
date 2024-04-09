@@ -13,6 +13,7 @@ const EventCardScroller = ({
     { title: "Event 4", img: "https://via.placeholder.com/150" },
     { title: "Event 5", img: "https://via.placeholder.com/150" },
   ],
+  refreshing,
 }) => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -20,21 +21,20 @@ const EventCardScroller = ({
 
   useEffect(() => {
     setLoading(true);
-    console.log("Fetching all events...");
+    console.log("[EventCardScroller] : Fetching all events...");
     GetAllEvents()
       .then((data) => {
-        console.log("Finished fetching all events");
-        console.log("All events:", data.events);
+        console.log("[EventCardScroller] : Finished fetching all events");
         setEvents(data.events);
       })
       .catch((error) => {
-        console.error("Error fetching all events:", error);
+        console.error("[EventCardScroller] : Error fetching all events:", error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
-
+  }, [refreshing]);
+  
   return (
     <ScrollView
       py={5}
@@ -53,14 +53,10 @@ const EventCardScroller = ({
         scrollContentWidth > 0 && styles.overflowBackground,
       ]}
     >
-      {/* {items.map((item, index) => {
-        return <EventCard key={index} title={item.title} img={item.img} />;
-      })} */}
 
       {loading ? (
-        // <ActivityIndicator size="large" color="#000" />
         <>
-          {[...Array(10)].map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <View key={index}>
               <Image
                 w={200}

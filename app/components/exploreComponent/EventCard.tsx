@@ -23,15 +23,15 @@ export default function EventCard({
         <Image
           mb="$6"
           h={200}
-          width="$full"
+          w="$full"
           borderRadius="$md"
+          alt={event.event_name}
           source={{
             uri: event.getBannerImage,
           }}
         />
         <Text
           fontSize="$sm"
-          fontStyle="normal"
           fontFamily="$heading"
           fontWeight="$normal"
           lineHeight="$sm"
@@ -48,7 +48,7 @@ export default function EventCard({
       </>
 
       <>
-        <Heading size="sm" fontFamily="$bold" mb="$4">
+        <Heading size="sm" fontFamily="$heading" mb="$4">
           {event.event_name.length > 30
             ? `${event.event_name.substring(0, 30)}...`
             : event.event_name}

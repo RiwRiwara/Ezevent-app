@@ -1,5 +1,5 @@
 // Code: app/(tabs)/_layout.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Stack } from "expo-router";
 import {
   Platform,
@@ -20,12 +20,18 @@ import {
 
 export default () => {
   const { session } = useSession();
+  const {verifySession} = useSession();
   const styled = useStyled();
   const tabBackground = styled.config.tokens.colors.neutral6;
   const gray0 = styled.config.tokens.colors.gray0;
   const neutral6 = styled.config.tokens.colors.neutral6;
   const [isHeld, setIsHeld] = useState(false);
   const [isPreSigninVisible, setIsPreSigninVisible] = useState(false);
+
+  useEffect(() => {
+    verifySession();
+  }, []);
+
 
   const toggleModal = () => {
     setIsPreSigninVisible(!isPreSigninVisible);
@@ -114,7 +120,71 @@ export default () => {
           }}
         />
         <Tabs.Screen
-          name="(app)/inbox/index"
+          name="explore/calender"
+          options={{
+            href:null,
+            title: "",
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View alignItems="center">
+                  <FolderClosed
+                    size={focused ? 36 : 30}
+                    strokeWidth={2}
+                    fill={focused ? gray0 : "none"}
+                    color={focused ? neutral6 : gray0}
+                  />
+
+                  <Text
+                    fontSize="$2xs"
+                    fontWeight={focused ? "$bold" : "$normal"}
+                    color="$gray0"
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    My Event
+                  </Text>
+                </View>
+              );
+            },
+          }}
+          listeners={() => ({
+            tabPress: (event) => onPressTab(event),
+          })}
+        />
+         <Tabs.Screen
+          name="explore/search_result"
+          options={{
+            href:null,
+            title: "",
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View alignItems="center">
+                  <FolderClosed
+                    size={focused ? 36 : 30}
+                    strokeWidth={2}
+                    fill={focused ? gray0 : "none"}
+                    color={focused ? neutral6 : gray0}
+                  />
+
+                  <Text
+                    fontSize="$2xs"
+                    fontWeight={focused ? "$bold" : "$normal"}
+                    color="$gray0"
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    My Event
+                  </Text>
+                </View>
+              );
+            },
+          }}
+          listeners={() => ({
+            tabPress: (event) => onPressTab(event),
+          })}
+        />
+        <Tabs.Screen
+          name="(app)/inbox"
           options={{
             title: "",
             tabBarIcon: ({ focused }) => {

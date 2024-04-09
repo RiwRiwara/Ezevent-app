@@ -14,7 +14,7 @@ const TitleBar = ({ title, button = false }) => {
       justifyContent="space-between"
       px={15}
       py={10}
-      height={48}
+      height={45}
       bg="$gray0"
       alignItems="center"
     >

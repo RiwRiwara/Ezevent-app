@@ -4,34 +4,27 @@ import { StyleSheet, View, ActivityIndicator } from "react-native";
 
 import { GetLastestEvent } from "@services/api/event/ApiEvent";
 
-const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
+const EventScrollableList = ({ imgWidth = 250, imgHeight = 375, refreshing }) => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
   const [latestEvents, setLatestEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    console.log("Fetching latest events...");
+    console.log("[EventScrollableList] : Fetching latest events...");
     GetLastestEvent()
       .then((data) => {
-        console.log("Finished fetching latest events");
-        console.log("Latest events:", data.events);
+        console.log("EventScrollableList] : Finished fetching latest events");
         setLatestEvents(data.events);
       })
       .catch((error) => {
-        console.error("Error fetching latest events:", error);
+        console.error("EventScrollableList] : Error fetching latest events:", error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [refreshing]);
 
-  const items = [
-    { alt: "All" },
-    { alt: "Education" },
-    { alt: "Entertainment" },
-    { alt: "Entertainmentsd" },
-  ];
 
   return (
     <ScrollView
@@ -52,13 +45,13 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
     >
       {loading ? (
         <>
-          {[...Array(5)].map((_, index) => (
+          {[...Array(2)].map((_, index) => (
             <View key={index}>
               <Image
                 w={imgWidth}
                 h={imgHeight}
                 alt="Loading..."
-                my={10}
+                my={0}
                 borderRadius={10}
                 mr={15}
                 source={{
@@ -80,7 +73,7 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375 }) => {
                   my={10}
                   borderRadius={10}
                   mr={15}
-                  source={{ uri: event.getBannerImage }}
+                  source={{ uri: `${event.getBannerImage}?timestamp=${Date.now()}` }} 
                 />
               </View>
             );
