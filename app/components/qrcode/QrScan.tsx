@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { ImagePlus, Zap, X, Box } from "lucide-react-native";
 import {
   useStyled,
@@ -23,6 +22,9 @@ import {
   Input,
   InputField,
 } from "@gluestack-ui/themed";
+import { Camera, CameraType } from "expo-camera";
+import { useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 interface ModalProps {
   isOpen: boolean;
@@ -30,7 +32,34 @@ interface ModalProps {
 }
 
 const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const [type, setType] = useState(CameraType.back);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
   const styled = useStyled();
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalBackdrop />
+        <ModalContent backgroundColor="$gray0">
+          <ModalHeader></ModalHeader>
+          <ModalBody>
+            <VStack space="lg" w="$full">
+              <Button w="$25%" bg="$success7" onPress={requestPermission}>
+                <ButtonText>grant permission</ButtonText>
+              </Button>
+            </VStack>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    );
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -51,11 +80,7 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               >
                 Scan QR-Code
               </Text>
-              <Button
-                px={20}
-                onPress={onClose}
-                backgroundColor="$gray0"
-              >
+              <Button px={20} onPress={onClose} backgroundColor="$gray0">
                 <X
                   size={30}
                   strokeWidth={2}
@@ -66,12 +91,12 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           </VStack>
         </ModalHeader>
 
-        <ModalBody>
-          <Text>
-            Elevate user interactions with our versatile modals. Seamlessly
-            integrate notifications, forms, and media displays. Make an impact
-            effortlessly.
-          </Text>
+        <ModalBody h={300}>
+          <View style={styles.container}>
+            <Camera style={styles.camera} type={type}>
+              <View style={styles.buttonContainer}></View>
+            </Camera>
+          </View>
         </ModalBody>
         <ModalFooter borderTopWidth="$0">
           <VStack space="lg" w="$full">
@@ -96,3 +121,30 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 };
 
 export default QrScan;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    Height: 400,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "transparent",
+    margin: 64,
+  },
+  button: {
+    flex: 1,
+    alignSelf: "flex-end",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+});
