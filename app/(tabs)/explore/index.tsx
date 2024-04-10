@@ -6,6 +6,7 @@ import EventCardScroller from "@components/exploreComponent/EventCardScroller";
 import SearchFilter from "@components/exploreComponent/SearchFilter";
 import Calendars from "@components/exploreComponent/Calendars";
 import TitleBar from "@components/common/TitleBar";
+import QrScan from "@components/qrcode/QrScan";
 import { Search } from "lucide-react-native";
 import { useSession } from "@providers/ctx";
 import { RefreshControl } from "react-native";
@@ -30,6 +31,8 @@ const Explore = () => {
   const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
   const [showCalendars, setShowCalendars] = React.useState(false);
   const handleCloseCalendars = () => setShowCalendars(!showCalendars);
+  const [showQr, setShowQr] = React.useState(false);
+  const handleCloseQr = () => setShowQr(!showQr);
 
   const [refreshing, setRefreshing] = useState(false);
   const [componentRefreshing, setComponentRefreshing] = useState(false);
@@ -63,6 +66,14 @@ const Explore = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             Explore
           </Text>
+          <Button px={9} onPress={handleCloseQr} backgroundColor="$neutral6">
+            <Search
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.gray0}
+            />
+          </Button>
+          <QrScan isOpen={showQr} onClose={handleCloseQr} />
           <Button px={9} onPress={handleCloseSearchFilter} backgroundColor="$neutral6">
             <Search
               size={30}
