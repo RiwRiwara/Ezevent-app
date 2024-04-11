@@ -15,7 +15,7 @@ export const API_ENDPOINTS = {
   EVENT_DETAIL_BY_ID: "/event/:event_id/detail",
   LASTEST_EVENTS: "/last-event",
   ALL_EVENTS: "/event/all",
-  
+    
 };
 
 export const getApiUrl = (endpoint: string): string => {

@@ -5,11 +5,13 @@ import {
   Image,
   Card,
   Heading,
-  Link,
   HStack,
+  VStack,
+  View,
   LinkText,
   Icon,
 } from "@gluestack-ui/themed";
+import { Link } from "expo-router";
 
 export default function EventCard({
   event = {
@@ -18,42 +20,46 @@ export default function EventCard({
   },
 }) {
   return (
-    <Card p="$2" borderRadius="$lg" w={170} mr={10} h={350}>
-      <>
-        <Image
-          mb="$6"
-          h={200}
-          w="$full"
-          borderRadius="$md"
-          alt={event.event_name}
-          source={{
-            uri: event.getBannerImage,
-          }}
-        />
-        <Text
-          fontSize="$sm"
-          fontFamily="$heading"
-          fontWeight="$normal"
-          lineHeight="$sm"
-          mb="$2"
-          sx={{
-            color: "$textLight700",
-            _dark: {
-              color: "$textDark200",
-            },
-          }}
-        >
-          May 15, 2023
-        </Text>
-      </>
+    <Link href={`/event/${event.event_id}`} push>
+      <View>
+        <Card p="$2" borderRadius="$lg" w={170} mr={10} h={350}>
+          <>
+            <Image
+              mb="$6"
+              h={200}
+              w="$full"
+              borderRadius="$md"
+              alt={event.event_name}
+              source={{
+                uri: event.getBannerImage,
+              }}
+            />
+            <Text
+              fontSize="$sm"
+              fontFamily="$heading"
+              fontWeight="$normal"
+              lineHeight="$sm"
+              mb="$2"
+              sx={{
+                color: "$textLight700",
+                _dark: {
+                  color: "$textDark200",
+                },
+              }}
+            >
+              May 15, 2023
+            </Text>
+          </>
 
-      <>
-        <Heading size="sm" fontFamily="$heading" mb="$4">
-          {event.event_name.length > 30
-            ? `${event.event_name.substring(0, 30)}...`
-            : event.event_name}
-        </Heading>
-      </>
-    </Card>
+          <>
+            <Heading size="sm" fontFamily="$heading" mb="$4">
+              {event.event_name.length > 30
+                ? `${event.event_name.substring(0, 30)}...`
+                : event.event_name}
+            </Heading>
+          </>
+        </Card>
+      </View>
+    </Link>
   );
 }

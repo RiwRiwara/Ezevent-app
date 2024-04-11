@@ -85,3 +85,4 @@ export const GetAllEvents = (page = 1): Promise<any> => {
   });
 };
 
+

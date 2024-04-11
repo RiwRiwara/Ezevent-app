@@ -4,7 +4,8 @@ import { useSession } from "@providers/ctx";
 import { Settings } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { IMAGE_URLS, DEFAULT_IMAGES } from "@constants/azure/azureimageurl";
-import { Redirect, Link } from "expo-router";
+import { Redirect, Link, useLocalSearchParams } from "expo-router";
+
 import {
   useStyled,
   VStack,
@@ -19,7 +20,7 @@ import {
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
 
-const me = () => {
+const Me = () => {
   const styled = useStyled();
   const { user } = useSession();
   const captions = {
@@ -174,4 +175,4 @@ const me = () => {
   );
 };
 
-export default me;
+export default Me;

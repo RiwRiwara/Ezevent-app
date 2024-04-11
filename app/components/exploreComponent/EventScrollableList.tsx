@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Box, Text, Image } from "@gluestack-ui/themed";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
-
+import { StyleSheet, View, ActivityIndicator, Pressable } from "react-native";
+import { Redirect, Link } from "expo-router";
 import { GetLastestEvent } from "@services/api/event/ApiEvent";
 
-const EventScrollableList = ({ imgWidth = 250, imgHeight = 375, refreshing }) => {
+const EventScrollableList = ({
+  imgWidth = 250,
+  imgHeight = 375,
+  refreshing,
+}) => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
   const [latestEvents, setLatestEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,13 +22,15 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375, refreshing }) =>
         setLatestEvents(data.events);
       })
       .catch((error) => {
-        console.error("EventScrollableList] : Error fetching latest events:", error);
+        console.error(
+          "EventScrollableList] : Error fetching latest events:",
+          error
+        );
       })
       .finally(() => {
         setLoading(false);
       });
   }, [refreshing]);
-
 
   return (
     <ScrollView
@@ -65,17 +71,21 @@ const EventScrollableList = ({ imgWidth = 250, imgHeight = 375, refreshing }) =>
         <>
           {latestEvents.map((event, index) => {
             return (
-              <View key={index}>
-                <Image
-                  w={imgWidth}
-                  h={imgHeight}
-                  alt={event.event_name}
-                  my={10}
-                  borderRadius={10}
-                  mr={15}
-                  source={{ uri: `${event.getBannerImage}?timestamp=${Date.now()}` }} 
-                />
-              </View>
+              <Link key={index} href={`/event/${event.event_id}`} push>
+                <View>
+                  <Image
+                    w={imgWidth}
+                    h={imgHeight}
+                    alt={event.event_name}
+                    my={10}
+                    borderRadius={10}
+                    mr={15}
+                    source={{
+                      uri: `${event.getBannerImage}?timestamp=${Date.now()}`,
+                    }}
+                  />
+                </View>
+              </Link>
             );
           })}
         </>

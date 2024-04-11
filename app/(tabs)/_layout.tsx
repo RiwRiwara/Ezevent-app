@@ -17,10 +17,11 @@ import {
   UserRound,
   QrCode,
 } from "lucide-react-native";
+import QrScan from "@components/qrcode/QrScan";
 
 export default () => {
   const { session } = useSession();
-  const {verifySession} = useSession();
+  const { verifySession } = useSession();
   const styled = useStyled();
   const tabBackground = styled.config.tokens.colors.neutral6;
   const gray0 = styled.config.tokens.colors.gray0;
@@ -28,10 +29,12 @@ export default () => {
   const [isHeld, setIsHeld] = useState(false);
   const [isPreSigninVisible, setIsPreSigninVisible] = useState(false);
 
+  const [showQr, setShowQr] = React.useState(false);
+  const handleCloseQr = () => setShowQr(!showQr);
+
   useEffect(() => {
     verifySession();
   }, []);
-
 
   const toggleModal = () => {
     setIsPreSigninVisible(!isPreSigninVisible);
@@ -82,16 +85,17 @@ export default () => {
           headerShown: false,
           tabBarStyle: {
             position: "absolute",
-            bottom: Platform.OS != "web" ? -35 : 0,
+            bottom: Platform.OS != "web" ? Platform.OS == "ios" ? -35 : 0 : 0,
             left: 0,
             right: 0,
-            height: Platform.OS != "web" ? 100 : 70,
+            height: Platform.OS != "web" ?  Platform.OS == "ios" ? 100 : 70 : 70,
             paddingTop: 5,
             elevation: 0,
             backgroundColor: tabBackground,
           },
         }}
       >
+
         <Tabs.Screen
           name="explore/index"
           options={{
@@ -122,7 +126,7 @@ export default () => {
         <Tabs.Screen
           name="explore/calender"
           options={{
-            href:null,
+            href: null,
             title: "",
             tabBarIcon: ({ focused }) => {
               return (
@@ -151,10 +155,10 @@ export default () => {
             tabPress: (event) => onPressTab(event),
           })}
         />
-         <Tabs.Screen
+        <Tabs.Screen
           name="explore/search_result"
           options={{
-            href:null,
+            href: null,
             title: "",
             tabBarIcon: ({ focused }) => {
               return (
@@ -222,7 +226,7 @@ export default () => {
                   onLongPress={handleLongPress}
                   onPressOut={handlePressOut}
                   delayLongPress={100}
-                  onPress={(event) => onPressTab(event)}
+                  onPress={(event) => setShowQr(true)}
                 >
                   <View
                     style={{
@@ -234,7 +238,7 @@ export default () => {
                     bg={isHeld ? "$gray1" : "$gray0"}
                     w={80}
                     h={80}
-                    top={Platform.OS != "web" ? -10 : -20}
+                    top={Platform.OS != "web" ? Platform.OS == "ios" ? -10 : -12 : 20}
                     borderRadius={Platform.OS != "web" ? 35 : 40}
                     alignItems="center"
                     justifyContent="center"
@@ -252,7 +256,6 @@ export default () => {
         <Tabs.Screen
           name="(app)/myevent"
           options={{
-            // href:null,
             title: "",
             tabBarIcon: ({ focused }) => {
               return (
@@ -295,10 +298,13 @@ export default () => {
           })}
         />
       </Tabs>
-      
-      
 
-      <SigninSlideUp isPreSigninVisible={isPreSigninVisible} toggleModal={toggleModal} />
+      <QrScan isOpen={showQr} onClose={handleCloseQr} />
+
+      <SigninSlideUp
+        isPreSigninVisible={isPreSigninVisible}
+        toggleModal={toggleModal}
+      />
     </>
   );
 };

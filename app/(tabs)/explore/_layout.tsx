@@ -4,11 +4,13 @@ const StackLayout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="explore"
+        name="index"
         options={{
+          title: "Explore",
           headerShown: false,
         }}
       />
     </Stack>
   );
 };
+

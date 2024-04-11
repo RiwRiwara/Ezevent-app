@@ -21,10 +21,11 @@ import {
   Text,
   Input,
   InputField,
+  KeyboardAvoidingView,
 } from "@gluestack-ui/themed";
-import { Camera, CameraType } from "expo-camera";
+import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 
 interface ModalProps {
   isOpen: boolean;
@@ -34,9 +35,18 @@ interface ModalProps {
 const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [flashMode, setFlashMode] = useState(FlashMode.off);
   const styled = useStyled();
+
+  const toggleFlash = () => {
+    setFlashMode(
+      flashMode === FlashMode.off
+        ? FlashMode.on
+        : FlashMode.off
+    );
+  };
+
   if (!permission) {
-    // Camera permissions are still loading
     return <View />;
   }
 
@@ -63,15 +73,27 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
-      <ModalContent backgroundColor="$gray0">
-        <ModalHeader>
-          <VStack space="lg" w="$full">
-            <HStack space="lg" alignItems="center">
-              <Zap
-                size={30}
-                strokeWidth={2}
-                color={styled.config.tokens.colors.neutral9}
-              />
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+        w={400}
+        alignItems="center"
+      >
+        <ModalContent backgroundColor="$gray0">
+          <ModalHeader>
+            <HStack alignItems="center" flex={1} justifyContent="space-between">
+            <Button px={20} onPress={toggleFlash} backgroundColor="$gray0">
+                <Zap
+                  size={30}
+                  strokeWidth={2}
+                  color={
+                    flashMode === FlashMode.off
+                      ? styled.config.tokens.colors.neutral9
+                      : styled.config.tokens.colors.primary7
+                  }
+                />
+              </Button>
               <Text
                 px={12}
                 fontSize="$title_4"
@@ -88,18 +110,24 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 />
               </Button>
             </HStack>
-          </VStack>
-        </ModalHeader>
+          </ModalHeader>
 
-        <ModalBody h={300}>
-          <View style={styles.container}>
-            <Camera style={styles.camera} type={type}>
-              <View style={styles.buttonContainer}></View>
-            </Camera>
-          </View>
-        </ModalBody>
-        <ModalFooter borderTopWidth="$0">
-          <VStack space="lg" w="$full">
+          <ModalBody>
+            <View style={styles.container}>
+              <Camera
+                style={styles.camera}
+                type={type}
+                autoFocus={Platform.OS === "ios" ? "on" : "off"}
+                flashMode={flashMode}
+              >
+                <View style={styles.buttonContainer}>
+    
+                </View>
+              </Camera>
+            </View>
+          </ModalBody>
+
+          <ModalFooter>
             <HStack space="lg" alignItems="center">
               <ImagePlus
                 size={30}
@@ -109,13 +137,13 @@ const QrScan: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <Input w="$55%">
                 <InputField color="$neutral9" placeholder="Enter Code ..." />
               </Input>
-              <Button w="$25%" bg="$success7" onPress={onClose}>
+              <Button bg="$success7" onPress={onClose}>
                 <ButtonText>OK</ButtonText>
               </Button>
             </HStack>
-          </VStack>
-        </ModalFooter>
-      </ModalContent>
+          </ModalFooter>
+        </ModalContent>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -126,16 +154,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    Height: 400,
   },
   camera: {
     flex: 1,
+    width: 350,
+    height: 400,
+    alignSelf: "center",
   },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
     backgroundColor: "transparent",
-    margin: 64,
   },
   button: {
     flex: 1,

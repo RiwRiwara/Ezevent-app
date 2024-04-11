@@ -38,7 +38,7 @@ const Item = ({title}: InboxProps) => (
   </View>
 );
 
-const inbox = () => {
+const Inbox = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
   return (
@@ -111,4 +111,4 @@ const inbox = () => {
   );
 };
 
-export default inbox;
+export default Inbox;

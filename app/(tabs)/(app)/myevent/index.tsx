@@ -27,7 +27,7 @@ import { Link } from "expo-router";
 import MyEventCard from "@components/myeventComponent/MyEventCard";
 import MyEventBar from "@components/myeventComponent/MyEventBar";
 
-const myevent = () => {
+const MyEvent = () => {
   const { t } = useTranslation();
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
@@ -159,4 +159,4 @@ const myevent = () => {
   );
 };
 
-export default myevent;
+export default MyEvent;
