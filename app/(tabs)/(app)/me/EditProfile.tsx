@@ -18,6 +18,7 @@ import {
   AvatarImage,
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
+import EditName from "@components/Profile/EditName";
 
 const EditProfile = () => {
   const styled = useStyled();
@@ -47,7 +48,9 @@ const EditProfile = () => {
       meta: { color: "#58FCEC" },
     },
   ];
-
+  const { session } = useSession();
+  const [showEditName, setShowEditName] = React.useState(false);
+  const handleCloseEditName = () => setShowEditName(!showEditName);
   return (
     <ScrollView>
       <VStack reversed={false}>
@@ -61,9 +64,13 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Profile Image
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Avatar bgColor="$amber600" size="xl" borderRadius="$full">
@@ -89,9 +96,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Full Name
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$primary8">
@@ -110,9 +120,11 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Email
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Text
+            fontSize="$paragraph"
+            fontWeight="$bold"
+            color="$primary5"
+          ></Text>
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$primary8">
@@ -131,9 +143,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Personality
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
@@ -152,9 +167,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Short Bio
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
@@ -174,9 +192,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Description
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
@@ -196,9 +217,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Other Images
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <HStack space="2xl" p="$3">
@@ -225,9 +249,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Social Media
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
@@ -246,9 +273,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Address
           </Text>
-          <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-            Edit
-          </Text>
+          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+              Edit
+            </Text>
+          </Button>
+          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
