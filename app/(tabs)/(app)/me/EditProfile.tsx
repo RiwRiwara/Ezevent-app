@@ -19,6 +19,9 @@ import {
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
 import EditName from "@components/Profile/EditName";
+import Shortbio from "@components/Profile/Shortbio";
+import EditDesc from "@components/Profile/EditDesc";
+import Personality from "@components/Profile/Personality";
 
 const EditProfile = () => {
   const styled = useStyled();
@@ -51,6 +54,12 @@ const EditProfile = () => {
   const { session } = useSession();
   const [showEditName, setShowEditName] = React.useState(false);
   const handleCloseEditName = () => setShowEditName(!showEditName);
+  const [showShortbio, setShowShortbio] = React.useState(false);
+  const handleCloseShortbio = () => setShowShortbio(!showShortbio);
+  const [showDesc, setShowDesc] = React.useState(false);
+  const handleCloseDesc = () => setShowDesc(!showDesc);
+  const [showPersonality, setShowPersonality] = React.useState(false);
+  const handleClosePersonality = () => setShowPersonality(!showPersonality);
   return (
     <ScrollView>
       <VStack reversed={false}>
@@ -65,12 +74,11 @@ const EditProfile = () => {
             Profile Image
           </Text>
 
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+          <Button px={9} backgroundColor="$gray0">
             <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
               Edit
             </Text>
           </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Avatar bgColor="$amber600" size="xl" borderRadius="$full">
@@ -88,8 +96,6 @@ const EditProfile = () => {
       <VStack reversed={false}>
         <HStack
           justifyContent="space-between"
-          p={10}
-          h={50}
           backgroundColor="$gray0"
           alignItems="center"
         >
@@ -143,16 +149,16 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Personality
           </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+          <Button px={9} onPress={handleClosePersonality} backgroundColor="$gray0">
             <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
               Edit
             </Text>
           </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          <Personality isOpen={showPersonality} onClose={handleClosePersonality} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            INTP
+            {user?.personality || "Personality"}
           </Text>
         </VStack>
       </VStack>
@@ -167,12 +173,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Short Bio
           </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+          <Button px={9} onPress={handleCloseShortbio} backgroundColor="$gray0">
             <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
               Edit
             </Text>
           </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          <Shortbio isOpen={showShortbio} onClose={handleCloseShortbio} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
@@ -192,12 +198,12 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Description
           </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
+          <Button px={9} onPress={handleCloseDesc} backgroundColor="$gray0">
             <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
               Edit
             </Text>
           </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          <EditDesc isOpen={showDesc} onClose={handleCloseDesc} />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">

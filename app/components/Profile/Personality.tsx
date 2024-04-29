@@ -22,11 +22,10 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const Personality: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const { user } = useSession();
   const styled = useStyled();
-  const [firstName, setFirstName] = useState(user?.first_name || "");
-  const [lastName, setLastName] = useState(user?.last_name || "");
+  const [Personality, setPersonality] = useState(user?.personality || "");
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -49,7 +48,7 @@ const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 fontWeight="$bold"
                 color="$neutral9"
               >
-                Edit Name
+                Edit Personality
               </Text>
               <Button px={2} onPress={onClose} backgroundColor="$gray0">
                 <X
@@ -60,26 +59,11 @@ const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               </Button>
             </HStack>
             <VStack space="xs">
-              <Text color="$neutral9" lineHeight="$xs">
-                First Name
-              </Text>
               <Input>
                 <InputField
                   type="text"
-                  value={firstName}
-                  onChangeText={(text) => setFirstName(text)}
-                />
-              </Input>
-            </VStack>
-            <VStack space="xs">
-              <Text color="$neutral9" lineHeight="$xs">
-                Last Name
-              </Text>
-              <Input>
-                <InputField
-                  type="text"
-                  value={lastName}
-                  onChangeText={(text) => setLastName(text)}
+                  value={Personality}
+                  onChangeText={(text) => setPersonality(text)}
                 />
               </Input>
             </VStack>
@@ -93,4 +77,4 @@ const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default EditName;
+export default Personality;

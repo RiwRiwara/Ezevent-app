@@ -6,6 +6,7 @@ interface User {
     role: any; 
     mobile_number: string;
     short_bio: string;
+    description: string;
     gender: string;
     personality: string;
     date_of_birth: string;
