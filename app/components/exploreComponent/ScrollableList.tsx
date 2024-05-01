@@ -1,9 +1,9 @@
 // app/components/explore/ScrollableList.tsx
 
 import React, { useState } from "react";
-import { ScrollView, Box, Text, Link, LinkText } from "@gluestack-ui/themed";
+import { ScrollView, Box, Text, LinkText, View } from "@gluestack-ui/themed";
 import { StyleSheet } from "react-native";
-
+import { Link } from "expo-router";
 const ScrollableList = () => {
   const [scrollContentWidth, setScrollContentWidth] = useState(0);
 
@@ -31,17 +31,19 @@ const ScrollableList = () => {
       ]}
     >
       {items.map((item, index) => (
-        <Link key={index} p={10} bg="$primary0">
-          <LinkText
-            size="sm"
-            fontFamily="$heading"
-            fontWeight="$semibold"
-            color="$neutral9"
-            $dark-color="$primary300"
-            textDecorationLine="none"
-          >
-            {item.label}
-          </LinkText>
+        <Link key={index} href={ "/dev"}>
+          <View p={10} bg="$primary0">
+            <Text
+              size="sm"
+              fontFamily="$heading"
+              fontWeight="$semibold"
+              color="$neutral9"
+              $dark-color="$primary300"
+              textDecorationLine="none"
+            >
+              {item.label}
+            </Text>
+          </View>
         </Link>
       ))}
     </ScrollView>
