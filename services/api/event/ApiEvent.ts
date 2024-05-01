@@ -5,9 +5,9 @@ import axios from "axios";
 export const GetEventDetail = (eventId: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const apiUrl = getApiUrl(
-        API_ENDPOINTS.EVENT_DETAIL_BY_ID.replace(":event_id", eventId)
-      );
+      const apiUrl = getApiUrl(API_ENDPOINTS.EVENT_DETAIL_BY_ID).replace(":event_id", eventId);
+      console.log(API_ENDPOINTS.EVENT_DETAIL_BY_ID);
+      console.log(apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {

@@ -21,7 +21,7 @@ export const API_ENDPOINTS = {
   CHECK_SESSION: { url: "/check-session", method: "GET" },
 
   // Event
-  EVENT_DETAIL_BY_ID: { url: "/event/:event_id", method: "GET" },
+  EVENT_DETAIL_BY_ID: { url: "/event/:event_id/detail", method: "GET" },
   LASTEST_EVENTS: { url: "/last-event", method: "GET" },
   ALL_EVENTS: { url: "/event/all", method: "GET" },
 
