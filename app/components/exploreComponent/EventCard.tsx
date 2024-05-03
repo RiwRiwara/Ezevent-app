@@ -47,7 +47,7 @@ export default function EventCard({
                 },
               }}
             >
-              May 15, 2023
+              {event.date_start}
             </Text>
           </>
 
