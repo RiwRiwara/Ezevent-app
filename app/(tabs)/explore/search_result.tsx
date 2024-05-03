@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Stack, Link } from "expo-router";
 import { useSession } from "@providers/ctx";
 import {
@@ -12,34 +12,61 @@ import {
     Center,
     useStyled,
     Image,
+    Button,
 } from '@gluestack-ui/themed';
 import { Ellipsis } from 'lucide-react-native';
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+import { GetEventsByQuery } from "@services/api/event/ApiEvent";
+import SearchFilter from "@components/exploreComponent/SearchFilter";
+import { Search } from "lucide-react-native";
+import { useNavigation, useLocalSearchParams } from "expo-router";
 
-type InboxProps = {title: string};
-
-const Item = ({title}: InboxProps) => (
-  <View>
-    <Text>{title}</Text>
-  </View>
-);
+type EventItem = {
+  event_id: string;
+  getBannerImage: string;
+  date_start: string;
+  event_name: string;
+  venue: string;
+};
 
 const Search_result = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
+  const navigation = useNavigation();
+  const params = useLocalSearchParams();
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const limitCharacter = (text, limit) => {
+    
+  };
+
+  const [showSearchFilter, setShowSearchFilter] = React.useState(false);
+  const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      setLoading(true);
+      console.log("[EventCardScroller] : Fetching all events...");
+      console.log(params.name.toString());
+      var search_query = ""
+      if (params.name !== undefined) {
+        search_query = "&name=" + params.name.toString();
+      }
+      GetEventsByQuery(1, search_query)
+        .then((data) => {
+          console.log("[EventCardScroller] : Finished fetching all events");
+          console.log(data.events);
+          setEvents(data.events);
+        })
+        .catch((error) => {
+          console.error(
+            "[EventCardScroller] : Error fetching all events:",
+            error
+          );
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, []);
   return (
     <View>
         <Box py="$10">
@@ -47,52 +74,54 @@ const Search_result = () => {
             <Heading size="xl" color="$neutral9">Search Result</Heading>
             <Center>
             <Ellipsis size={25} strokeWidth={2} color={neutral9}/>
+            <Button px={9} onPress={handleCloseSearchFilter} backgroundColor="$neutral6">
+            <Search
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.gray0}
+            />
+            </Button>
+            <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
             </Center>
           </HStack>
           <FlatList
-            data={DATA}
-            renderItem={({ item }) => (
+            data={events}
+            renderItem={({ item }: { item: EventItem }) => (
               <Box
                 borderBottomWidth="$2"
                 borderColor="$warning5"
-                $base-pl={0}
-                $base-pr={0}
-                $sm-pl="$4"
-                $sm-pr="$5"
                 py="$2"
               >
-              <Link href="(app)/inbox/inbox_detail" asChild>
-              <HStack space="md">
-                <Center>
+              <Link href={`/event/${item.event_id}`} push>
+              <HStack space="md" justifyContent="space-between">
+                
                   <Image
                     size="md"
                     mr="$3" 
                     ml='$3'
                     source={{
-                        uri: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                        uri: item.getBannerImage,
                     }}
                     />
-                </Center>
-                <VStack>
+                <VStack flex={1}>
                   <Text
                     color="$rose600"
                     fontWeight="$bold"
                     size='2xs'
                   >
-                    Sun, 26 Nov 2023 
+                    {item.date_start}
                   </Text>
                   <Text 
                   color="$neutral9"
                   size='md'
                   >
-                  Help the world by your hand
+                  {item.event_name}
                   </Text>
                   <Text
                   fontSize="$xs"
                   color="$coolGray800"
-                  alignSelf="center"
-                >
-                  Help the world by plant the tree and give the<br />earth cooling, I need volunteer more than 100 
+                  >
+                  {item.venue}
                 </Text>
                 </VStack>
               </HStack>
