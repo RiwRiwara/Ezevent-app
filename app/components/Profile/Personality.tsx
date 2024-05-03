@@ -15,17 +15,34 @@ import {
   InputField,
   FormControl,
 } from "@gluestack-ui/themed";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "@providers/ctx";
+import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 const Personality: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { user } = useSession();
+  const { user,session } = useSession();
   const styled = useStyled();
   const [Personality, setPersonality] = useState(user?.personality || "");
+
+  const updateOnClicked = () => {
+    console.log("update clicked");
+    UpdateProfile(session,"personality", Personality)
+      .then((data) => {
+        console.log("Personality updated");
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error updating Personality:", error);
+      })
+      .finally(() => {
+        console.log("Personality updated");
+      });
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -67,7 +84,7 @@ const Personality: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 />
               </Input>
             </VStack>
-            <Button ml="auto" onPress={onClose}>
+            <Button ml="auto" onPress={updateOnClicked}>
               <ButtonText color="$gray0">Save</ButtonText>
             </Button>
           </VStack>
