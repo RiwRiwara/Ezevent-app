@@ -69,6 +69,18 @@ function TestAPI() {
           );
           break;
         case "PUT":
+          response = await axios.put(
+            getApiUrl(selectEndpoint),
+            JSON.parse(reqBody),
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "ngrok-skip-browser-warning": "true",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           break;
         case "DELETE":
           break;

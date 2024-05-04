@@ -238,7 +238,7 @@ export default () => {
                     bg={isHeld ? "$gray1" : "$gray0"}
                     w={80}
                     h={80}
-                    top={Platform.OS != "web" ? Platform.OS == "ios" ? -10 : -12 : 20}
+                    top={Platform.OS != "web" ? Platform.OS == "ios" ? -10 : -12 : -20}
                     borderRadius={Platform.OS != "web" ? 35 : 40}
                     alignItems="center"
                     justifyContent="center"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import {
   useStyled,
@@ -24,6 +24,7 @@ import {
   InputField,
   Box,
 } from "@gluestack-ui/themed";
+import { useNavigation } from "expo-router";
 
 interface ActionsheetProps {
   isOpen: boolean;
@@ -34,6 +35,17 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
   const handlePressOutside = () => {
     Keyboard.dismiss(); // Dismisses the keyboard when pressed outside
   };
+  const [eventName, setEventName] = useState('');
+  const navigation = useNavigation();
+
+  const handleFindEvent = async () => {
+    try {
+        navigation.navigate('explore/search_result', { name: eventName });
+    } catch (error) {
+      console.error('Error finding event:', error);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={handlePressOutside}>
       <Actionsheet isOpen={isOpen} onClose={onClose} snapPoints={[85]}>
@@ -69,10 +81,18 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
                   space="md"
                 >
                   <Input w="80%">
-                    <InputField placeholder="Enter Keyboard" />
+                    <InputField 
+                      placeholder="Event Name" 
+                      value={eventName}
+                      onChangeText={text => setEventName(text)}
+                      />
                   </Input>
                   <Button w="20%" backgroundColor="$neutral6" onPress={onClose} >
-                    <ButtonText fontSize="$sm">Find</ButtonText>
+                    <ButtonText 
+                      fontSize="$sm"
+                      onPress={handleFindEvent}>
+                      Find
+                    </ButtonText>
                   </Button>
                 </HStack>
                 <VStack bg="$gray0" w="$full" mt={10}>
