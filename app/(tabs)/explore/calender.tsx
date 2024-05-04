@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import { Redirect, Stack, Link } from "expo-router";
+import { Redirect, Stack, Link, useLocalSearchParams } from "expo-router";
 import { useSession } from "@providers/ctx";
 import {
     FlatList,
@@ -12,8 +12,16 @@ import {
     Center,
     useStyled,
     Image,
+    Button,
 } from '@gluestack-ui/themed';
 import { Ellipsis } from 'lucide-react-native';
+import SearchFilter from "@components/exploreComponent/SearchFilter";
+import { Search } from "lucide-react-native";
+import { useEffect, useState } from "react";
+import { GetEventsByQuery } from "@services/api/event/ApiEvent";
+import { useWindowDimensions } from "react-native";
+
+
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -29,17 +37,38 @@ const DATA = [
   },
 ];
 
-type InboxProps = {title: string};
-
-const Item = ({title}: InboxProps) => (
-  <View>
-    <Text>{title}</Text>
-  </View>
-);
-
 const Calender = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
+
+  const [showSearchFilter, setShowSearchFilter] = React.useState(false);
+  const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
+
+  const params = useLocalSearchParams();
+  const [eventDetail, setEventDetail] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const contentW = useWindowDimensions().width;
+  const [source, setSource] = useState({ html: "" });
+
+  useEffect(() => {
+    setLoading(true);
+    console.log("[EventCardScroller] : Fetching all events...");
+    GetEventsByQuery(1, "&name=เทค")
+      .then((data) => {
+        console.log("[EventCardScroller] : Finished fetching all events");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(
+          "[EventCardScroller] : Error fetching all events:",
+          error
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <View>
         <Box py="$10">
@@ -47,6 +76,14 @@ const Calender = () => {
             <Heading size="xl" color="$neutral9">Events In 26 Nov 2023</Heading>
             <Center>
             <Ellipsis size={25} strokeWidth={2} color={neutral9}/>
+            <Button px={9} onPress={handleCloseSearchFilter} backgroundColor="$neutral6">
+            <Search
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.gray0}
+            />
+            </Button>
+            <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
             </Center>
           </HStack>
           <FlatList
