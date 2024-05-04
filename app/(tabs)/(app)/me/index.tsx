@@ -86,9 +86,9 @@ const Me = () => {
                 <AvatarFallbackText>Robert Fox</AvatarFallbackText>
                 <AvatarImage
                   source={{
-                    uri:
-                      IMAGE_URLS.userprofile + "/" + user?.profile_img ||
-                      DEFAULT_IMAGES.userprofile,
+                    uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      // IMAGE_URLS.userprofile + "/" + user?.profile_img ||
+                      // DEFAULT_IMAGES.userprofile,
                   }}
                 />
               </Avatar>
