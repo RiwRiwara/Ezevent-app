@@ -19,7 +19,7 @@ import {AlignRight, Menu} from "lucide-react-native";
 const MyEventBar = ({title}) => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
-  console.log(title)
+  // console.log(title)
   return (
     <HStack
         justifyContent="space-between"

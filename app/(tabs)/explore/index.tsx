@@ -109,7 +109,6 @@ const Explore = () => {
         
         <TitleBar title="Other events" />
         <EventCardScroller refreshing={componentRefreshing} />
-
         <View bg="$gray0" minHeight={200}></View>
       </ScrollView>
     </View>
