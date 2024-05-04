@@ -56,10 +56,11 @@ export const GetSavedMyEvents = async (sessionToken: string): Promise<any> => {
   }
 };
 
-export const GetAppMyEvents = async (sessionToken: string): Promise<any> => {
+export const GetAppMyEvents = async (sessionToken: string, page: number = 1): Promise<any> => {
   try {
-    const apiUrl = getApiUrl(API_ENDPOINTS.APPLICATION_MYEVENT)
-
+    const apiUrl = getApiUrl(API_ENDPOINTS.MY_APPLICATION) + `?page=${page}`;
+    console.log(apiUrl)
+    console.log(page)
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -72,13 +73,13 @@ export const GetAppMyEvents = async (sessionToken: string): Promise<any> => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch events");
+      throw new Error(errorData.message || "Failed to fetch application");
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.error("Error fetching application:", error);
     throw error;
   }
 };

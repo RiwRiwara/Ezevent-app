@@ -95,6 +95,7 @@ const Search_result = () => {
                     size="md"
                     mr="$3" 
                     ml='$3'
+                    alt='IMG'
                     source={{
                         uri: item.getBannerImage,
                     }}
