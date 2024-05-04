@@ -26,6 +26,7 @@ import { Link } from "expo-router";
 
 import MyEventCard from "@components/myeventComponent/MyEventCard";
 import MyEventBar from "@components/myeventComponent/MyEventBar";
+import ApplicationScroll from "@components/myeventComponent/ApplicationScroll";
 
 const MyEvent = () => {
   const { t } = useTranslation();
@@ -35,7 +36,9 @@ const MyEvent = () => {
   const windowHeight = useWindowDimensions().height;
   // console.log(windowWidth);
   return (
+    
     <VStack bg="$gray0">
+      {/* <View bg="$gray0" minHeight={200}></View> */}
       <HStack
         justifyContent="space-between"
         px={15}
@@ -81,7 +84,7 @@ const MyEvent = () => {
               </Text>
             </Box>
           </Link>
-          <Link href={"/(app)/myevent/InProgres"}>
+          <Link href={"/(app)/myevent/InProgress"}>
             <Box
               w={120}
               h={120}
@@ -148,13 +151,7 @@ const MyEvent = () => {
       </VStack>
 
       <MyEventBar title="Recent Requesting" />
-      <ScrollView h={450} w="$full" paddingBottom={5}>
-        <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />
-        <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />
-        <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />
-        <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />
-        <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />
-      </ScrollView>
+      <ApplicationScroll/>
     </VStack>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Stack } from "expo-router";
 import { useSession } from "@providers/ctx";
 import {
@@ -9,37 +9,78 @@ import {
   VStack,
   Text,
   Box,
+  Pressable,
+  View
 } from "@gluestack-ui/themed";
 import { useTranslation } from "react-i18next";
 import MyEventBar from "@components/myeventComponent/MyEventBar";
-import MyEventCard from "@components/myeventComponent/MyEventCard";
+import MyEventScroll from "@components/myeventComponent/MyEventScroll";
+
 const InProgres = () => {
   const styled = useStyled();
   const { t } = useTranslation();
+  const [selectedValue, setSelectedValue] = useState("All");
+  const [reload, setReload] = useState(false);
+
+  const handleSelectValue = (value) => {
+    setSelectedValue(value);
+    console.log(selectedValue);
+    setReload(!reload);
+  };
+
+  useEffect(() => {
+    // console.log("MyEventScroll reloaded");
+  }, [reload]);
 
   return (
-    <VStack bg="$gray0">
+    <View bg="$gray0">
       <MyEventBar title="List of In-progress Event" />
-
-      <HStack justifyContent="flex-start" px={15} py={5} >
-        <Box bg="$gray2" borderRadius={5} alignItems="center" mx={10} p="$0.5">
-          <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9">
-          Waiting Check In
+      <HStack justifyContent="flex-start" px={15} py={5}>
+        <Pressable onPress={() => handleSelectValue("All")}>
+          <Box bg="$gray2" borderRadius={5} alignItems="center" mx={10} >
+            <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" p="$0.5" px="$8">
+              All
+            </Text>
+          </Box>
+        </Pressable>
+        <Pressable onPress={() => handleSelectValue("Participant")}>
+        <Box bg="$primary0" borderRadius={5} alignItems="center" mx={10}>
+          <Text
+            fontSize="$small_3"
+            fontWeight="$bold"
+            color="$neutral9"
+            mx={10}
+            p="$0.5"
+          >
+            Participants
           </Text>
         </Box>
-        <Box bg="$primary0" borderRadius={5} alignItems="center" >
-          <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" mx={10} p="$0.5">
-          In event
+        </Pressable>
+        <Pressable onPress={() => handleSelectValue("Staff")}>
+        <Box bg="$primary0" borderRadius={5} alignItems="center" mx={10} px="$5">
+          <Text
+            fontSize="$small_3"
+            fontWeight="$bold"
+            color="$neutral9"
+            mx={10}
+            p="$0.5"
+          >
+            Staff
           </Text>
         </Box>
+        </Pressable>
       </HStack>
 
-      <ScrollView bg="$gray0">
-        <MyEventCard titleBtn="Check In" colorBtn="$primary4" button/>
-        <MyEventCard titleBtn="Check In" colorBtn="$primary4" button/>
-        <MyEventCard whiteBtn="Exit" titleBtn="Check Out" colorBtn="$gray3" button/>
-      </ScrollView>
-    </VStack>
+      <MyEventScroll
+        key={reload}
+        type={selectedValue}
+        progress="IsCheckIn"
+        status="Normal"
+        titleBtn="Check In"
+        colorBtn="$primary4"
+        button = {true}
+      />
+    </View>
   );
 };
 

@@ -28,11 +28,20 @@ export const API_ENDPOINTS = {
   // Get my application
   MY_APPLICATION: { url: "/event/get-my-application", method: "GET" },
 
+
+  // My Event
+  STATUS_MYEVENT: { url: "/event/myevent/:type/:progress/:status", method: "GET" },
+  SAVED_MYEVENT: { url: "/event/savedevent", method: "GET" },
+  APPLICATION_MYEVENT: { url: "/event/get-my-application", method: "GET" }
+  
+
   // Profile
   GET_PROFILE: { url: "/my-profile", method: "GET" },
   UPDATE_PROFILE: { url: "/user", method: "PUT" },
   UPLOAD_PROFILE_IMAGE : { url: "/uploadprofileimage", method: "POST" },
+
 };
+
 
 export const getApiUrl = (endpoint: Endpoint): string => {
   return API_BASE_URL + endpoint.url;

@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import MyEventBar from "@components/myeventComponent/MyEventBar";
 import MyEventCard from "@components/myeventComponent/MyEventCard";
 import { DotIcon } from "lucide-react-native";
+import MyEventSaveScroll from "@components/myeventComponent/MyEventSaveScroll";
+
 const Saved = () => {
   const styled = useStyled();
   const {t} = useTranslation();
@@ -13,11 +15,7 @@ const Saved = () => {
   return (
     <View bg="$gray0">
     <MyEventBar title="List of saved events" />
-      <ScrollView bg="$gray0">
-        <MyEventCard titleBtn="View" colorBtn="$primary4" />
-        <MyEventCard titleBtn="View" colorBtn="$primary4" />
-
-      </ScrollView>
+      <MyEventSaveScroll></MyEventSaveScroll>
     </View>
   );
 };
