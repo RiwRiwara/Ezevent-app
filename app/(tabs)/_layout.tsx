@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Tabs, Stack } from "expo-router";
 import {
   Platform,
-  TouchableWithoutFeedback,
+  Pressable,
   Modal,
   Button,
 } from "react-native";
@@ -222,7 +222,7 @@ export default () => {
             title: "",
             tabBarIcon: ({ focused }) => {
               return (
-                <TouchableWithoutFeedback
+                <Pressable
                   onLongPress={handleLongPress}
                   onPressOut={handlePressOut}
                   delayLongPress={100}
@@ -248,7 +248,7 @@ export default () => {
                   >
                     <QrCode size={50} strokeWidth={2} color={neutral6} />
                   </View>
-                </TouchableWithoutFeedback>
+                </Pressable>
               );
             },
           }}

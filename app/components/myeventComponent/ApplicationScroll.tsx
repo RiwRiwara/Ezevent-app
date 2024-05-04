@@ -20,12 +20,9 @@ export default function ApplicationScroll() {
 
   useEffect(() => {
     setLoading(true);
-    console.log("[ApplicationScroll] : Fetching all events...");
     GetAppMyEvents(session)
       .then((data) => {
-        console.log("[ApplicationScroll] : Finished fetching all events");
         setappData(data.events);
-        console.log(data)
       })
       .catch((error) => {
         console.error(

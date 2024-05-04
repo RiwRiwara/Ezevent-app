@@ -34,7 +34,6 @@ const MyEvent = () => {
   const neutral9 = styled.config.tokens.colors.neutral9;
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
-  // console.log(windowWidth);
   return (
     
     <VStack bg="$gray0">

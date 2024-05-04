@@ -52,6 +52,8 @@ const SigninWithEmailForm = ({ setFormType, handleCloseModal }) => {
       bg="$gray0"
       style={{
         minHeight: "90%",
+        marginTop: 100,
+
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         shadowColor: "#000",

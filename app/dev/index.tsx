@@ -42,7 +42,6 @@ function TestAPI() {
       var response;
       switch (selectEndpoint.method) {
         case "GET":
-          console.log(JSON.stringify(reqBody));
           response = await axios.get(getApiUrl(selectEndpoint), {
             headers: {
               "Content-Type": "application/json",
@@ -54,7 +53,6 @@ function TestAPI() {
 
           break;
         case "POST":
-          console.log(JSON.stringify(JSON.parse(reqBody)));
           response = await axios.post(
             getApiUrl(selectEndpoint),
             JSON.parse(reqBody),

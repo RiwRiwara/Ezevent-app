@@ -5,7 +5,6 @@ import { API_ENDPOINTS } from "@constants/api/endpoints";
 export const GetStatusMyEvents = async (type: string, progress: string, status: string, sessionToken: string): Promise<any> => {
   try {
     const apiUrl = getApiUrl(API_ENDPOINTS.STATUS_MYEVENT).replace(":type", type).replace(":progress", progress).replace(":status", status);
-    // console.log("API Endpoint:", apiUrl);
 
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -33,7 +32,6 @@ export const GetStatusMyEvents = async (type: string, progress: string, status: 
 export const GetSavedMyEvents = async (sessionToken: string): Promise<any> => {
   try {
     const apiUrl = getApiUrl(API_ENDPOINTS.SAVED_MYEVENT);
-    console.log("API Endpoint:", apiUrl);
 
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -61,7 +59,6 @@ export const GetSavedMyEvents = async (sessionToken: string): Promise<any> => {
 export const GetAppMyEvents = async (sessionToken: string): Promise<any> => {
   try {
     const apiUrl = getApiUrl(API_ENDPOINTS.APPLICATION_MYEVENT)
-    // console.log("API Endpoint:", apiUrl);
 
     const response = await fetch(apiUrl, {
       method: "GET",

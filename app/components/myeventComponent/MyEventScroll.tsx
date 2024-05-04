@@ -29,13 +29,10 @@ export default function MyEventScroll(props) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("[MyEventScroll] : Fetching all events...");
     GetStatusMyEvents(type, progress, status, session)
       .then((data) => {
-        console.log("[MyEventScroll] : Finished fetching all events");
         setEventData(data.events);
         setEventsFound(data.events.length > 0);
-        console.log(data.events)
       })
       .catch((error) => {
         console.error(

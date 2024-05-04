@@ -6,8 +6,6 @@ export const GetEventDetail = (eventId: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const apiUrl = getApiUrl(API_ENDPOINTS.EVENT_DETAIL_BY_ID).replace(":event_id", eventId);
-      console.log(API_ENDPOINTS.EVENT_DETAIL_BY_ID);
-      console.log(apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -89,7 +87,6 @@ export const GetEventsByQuery = (page = 1, query_string = ""): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const apiUrl = getApiUrl(API_ENDPOINTS.ALL_EVENTS) + `?page=${page}` + `${query_string}`;
-      console.log(apiUrl);
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {

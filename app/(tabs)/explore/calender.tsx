@@ -52,11 +52,9 @@ const Calender = () => {
 
   useEffect(() => {
     setLoading(true);
-    console.log("[EventCardScroller] : Fetching all events...");
     GetEventsByQuery(1, "&name=เทค")
       .then((data) => {
-        console.log("[EventCardScroller] : Finished fetching all events");
-        console.log(data);
+        // TODO
       })
       .catch((error) => {
         console.error(

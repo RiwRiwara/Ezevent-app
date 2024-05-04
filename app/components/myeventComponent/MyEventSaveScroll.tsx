@@ -24,12 +24,9 @@ export default function MyEventSaveScroll() {
 
   useEffect(() => {
     setLoading(true);
-    console.log("[MyEventSaveScroll] : Fetching all events...");
     GetSavedMyEvents(session)
       .then((data) => {
-        console.log("[MyEventSaveScroll] : Finished fetching all events");
         seteventSaveData(data.events);
-        console.log(data.events);
       })
       .catch((error) => {
         console.error(
@@ -63,7 +60,6 @@ export default function MyEventSaveScroll() {
       ) : (
         <>
           {eventSaveData.map((saveevent, index) => {
-            // console.log(saveevent);
             return (
               <View w="$full" alignItems="center">
                 <Link href={`/event/${saveevent.event.event_id}`} push>

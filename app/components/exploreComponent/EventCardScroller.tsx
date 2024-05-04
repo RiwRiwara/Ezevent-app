@@ -22,10 +22,8 @@ const EventCardScroller = ({
 
   useEffect(() => {
     setLoading(true);
-    console.log("[EventCardScroller] : Fetching all events...");
     GetAllEvents()
       .then((data) => {
-        console.log("[EventCardScroller] : Finished fetching all events");
         setEvents(data.events);
       })
       .catch((error) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Platform, Modal, TouchableWithoutFeedback } from "react-native";
+import { Platform, Modal, Pressable } from "react-native";
 import {
   Button,
   ButtonText,
@@ -31,6 +31,7 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
             alt="Background Image"
             style={{
               minHeight: "90%",
+              marginTop: 100,
               shadowColor: "#000",
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
@@ -107,6 +108,8 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
         );
     }
   };
+
+  
   return (
     <Modal
       visible={isPreSigninVisible}
@@ -115,9 +118,9 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
       onRequestClose={toggleModal}
     >
       <View style={{ flex: 1 }}>
-        <TouchableWithoutFeedback onPress={toggleModal}>
+        <Pressable onPress={toggleModal}>
           <View style={{ flex: 1 }}></View>
-        </TouchableWithoutFeedback>
+        </Pressable>
         {renderForm()}
       </View>
     </Modal>

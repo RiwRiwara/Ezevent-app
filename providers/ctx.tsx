@@ -92,7 +92,6 @@ export function SessionProvider(props: React.PropsWithChildren) {
           Authorization: `Bearer ${session}`,
         },
       });
-      console.log("Session is valid:", response.data);
     } catch (error) {
       console.error("Error verifying session:", error);
       signOut();

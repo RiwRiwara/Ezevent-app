@@ -69,8 +69,10 @@ const Explore = () => {
               color={styled.config.tokens.colors.gray0}
             />
           </Button>
-          <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
+
+          
         </HStack>
+
         <ScrollableList />
       </VStack>
 
@@ -111,6 +113,8 @@ const Explore = () => {
         <EventCardScroller refreshing={componentRefreshing} />
         <View bg="$gray0" minHeight={200}></View>
       </ScrollView>
+      <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
+
     </View>
   );
 };

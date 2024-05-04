@@ -29,16 +29,12 @@ const EventDetail = () => {
   const [source, setSource] = useState({ html: "" });
 
   const event_id = params.event_id.toString();
-  console.log(event_id)
   useEffect(() => {
     setLoading(true);
-    console.log("[EventDetail] : Fetching event detail... " + event_id);
     GetEventDetail(event_id)
       .then((data) => {
-        console.log("[EventDetail] : Finished fetching event detail");
         setSource({ html: data.event.content });
         setEventDetail(data.event);
-        console.log(data.event)
       })
       .catch((error) => {
         console.error("[EventDetail] : Error fetching event detail:", error);

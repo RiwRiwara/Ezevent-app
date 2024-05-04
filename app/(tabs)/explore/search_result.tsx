@@ -45,16 +45,12 @@ const Search_result = () => {
 
   useEffect(() => {
       setLoading(true);
-      console.log("[EventCardScroller] : Fetching all events...");
-      console.log(params.name.toString());
       var search_query = ""
       if (params.name !== undefined) {
         search_query = "&name=" + params.name.toString();
       }
       GetEventsByQuery(1, search_query)
         .then((data) => {
-          console.log("[EventCardScroller] : Finished fetching all events");
-          console.log(data.events);
           setEvents(data.events);
         })
         .catch((error) => {

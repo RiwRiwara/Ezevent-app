@@ -15,10 +15,8 @@ const EventScrollableList = ({
 
   useEffect(() => {
     setLoading(true);
-    console.log("[EventScrollableList] : Fetching latest events...");
     GetLastestEvent()
       .then((data) => {
-        console.log("EventScrollableList] : Finished fetching latest events");
         setLatestEvents(data.events);
       })
       .catch((error) => {

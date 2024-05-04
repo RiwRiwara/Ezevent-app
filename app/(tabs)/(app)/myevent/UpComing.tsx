@@ -27,12 +27,10 @@ const UpComing = () => {
 
   const handleSelectValue = (value) => {
     setSelectedValue(value);
-    console.log(selectedValue);
     setReload(!reload);
   };
 
   useEffect(() => {
-    // console.log("MyEventScroll reloaded");
   }, [reload]);
 
   

@@ -71,6 +71,7 @@ const CreateAccountForm = ({ setFormType, handleCloseModal }) => {
         minHeight: "90%",
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
+        marginTop: 100,
         shadowColor: "#000",
         shadowOffset: {
           width: 0,

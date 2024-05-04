@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Pressable, Keyboard } from "react-native";
 import {
   useStyled,
   VStack,
@@ -47,15 +47,13 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handlePressOutside}>
+    <Pressable onPress={handlePressOutside}>
       <Actionsheet isOpen={isOpen} onClose={onClose} snapPoints={[85]}>
         <KeyboardAvoidingView
           behavior="position"
           keyboardVerticalOffset={-250}
           style={{
-            position: "relative",
             flex: 1,
-            justifyContent: "flex-end",
           }}
         >
           <ActionsheetBackdrop />
@@ -228,7 +226,7 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
           </ActionsheetContent>
         </KeyboardAvoidingView>
       </Actionsheet>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 };
 
