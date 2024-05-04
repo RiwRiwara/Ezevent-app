@@ -25,14 +25,12 @@ export default function MyEventScroll(props) {
   const [loading, setLoading] = useState(true);
   const { session } = useSession();
   const [eventData, setEventData] = useState([]);
-  const [eventsFound, setEventsFound] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     GetStatusMyEvents(type, progress, status, session)
       .then((data) => {
         setEventData(data.events);
-        setEventsFound(data.events.length > 0);
       })
       .catch((error) => {
         console.error(
@@ -41,7 +39,6 @@ export default function MyEventScroll(props) {
         );
       })
       .finally(() => {
-        
         setLoading(false);
       });
   }, [session]);
@@ -64,31 +61,16 @@ export default function MyEventScroll(props) {
           </View>
         </VStack>
       ) : (
-        <>
-          {eventsFound ? (
-            eventData.map((event, index) => (
-              <MyEventCard
-                key={index}
-                titleBtn={titleBtn}
-                colorBtn={colorBtn}
-                myevent={event}
-                whiteBtn={whiteBtn}
-                button={button}
-              />
-            ))
-          ) : (
-            <VStack justifyContent="space-between" alignItems="center">
-              <Text
-                fontSize="$title_5"
-                fontWeight="$bold"
-                color="$danger9"
-                p="$1"
-              >
-                No events
-              </Text>
-            </VStack>
-          )}
-        </>
+        eventData.map((event, index) => (
+          <MyEventCard
+            key={index}
+            titleBtn={titleBtn}
+            colorBtn={colorBtn}
+            myevent={event}
+            whiteBtn={whiteBtn}
+            button={button}
+          />
+        ))
       )}
     </ScrollView>
   );

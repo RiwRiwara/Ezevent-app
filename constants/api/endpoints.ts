@@ -32,7 +32,6 @@ export const API_ENDPOINTS = {
   // My Event
   STATUS_MYEVENT: { url: "/event/myevent/:type/:progress/:status", method: "GET" },
   SAVED_MYEVENT: { url: "/event/savedevent", method: "GET" },
-  APPLICATION_MYEVENT: { url: "/event/get-my-application", method: "GET" },
   
 
   // Profile

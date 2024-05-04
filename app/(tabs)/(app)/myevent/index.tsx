@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "@i18n/i18n.config";
 import { useTranslation } from "react-i18next";
 import { useStyled } from "@gluestack-ui/themed";
@@ -13,6 +13,8 @@ import {
   View,
   Image,
   ScrollView,
+  Button,
+  Pressable
 } from "@gluestack-ui/themed";
 import {
   CalendarCheck,
@@ -34,8 +36,19 @@ const MyEvent = () => {
   const neutral9 = styled.config.tokens.colors.neutral9;
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  console.log(currentPage)
   return (
-    
     <VStack bg="$gray0">
       {/* <View bg="$gray0" minHeight={200}></View> */}
       <HStack
@@ -150,7 +163,35 @@ const MyEvent = () => {
       </VStack>
 
       <MyEventBar title="Recent Requesting" />
-      <ApplicationScroll/>
+      <HStack justifyContent="space-between" mx="$1" mb="$2">
+        <Pressable onPress={handlePrevPage}>
+          <Box bg="$neutral3" borderRadius={5} alignItems="center" mx={10}>
+            <Text
+              fontSize="$small_3"
+              fontWeight="$bold"
+              color="$neutral9"
+              p="$0.5"
+              px="$8"
+            >
+              Previous
+            </Text>
+          </Box>
+        </Pressable>
+        <Pressable onPress={handleNextPage}>
+          <Box bg="$neutral3" borderRadius={5} alignItems="center" mx={10}>
+            <Text
+              fontSize="$small_3"
+              fontWeight="$bold"
+              color="$neutral9"
+              p="$0.5"
+              px="$8"
+            >
+              Next
+            </Text>
+          </Box>
+        </Pressable>
+      </HStack>
+      <ApplicationScroll page={currentPage}/>
     </VStack>
   );
 };
