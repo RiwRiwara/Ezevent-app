@@ -24,18 +24,14 @@ export const UpdateProfile = (session,field_name, value): Promise<any> => {
             }
           );
         console.log(response);
-        var data = {
-            status: "success",
-            data: "Profile updated successfully"
-        }
         console.log(response.status);
         
         if (response.status != 200) {
-            reject(new Error(data.data));
+            reject(new Error(response.data.message));
             return;
         }
       
-        resolve(data);
+        resolve(response);
       } catch (error) {
         reject(error);
       }

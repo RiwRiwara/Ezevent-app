@@ -22,36 +22,11 @@ import EditName from "@components/Profile/EditName";
 import Shortbio from "@components/Profile/Shortbio";
 import EditDesc from "@components/Profile/EditDesc";
 import Personality from "@components/Profile/Personality";
+import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
 
 const EditProfile = () => {
   const styled = useStyled();
-  const { user } = useSession();
-  const captions = {
-    learnings: "Learning Skill",
-    problemsolving: "Problem-Solving Skill",
-    communication: "Communication Skill",
-    professional: "Professional Skill",
-    knowledge: "Knowledge",
-    Leadership: "Leadership",
-    thinking: "Thinking",
-    teamwork: "Teamwork Skill",
-  };
-  const data = [
-    {
-      data: {
-        learnings: 0.8,
-        problemsolving: 0.5,
-        communication: 0.4,
-        professional: 0.5,
-        knowledge: 0.4,
-        Leadership: 0.5,
-        thinking: 0.5,
-        teamwork: 0.9,
-      },
-      meta: { color: "#58FCEC" },
-    },
-  ];
-  const { session } = useSession();
+  const { user,session } = useSession();
   const [showEditName, setShowEditName] = React.useState(false);
   const handleCloseEditName = () => setShowEditName(!showEditName);
   const [showShortbio, setShowShortbio] = React.useState(false);
@@ -60,6 +35,25 @@ const EditProfile = () => {
   const handleCloseDesc = () => setShowDesc(!showDesc);
   const [showPersonality, setShowPersonality] = React.useState(false);
   const handleClosePersonality = () => setShowPersonality(!showPersonality);
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    GetMyprofile(session)
+      .then((data) => {
+        setUserData(data.user);
+        console.log(data);
+        console.log(data.user);
+      })
+      .catch((error) => {
+        console.error("[EditProfile] : Error fetching profile:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [session]);
+
   return (
     <ScrollView>
       <VStack reversed={false}>
@@ -86,7 +80,7 @@ const EditProfile = () => {
             <AvatarImage
               source={{
                 uri:
-                  IMAGE_URLS.userprofile + "/" + user?.profile_img ||
+                  IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
                   DEFAULT_IMAGES.userprofile,
               }}
             />
@@ -107,11 +101,16 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          <EditName 
+            isOpen={showEditName} 
+            onClose={handleCloseEditName}
+            firstName={userData?.first_name}
+            lastName={userData?.last_name} 
+          />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$primary8">
-            {user?.first_name || "Robert Fox"} {user?.last_name || "Fox"}
+            {userData?.first_name || "Robert Fox"} {userData?.last_name || "Fox"}
           </Text>
         </VStack>
       </VStack>
@@ -134,7 +133,7 @@ const EditProfile = () => {
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$primary8">
-            {user?.email || "robert@mail.com"}
+            {userData?.email || "robert@mail.com"}
           </Text>
         </VStack>
       </VStack>
@@ -154,11 +153,15 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <Personality isOpen={showPersonality} onClose={handleClosePersonality} />
+          <Personality 
+            isOpen={showPersonality} 
+            onClose={handleClosePersonality}
+            personality={userData?.personality}
+          />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {user?.personality || "Personality"}
+            {userData?.personality || "Personality"}
           </Text>
         </VStack>
       </VStack>
@@ -178,12 +181,16 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <Shortbio isOpen={showShortbio} onClose={handleCloseShortbio} />
+          <Shortbio 
+            isOpen={showShortbio} 
+            onClose={handleCloseShortbio}
+            shortBio={userData?.short_bio} 
+          />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            Hello my name is {user?.first_name || "Robert Fox"}{" "}
-            {user?.last_name || "Fox"}
+            Hello my name is {userData?.first_name || "Robert Fox"}{" "}
+            {userData?.last_name || "Fox"}
           </Text>
         </VStack>
       </VStack>
@@ -203,11 +210,15 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <EditDesc isOpen={showDesc} onClose={handleCloseDesc} />
+          <EditDesc 
+            isOpen={showDesc} 
+            onClose={handleCloseDesc}
+            description={userData?.description}
+          />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {user?.short_bio ||
+            {userData?.description ||
               "Hello My name is Robert i study in thailand and i love cat , My hobbies is playing game and let adventure in real world i can’t do anything that it will improve the world"}
           </Text>
         </VStack>
@@ -288,7 +299,7 @@ const EditProfile = () => {
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {user?.address || "Address"}
+            {userData?.address || "Address"}
           </Text>
         </VStack>
       </VStack>

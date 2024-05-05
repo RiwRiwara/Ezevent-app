@@ -24,10 +24,10 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Personality: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const Personality: React.FC<ModalProps & { personality?: string }> = ({ isOpen, onClose, personality }) => {
   const { user,session } = useSession();
   const styled = useStyled();
-  const [Personality, setPersonality] = useState(user?.personality || "");
+  const [Personality, setPersonality] = useState(personality || "");
 
   const updateOnClicked = () => {
     console.log("update clicked");

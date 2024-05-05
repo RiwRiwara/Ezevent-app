@@ -17,15 +17,32 @@ import {
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { useSession } from "@providers/ctx";
+import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const Shortbio: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { user } = useSession();
+const Shortbio: React.FC<ModalProps & { shortBio?: string }> = ({ isOpen, onClose, shortBio }) => {
+  const { session } = useSession();
   const styled = useStyled();
-  const [shortBio, setShortBio] = useState(user?.short_bio || "");
+  const [ShortBio, setShortBio] = useState(shortBio || "");
+
+  const updateOnClicked = () => {
+    console.log("update clicked");
+    UpdateProfile( session,"short_bio", ShortBio)
+      .then((data) => {
+        console.log("updated");
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error updating:", error);
+      })
+      .finally(() => {
+        console.log("updated");
+      });
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -62,12 +79,12 @@ const Shortbio: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <Input>
                 <InputField
                   type="text"
-                  value={shortBio}
+                  value={ShortBio}
                   onChangeText={(text) => setShortBio(text)}
                 />
               </Input>
             </VStack>
-            <Button ml="auto" onPress={onClose}>
+            <Button ml="auto" onPress={updateOnClicked}>
               <ButtonText color="$gray0">Save</ButtonText>
             </Button>
           </VStack>
