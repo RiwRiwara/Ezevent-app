@@ -5,7 +5,6 @@ import { Settings } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { IMAGE_URLS, DEFAULT_IMAGES } from "@constants/azure/azureimageurl";
 import { Redirect, Link, useLocalSearchParams } from "expo-router";
-
 import {
   useStyled,
   VStack,
@@ -19,35 +18,22 @@ import {
   AvatarImage,
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
+import { retrieveToken } from "@utils/RetrieveToken";
+
 
 const Me = () => {
   const styled = useStyled();
   const { user } = useSession();
-  const captions = {
-    learnings: "Learning Skill",
-    problemsolving: "Problem-Solving Skill",
-    communication: "Communication Skill",
-    professional: "Professional Skill",
-    knowledge: "Knowledge",
-    Leadership: "Leadership",
-    thinking: "Thinking",
-    teamwork: "Teamwork Skill",
-  };
-  const data = [
-    {
-      data: {
-        learnings: 0.8,
-        problemsolving: 0.5,
-        communication: 0.4,
-        professional: 0.5,
-        knowledge: 0.4,
-        Leadership: 0.5,
-        thinking: 0.5,
-        teamwork: 0.9,
-      },
-      meta: { color: "#58FCEC" },
-    },
-  ];
+
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await retrieveToken();
+      setToken(token);
+    };
+    
+    getToken();
+  }, []);
 
   return (
     <ScrollView bg="$gray0">
@@ -86,10 +72,12 @@ const Me = () => {
                 <AvatarFallbackText>Robert Fox</AvatarFallbackText>
                 <AvatarImage
                   source={{
-                    uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                      // IMAGE_URLS.userprofile + "/" + user?.profile_img ||
-                      // DEFAULT_IMAGES.userprofile,
+                    //"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    uri:
+                      IMAGE_URLS.userprofile + "/" + user?.profile_img ||
+                      DEFAULT_IMAGES.userprofile,
                   }}
+                  alt="Profile Image"
                 />
               </Avatar>
               <Text fontSize="$sm" fontWeight="$bold" color="$neutral8">
