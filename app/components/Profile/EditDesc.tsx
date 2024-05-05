@@ -17,15 +17,32 @@ import {
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { useSession } from "@providers/ctx";
+import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const EditDesc: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { user } = useSession();
+const EditDesc: React.FC<ModalProps & { description?: string }> = ({ isOpen, onClose, description }) => {
+  const { user,session } = useSession();
   const styled = useStyled();
-  const [description, setDescription] = useState(user?.description || "");
+  const [Description, setDescription] = useState(description || "");
+
+  const updateOnClicked = () => {
+    console.log("update clicked");
+    UpdateProfile(session,"personality", Description)
+      .then((data) => {
+        console.log("Description updated");
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Error updating Description:", error);
+      })
+      .finally(() => {
+        console.log("Description updated");
+      });
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -62,12 +79,12 @@ const EditDesc: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <Input>
                 <InputField
                   type="text"
-                  value={description}
+                  value={Description}
                   onChangeText={(text) => setDescription(text)}
                 />
               </Input>
             </VStack>
-            <Button ml="auto" onPress={onClose}>
+            <Button ml="auto" onPress={updateOnClicked}>
               <ButtonText color="$gray0">Save</ButtonText>
             </Button>
           </VStack>
