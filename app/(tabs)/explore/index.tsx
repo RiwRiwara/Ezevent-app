@@ -7,9 +7,7 @@ import SearchFilter from "@components/exploreComponent/SearchFilter";
 import Calendars from "@components/exploreComponent/Calendars";
 import TitleBar from "@components/common/TitleBar";
 import { Search } from "lucide-react-native";
-import { useSession } from "@providers/ctx";
 import { RefreshControl, Platform } from "react-native";
-import { Redirect, Link, useLocalSearchParams } from "expo-router";
 
 import {
   useStyled,

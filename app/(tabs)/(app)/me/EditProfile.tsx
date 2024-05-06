@@ -22,29 +22,32 @@ import EditName from "@components/Profile/EditName";
 import Shortbio from "@components/Profile/Shortbio";
 import EditDesc from "@components/Profile/EditDesc";
 import Personality from "@components/Profile/Personality";
+import UploadImage from "@components/Profile/UploadImage";
+import UploadImageActionSheet from "@components/Profile/UploadImageActionSheet";
 import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
 
 const EditProfile = () => {
   const styled = useStyled();
-  const { user,session } = useSession();
-  const [showEditName, setShowEditName] = React.useState(false);
+  const { user, session } = useSession();
+  const [showEditName, setShowEditName] = useState(false);
   const handleCloseEditName = () => setShowEditName(!showEditName);
-  const [showShortbio, setShowShortbio] = React.useState(false);
+  const [showShortbio, setShowShortbio] = useState(false);
   const handleCloseShortbio = () => setShowShortbio(!showShortbio);
-  const [showDesc, setShowDesc] = React.useState(false);
+  const [showDesc, setShowDesc] = useState(false);
   const handleCloseDesc = () => setShowDesc(!showDesc);
-  const [showPersonality, setShowPersonality] = React.useState(false);
+  const [showPersonality, setShowPersonality] = useState(false);
   const handleClosePersonality = () => setShowPersonality(!showPersonality);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+
+  const [showUploadImage, setShowUploadImage] = useState(false);
+  const handleCloseUploadImage = () => setShowUploadImage(!showUploadImage);
 
   useEffect(() => {
     setLoading(true);
     GetMyprofile(session)
       .then((data) => {
         setUserData(data.user);
-        console.log(data);
-        console.log(data.user);
       })
       .catch((error) => {
         console.error("[EditProfile] : Error fetching profile:", error);
@@ -68,11 +71,7 @@ const EditProfile = () => {
             Profile Image
           </Text>
 
-          <Button px={9} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
-            </Text>
-          </Button>
+          <UploadImageActionSheet />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Avatar bgColor="$amber600" size="xl" borderRadius="$full">
@@ -83,6 +82,7 @@ const EditProfile = () => {
                   IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
                   DEFAULT_IMAGES.userprofile,
               }}
+              alt="Profile Image"
             />
           </Avatar>
         </VStack>
@@ -101,16 +101,17 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <EditName 
-            isOpen={showEditName} 
+          <EditName
+            isOpen={showEditName}
             onClose={handleCloseEditName}
             firstName={userData?.first_name}
-            lastName={userData?.last_name} 
+            lastName={userData?.last_name}
           />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
           <Text fontSize="$md" fontWeight="$bold" color="$primary8">
-            {userData?.first_name || "Robert Fox"} {userData?.last_name || "Fox"}
+            {userData?.first_name || "Robert Fox"}{" "}
+            {userData?.last_name || "Fox"}
           </Text>
         </VStack>
       </VStack>
@@ -148,13 +149,17 @@ const EditProfile = () => {
           <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
             Personality
           </Text>
-          <Button px={9} onPress={handleClosePersonality} backgroundColor="$gray0">
+          <Button
+            px={9}
+            onPress={handleClosePersonality}
+            backgroundColor="$gray0"
+          >
             <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
               Edit
             </Text>
           </Button>
-          <Personality 
-            isOpen={showPersonality} 
+          <Personality
+            isOpen={showPersonality}
             onClose={handleClosePersonality}
             personality={userData?.personality}
           />
@@ -181,10 +186,10 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <Shortbio 
-            isOpen={showShortbio} 
+          <Shortbio
+            isOpen={showShortbio}
             onClose={handleCloseShortbio}
-            shortBio={userData?.short_bio} 
+            shortBio={userData?.short_bio}
           />
         </HStack>
         <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
@@ -210,8 +215,8 @@ const EditProfile = () => {
               Edit
             </Text>
           </Button>
-          <EditDesc 
-            isOpen={showDesc} 
+          <EditDesc
+            isOpen={showDesc}
             onClose={handleCloseDesc}
             description={userData?.description}
           />

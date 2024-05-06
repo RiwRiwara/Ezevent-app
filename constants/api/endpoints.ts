@@ -9,6 +9,8 @@ export class Endpoint {
   }
 }
 
+export const WEB_URL = process.env.EXPO_PUBLIC_API_URL_PROD;
+
 export const API_BASE_URL = process.env.EXPO_PUBLIC_DEBUG
   ? process.env.EXPO_PUBLIC_API_URL_DEV
   : process.env.EXPO_PUBLIC_API_URL_PROD;
