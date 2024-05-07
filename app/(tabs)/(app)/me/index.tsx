@@ -22,6 +22,7 @@ import { retrieveToken } from "@utils/RetrieveToken";
 import axios from "axios";
 import { API_ENDPOINTS, getApiUrl, WEB_URL } from "@constants/api/endpoints";
 import { Linking, RefreshControl } from "react-native";
+import { GetBadgeById } from "@services/api/badge/ApiBadge";
 
 const Me = () => {
   const styled = useStyled();
@@ -29,6 +30,12 @@ const Me = () => {
   const [user, setUser] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const timestamp = new Date().getTime();
+
+  const params = useLocalSearchParams();
+  const [badgeDetail, setBadgeDetail] = useState([]);
+  const [source, setSource] = useState({ html: "" });
+
+  const id = params.id?.toString();
 
   const onRefresh = () => {
     if (!refreshing) {
@@ -40,6 +47,14 @@ const Me = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
+    GetBadgeById(id)
+      .then((data) => {
+        console.log(data.badge);
+      })
+      .catch((error) => {
+        console.error("[BadgeDetail] : Error fetching badge detail:", error);
+      });
     let isMounted = true;
     const fetchData = async () => {
       try {
