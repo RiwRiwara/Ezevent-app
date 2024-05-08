@@ -89,7 +89,9 @@ const Me = () => {
   }, [refreshing]);
 
   return (
+
     <View mt={Platform.OS !== "web" ? (Platform.OS === "ios" ? 0 : 20) : 0}>
+      
       <HStack
         justifyContent="space-between"
         p={10}

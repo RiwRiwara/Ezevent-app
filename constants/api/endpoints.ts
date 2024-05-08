@@ -41,6 +41,8 @@ export const API_ENDPOINTS = {
     method: "GET",
   },
   SAVED_MYEVENT: { url: "/event/savedevent", method: "GET" },
+  ACTION_PARTICIPANT_MYEVENT : { url: "/event/myevent/:event_participant_id/progress/:action", method: "POST" },
+  STATUS_PARTICIPANT_MYEVENT : { url: "/event/myevent/:event_participant_id/status/:status", method: "POST" },
 
   // Profile
   GET_PROFILE: { url: "/my-profile", method: "GET" },
