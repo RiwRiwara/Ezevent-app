@@ -95,8 +95,8 @@ const InProgres = () => {
         status="Normal"
         titleBtn="Check Out"
         colorBtn="$danger5"
-        statusCheck="Cancelled"
-        action={handleAction}
+        statusCheck="Removed"
+        action="Review"
       />
     </View>
   );
