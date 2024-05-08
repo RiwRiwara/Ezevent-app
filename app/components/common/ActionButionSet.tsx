@@ -17,7 +17,6 @@ const ActionButionSet = ({ title, color, action, event_participant_id, }) => {
     
     getToken();
   }, []);
-
   const handleApiCall = () => {
     // console.log(status)
     // console.log(event_participant_id)

@@ -134,8 +134,8 @@ export default function ApplicationScroll(page) {
 
                         <HStack justifyContent="flex-end">
                           <ButtonSet
-                            title="Cancel"
-                            color="$danger5"
+                            title="View"
+                            color="$primary5"
                             event_participant_id=""
                             status
                           ></ButtonSet>
