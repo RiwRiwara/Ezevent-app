@@ -45,6 +45,8 @@ export const API_ENDPOINTS = {
   UPDATE_PROFILE: { url: "/user", method: "PUT" },
   UPLOAD_PROFILE_IMAGE : { url: "/uploadprofileimage", method: "POST" },
 
+  // Inbox
+  GET_INBOX: { url: "/my-inbox", method: "GET" },
 };
 
 
