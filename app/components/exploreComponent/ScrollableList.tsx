@@ -29,6 +29,7 @@ const ScrollableList = () => {
         styles.scrollView,
         scrollContentWidth > 0 && styles.overflowBackground,
       ]}
+      pt={4}
     >
       {items.map((item, index) => (
         <Link key={index} href={ "/dev"}>

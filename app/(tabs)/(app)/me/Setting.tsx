@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Bell, Edit, User } from "lucide-react-native";
 import { useStyled } from "@gluestack-ui/themed";
 import { TouchableOpacity } from "react-native";
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 import { useHandleSignOutByApi } from "@services/auth/SignOut";
 
 const Setting = () => {
@@ -24,42 +24,49 @@ const Setting = () => {
   };
 
   return (
-    <VStack>
-      <HStack
-        justifyContent="space-between"
-        px={15}
-        py={10}
-        height={48}
-        alignItems="center"
-      >
-        <Text color="$primary9">Edit Profile</Text>
-        <Link href={"/(app)/me/EditProfile"} asChild>
+    <VStack backgroundColor="$gray0" h="100%">
 
-        <Edit
-          size={30}
-          strokeWidth={2}
-          color={styled.config.tokens.colors.primary9}
-        ></Edit>
-        </Link>
-      </HStack>
-
-      <TouchableOpacity onPress={() => {router.push('/(app)/me/PushNotification');}}>
-      <HStack
-        justifyContent="space-between"
-        px={15}
-        py={10}
-        height={48}
-        alignItems="center"
+      <TouchableOpacity
+        onPress={() => {
+          router.push("/(app)/me/EditProfile");
+        }}
       >
-          <Text color="$primary9">Push Notifications</Text>
+        <HStack
+          justifyContent="space-between"
+          px={15}
+          py={10}
+          height={48}
+          alignItems="center">
+          <Text color="$neutral9">Edit Profile</Text>
+            <Edit
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.neutral9}
+            ></Edit>
+        </HStack>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          router.push("/(app)/me/PushNotification");
+        }}
+      >
+        <HStack
+          justifyContent="space-between"
+          px={15}
+          py={10}
+          height={48}
+          alignItems="center"
+        >
+          <Text color="$neutral9">Push Notifications</Text>
           <Bell
             size={30}
             strokeWidth={2}
-            color={styled.config.tokens.colors.primary9}
+            color={styled.config.tokens.colors.neutral9}
           ></Bell>
-      </HStack>
+        </HStack>
       </TouchableOpacity>
-      
+
       <TouchableOpacity onPress={changeLanguage}>
         <HStack
           justifyContent="space-between"
@@ -68,8 +75,8 @@ const Setting = () => {
           height={48}
           alignItems="center"
         >
-          <Text color="$primary9">Change Language</Text>
-          <Text color="$primary9">{t("language")}</Text>
+          <Text color="$neutral9">Change Language</Text>
+          <Text color="$neutral9">{t("language")}</Text>
         </HStack>
       </TouchableOpacity>
 
@@ -80,14 +87,13 @@ const Setting = () => {
         height={48}
         alignItems="center"
       >
-        <Text color="$primary9">Manage Account</Text>
+        <Text color="$neutral9">Manage Account</Text>
 
         <User
           size={30}
           strokeWidth={2}
-          color={styled.config.tokens.colors.primary9}
+          color={styled.config.tokens.colors.neutral9}
         ></User>
-     
       </HStack>
       <HStack
         justifyContent="space-between"
@@ -96,17 +102,12 @@ const Setting = () => {
         height={48}
         alignItems="center"
       >
-        <Text color="$primary9">
-          Sign Out
-          </Text>
+        <Text color="$neutral9">Sign Out</Text>
         <HStack>
           <Text onPress={handleSignOut}>Sign Out</Text>
         </HStack>
-
       </HStack>
-
     </VStack>
-    
   );
 };
 

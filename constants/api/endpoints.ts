@@ -28,15 +28,18 @@ export const API_ENDPOINTS = {
   ALL_EVENTS: { url: "/event/all", method: "GET" },
 
   // Badge
-  BADGE_DETAIL_BY_ID: { url: "/badge/:badge_id/detail", method: "GET" },
-  BADGE_LIST: { url: "/badge/list", method: "GET" },
+  BADGE_DETAIL_BY_ID: { url: "/badge/:id", method: "GET" },
 
   // Get my application
   MY_APPLICATION: { url: "/event/get-my-application", method: "GET" },
-
+  APPLY_EVENT: { url: "/event/participant-application", method: "POST" },
+  IS_JOINED: { url: "/event/myevent/{event_id}/isalreadyjoin", method: "GET" },
 
   // My Event
-  STATUS_MYEVENT: { url: "/event/myevent/:type/:progress/:status", method: "GET" },
+  STATUS_MYEVENT: {
+    url: "/event/myevent/:type/:progress/:status",
+    method: "GET",
+  },
   SAVED_MYEVENT: { url: "/event/savedevent", method: "GET" },
   ACTION_PARTICIPANT_MYEVENT : { url: "/event/myevent/:event_participant_id/progress/:action", method: "POST" },
   STATUS_PARTICIPANT_MYEVENT : { url: "/event/myevent/:event_participant_id/status/:status", method: "POST" },
@@ -44,12 +47,9 @@ export const API_ENDPOINTS = {
   // Profile
   GET_PROFILE: { url: "/my-profile", method: "GET" },
   UPDATE_PROFILE: { url: "/user", method: "PUT" },
-  UPLOAD_PROFILE_IMAGE : { url: "/uploadprofileimage", method: "POST" },
-
+  UPLOAD_PROFILE_IMAGE: { url: "/uploadprofileimage", method: "POST" },
 };
-
 
 export const getApiUrl = (endpoint: Endpoint): string => {
   return API_BASE_URL + endpoint.url;
 };
-

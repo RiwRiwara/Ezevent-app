@@ -7,7 +7,7 @@ import SearchFilter from "@components/exploreComponent/SearchFilter";
 import Calendars from "@components/exploreComponent/Calendars";
 import TitleBar from "@components/common/TitleBar";
 import { Search } from "lucide-react-native";
-import { RefreshControl, Platform } from "react-native";
+import { RefreshControl, Platform, StyleSheet } from "react-native";
 
 import {
   useStyled,
@@ -41,12 +41,10 @@ const Explore = () => {
     }
   };
 
-
   return (
     <View bg="$gray0">
       {/* Header */}
       <VStack reversed={false}>
-
         <HStack
           justifyContent="space-between"
           p={10}
@@ -59,20 +57,22 @@ const Explore = () => {
           <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             Explore
           </Text>
-  
-          <Button px={9} onPress={handleCloseSearchFilter} backgroundColor="$neutral6">
+
+          <Button
+            px={9}
+            onPress={handleCloseSearchFilter}
+            backgroundColor="$neutral6"
+          >
             <Search
               size={30}
               strokeWidth={2}
               color={styled.config.tokens.colors.gray0}
             />
           </Button>
-
-          
         </HStack>
-
-        <ScrollableList />
       </VStack>
+
+      <ScrollableList />
 
       {/* Body */}
       <ScrollView
@@ -84,7 +84,6 @@ const Explore = () => {
           />
         }
       >
-        
         <HStack
           justifyContent="space-between"
           px={15}
@@ -92,11 +91,16 @@ const Explore = () => {
           height={48}
           bg="$gray0"
           alignItems="center"
+          style={styles.borderbt}
         >
           <Text fontSize="$title_4" fontWeight="$bold" color="$neutral9">
             New Events
           </Text>
-          <Button px={0} onPress={handleCloseCalendars} backgroundColor="$gray0">
+          <Button
+            px={0}
+            onPress={handleCloseCalendars}
+            backgroundColor="$gray0"
+          >
             <CalendarCheck
               size={36}
               strokeWidth={2}
@@ -105,16 +109,31 @@ const Explore = () => {
           </Button>
           <Calendars isOpen={showCalendars} onClose={handleCloseCalendars} />
         </HStack>
+
         <EventScrollableList refreshing={componentRefreshing} />
-        
+
         <TitleBar title="Other events" />
-        <EventCardScroller refreshing={componentRefreshing} />
+
+        <View mt={20}>
+          <EventCardScroller refreshing={componentRefreshing} />
+        </View>
+
         <View bg="$gray0" minHeight={200}></View>
       </ScrollView>
-      <SearchFilter isOpen={showSearchFilter} onClose={handleCloseSearchFilter} />
 
+      <SearchFilter
+        isOpen={showSearchFilter}
+        onClose={handleCloseSearchFilter}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  borderbt: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EBEBEB",
+  },
+});
 
 export default Explore;
