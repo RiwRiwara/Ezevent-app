@@ -1,38 +1,41 @@
-import { View } from "react-native";
-import React from "react";
+import { StyleSheet, RefreshControl, Platform } from "react-native";
+import React,{ useState, useEffect } from "react";
 import { Redirect, Stack, Link } from "expo-router";
 import { useSession } from "@providers/ctx";
+import TitleBar from "@components/common/TitleBar";
+
 import {
-    FlatList,
-    Box,
-    Heading,
-    HStack,
-    VStack,
-    Text,
-    Center,
-    AlertIcon,
-    CheckCircleIcon,
-    useStyled,
-} from '@gluestack-ui/themed';
-import { Ellipsis } from 'lucide-react-native';
+  FlatList,
+  Box,
+  View,
+  Heading,
+  HStack,
+  VStack,
+  Text,
+  Center,
+  AlertIcon,
+  CheckCircleIcon,
+  useStyled,
+} from "@gluestack-ui/themed";
+import { Ellipsis } from "lucide-react-native";
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Item",
   },
 ];
 
-type InboxProps = {title: string};
+type InboxProps = { title: string };
 
-const Item = ({title}: InboxProps) => (
+const Item = ({ title }: InboxProps) => (
   <View>
     <Text>{title}</Text>
   </View>
@@ -41,74 +44,122 @@ const Item = ({title}: InboxProps) => (
 const Inbox = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
+
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [componentRefreshing, setComponentRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    if (!refreshing) {
+      setRefreshing(true);
+      setComponentRefreshing(!componentRefreshing);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    }
+  };
+
+  useEffect(() => {
+    
+  }, []);
+
   return (
-    <View>
-        <Box py="$10">
-          <Heading size="xl" p="$4" pb="$3" color="$neutral9">Inbox</Heading>
-          <HStack justifyContent="space-between" mr='$3'>
-            <HStack>
-            <Box bg="$warning2" borderRadius={5} ml='$3' justifyContent="center">
-              <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" mx={10} p="$0.5">
-              Unread
+    <View backgroundColor="$gray0">
+      <TitleBar title="Inbox" />
+
+      <VStack mt={10} h="100%">
+        <HStack justifyContent="space-between" px={10} mb={10}>
+          <HStack flexDirection="row" gap={10}>
+            <View
+              bg="$neutral1"
+              borderRadius={5}
+              justifyContent="center"
+              px={10}
+            >
+              <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9">
+                Unread
+              </Text>
+            </View>
+            <View
+              bg="$neutral8"
+              borderRadius={5}
+              justifyContent="center"
+              px={10}
+            >
+              <Text fontSize="$small_3" fontWeight="$bold" color="$white">
+                For Staff
+              </Text>
+            </View>
+            <Box
+              bg="$neutral1"
+              borderRadius={5}
+              justifyContent="center"
+              px={10}
+            >
+              <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9">
+                For Participant
               </Text>
             </Box>
-            <Box bg="$neutral9" borderRadius={5} mx='$2' justifyContent="center">
-                <Text fontSize="$small_3" fontWeight="$bold" color="$white" mx={10} p="$0.5">
-                For Staff
-                </Text>
-            </Box>
-            <Box bg="$warning2" borderRadius={5} justifyContent="center">
-                <Text fontSize="$small_3" fontWeight="$bold" color="$neutral9" mx={10} p="$0.5">
-                For Participant
-                </Text>
-            </Box>
-            </HStack>
-            <Ellipsis size={25} strokeWidth={2} color={neutral9}/>
           </HStack>
-          <FlatList
-            data={DATA}
-            renderItem={({ item }) => (
-              <Box
-                borderBottomWidth="$2"
-                borderColor="$warning5"
-                $base-pl={0}
-                $base-pr={0}
-                $sm-pl="$4"
-                $sm-pr="$5"
-                py="$2"
-              >
+          <Ellipsis size={35} strokeWidth={3} color={neutral9} />
+        </HStack>
+
+        <FlatList
+          data={DATA}
+          renderItem={({ item }) => (
+            <VStack
+              borderBottomWidth="$2"
+              borderColor="$warning5"
+              p="$3"
+              backgroundColor="$neutral0"
+            >
               <Link href="(app)/inbox/inbox_detail" asChild>
-              <HStack space="md" justifyContent="space-between">
-                <Center>
-                  <AlertIcon as={CheckCircleIcon} color='$neutral9'  size="xl"  mr="$3" ml='$3'/>
-                </Center>
-                <VStack>
+                <HStack space="md" justifyContent="space-between">
+                  <Center>
+                    <AlertIcon
+                      as={CheckCircleIcon}
+                      color="$neutral9"
+                      size="xl"
+                      mr="$3"
+                      ml="$3"
+                    />
+                  </Center>
+                  <VStack>
+                    <Text color="$neutral9" fontWeight="$bold">
+                      for staff / Help the world by your hand
+                    </Text>
+                    <Text color="$black">ปรับเปลี่ยนเวลาการจัดกิจกรรมด่วน</Text>
+                  </VStack>
                   <Text
-                    color="$neutral9"
-                    fontWeight="$bold"
+                    fontSize="$xs"
+                    color="$coolGray800"
+                    alignSelf="center"
+                    bold
                   >
-                    for staff / Help the world by your hand
+                    24 min ago
                   </Text>
-                  <Text color="$black">
-                  ปรับเปลี่ยนเวลาการจัดกิจกรรมด่วน
-                  </Text>
-                </VStack>
-                <Text
-                  fontSize="$xs"
-                  color="$coolGray800"
-                  alignSelf="center"
-                  bold
-                >
-                  24 min ago
-                </Text>
-              </HStack>
+                </HStack>
               </Link>
-              </Box>
-            )}
-          />
-        </Box>
+            </VStack>
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#000"
+            />
+          }
+        />
+      </VStack>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  borderbt: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EBEBEB",
+  },
+});
 
 export default Inbox;
