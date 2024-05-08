@@ -22,6 +22,7 @@ import {
 import { retrieveToken } from "@utils/RetrieveToken";
 import axios from "axios";
 import { API_ENDPOINTS, getApiUrl, WEB_URL } from "@constants/api/endpoints";
+import Badge from "@components/badge";
 
 import { Linking, RefreshControl, Platform, StyleSheet } from "react-native";
 
@@ -50,14 +51,14 @@ const Me = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    GetBadgeById(id)
-      .then((data) => {
-        console.log(data.badge);
-      })
-      .catch((error) => {
-        console.error("[BadgeDetail] : Error fetching badge detail:", error);
-      });
+    // setLoading(true);
+    // GetBadgeById(id)
+    //   .then((data) => {
+    //     console.log(data.badge);
+    //   })
+    //   .catch((error) => {
+    //     console.error("[BadgeDetail] : Error fetching badge detail:", error);
+    //   });
     let isMounted = true;
     const fetchData = async () => {
       try {
@@ -219,9 +220,18 @@ const Me = () => {
           </VStack>
 
           <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
-            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+            <Text fontSize="$sm" fontWeight="$bold" color="$neutral9" mb="$3">
               Badges
             </Text>
+            <HStack>
+              <Badge badge_name="Community" image_src="./assets/combadge.png" />
+              <Badge badge_name="BrainStorm" image_src="./assets/brainbadge.png" />
+              <Badge badge_name="Social" image_src="./assets/socialbadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+            </HStack>
           </Box>
           <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
             <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
