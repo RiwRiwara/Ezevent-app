@@ -22,6 +22,7 @@ import { ApplyEvent } from "@services/api/event/ApplyEvent";
 import ConfirmDialog from "@components/common/ConfirmDialog";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 class Event {
   event_id: string;
   event_name: string;
@@ -34,6 +35,7 @@ function ApplicationAction({ event }: { event: Event }) {
   const [type, setType] = useState("Participant");
   const [loading, setLoading] = useState(false);
   const [isJoined, setIsJoined] = useState(false);
+  const [applyData, setApplyData] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -55,8 +57,10 @@ function ApplicationAction({ event }: { event: Event }) {
         .then((response) => {
           console.log("[ApplicationAction] : User is joined:", response.data);
           setIsJoined(response.data.isAlreadyJoin);
+          setApplyData(response.data);
         })
         .catch((error) => {
+          console.log(error.response.data);
           console.log(
             "[ApplicationAction] : Error checking if user is joined:",
             error.response.data.message
@@ -105,8 +109,28 @@ function ApplicationAction({ event }: { event: Event }) {
 
           <VStack py={30}>
             <HStack justifyContent="space-evenly" w="100%" alignItems="center">
-              <VStack justifyContent="center" alignItems="center" gap={10}>
-                <Box bg="$gray0" w="$full" alignItems="center" p="$2">
+              <VStack
+                justifyContent="center"
+                alignItems="center"
+                gap={10}
+                mb={10}
+              >
+                <Box
+                  bg="$gray0"
+                  w="$full"
+                  alignItems="center"
+                  p="$2"
+                  style={
+                    applyData?.type === "Participant"
+                      ? {
+                          backgroundColor: "#F0F0F0",
+                          borderWidth: 1,
+                          borderColor: "#E0E0E0",
+                          borderRadius: 10,
+                        }
+                      : {}
+                  }
+                >
                   <Text fontSize={30} color="$neutral6" fontWeight="$bold">
                     Participants
                   </Text>
@@ -131,7 +155,22 @@ function ApplicationAction({ event }: { event: Event }) {
               </VStack>
 
               <VStack justifyContent="center" alignItems="center" gap={10}>
-                <Box bg="$gray0" w="$full" alignItems="center" p="$2">
+                <Box
+                  bg="$gray0"
+                  w="$full"
+                  alignItems="center"
+                  p="$2"
+                  style={
+                    applyData?.type === "Staff"
+                      ? {
+                          backgroundColor: "#F0F0F0",
+                          borderWidth: 1,
+                          borderColor: "#E0E0E0",
+                          borderRadius: 10,
+                        }
+                      : {}
+                  }
+                >
                   <Text fontSize={30} color="$neutral6" fontWeight="$bold">
                     Staffs
                   </Text>
@@ -160,16 +199,20 @@ function ApplicationAction({ event }: { event: Event }) {
             <HStack w="100%" alignItems="center">
               {!isJoined ? (
                 <>
-                  <View w="$full" backgroundColor="$gray0">
-                  </View>
+                  <View w="$full" backgroundColor="$gray0"></View>
                 </>
               ) : (
                 <>
-                  <Button action="positive" isDisabled={true} w="$full">
-                    <ButtonText fontWeight="$bold">
-                      You have already joined
-                    </ButtonText>
-                  </Button>
+                  <Box w="$full" justifyContent="center">
+                    <Text
+                      fontSize={15}
+                      color="$neutral7"
+                      fontWeight="$semibold"
+                      textAlign="center"
+                    >
+                      {applyData.message} as {applyData.type}
+                    </Text>
+                  </Box>
                 </>
               )}
             </HStack>

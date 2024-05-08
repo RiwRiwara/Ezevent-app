@@ -35,8 +35,8 @@ const removeToken = async () => {
     await AsyncStorage.removeItem("token");
   } catch (e) {
   }
-  console.log("Token removed");
 };
+
 interface SignInResponse {
   message: string;
   success: boolean;
@@ -102,7 +102,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
       const apiUrl = getApiUrl(API_ENDPOINTS.CHECK_SESSION);
       await axios.get(apiUrl, {
         headers: {
-          Authorization: `Bearer ${session}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       console.log("Session verified");

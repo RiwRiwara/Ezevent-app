@@ -1,5 +1,6 @@
 // explore/index.tsx
-import React from "react";
+import React,{ useState, useEffect } from "react";
+
 import ScrollableList from "@components/exploreComponent/ScrollableList";
 import EventScrollableList from "@components/exploreComponent/EventScrollableList";
 import EventCardScroller from "@components/exploreComponent/EventCardScroller";
@@ -18,7 +19,6 @@ import {
   Text,
   Button,
 } from "@gluestack-ui/themed";
-import { useState, useEffect } from "react";
 import { CalendarCheck } from "lucide-react-native";
 
 const Explore = () => {

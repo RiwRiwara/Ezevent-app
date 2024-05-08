@@ -61,8 +61,7 @@ export default () => {
   };
 
   const onPressTab = (event) => {
-    console.log("onPressTab");
-    console.log(localToken);
+    console.log("Token(_Layout) :", localToken);
     if (localToken) {
       // Do nothing
     } else {
