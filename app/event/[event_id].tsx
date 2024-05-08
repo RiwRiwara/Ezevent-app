@@ -10,16 +10,25 @@ import {
   Image,
   ImageBackground,
   AvatarFallbackText,
+  ButtonText,
 } from "@gluestack-ui/themed";
 import { MapPin } from "lucide-react-native";
 import { Redirect, Link, useLocalSearchParams, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { GetEventDetail } from "@services/api/event/ApiEvent";
-import { StyleSheet, ActivityIndicator, Pressable, Platform } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  useWindowDimensions,
+  StyleSheet,
+} from "react-native";
 import RenderHtml from "react-native-render-html";
-import { useWindowDimensions } from "react-native";
-import TitleBarBack from "@components/common/TitleBarBack";
-
+import { ChevronLeft, Bell, Ellipsis } from "lucide-react-native";
+import ApplicationAction from "@components/eventDetail/ApplicationAction";
+import MenuAction from "@components/eventDetail/MenuAction";
+import NotiAction from "@components/eventDetail/NotiAction";
+import AuthAction from "@components/auth/AuthAction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EventDetail = () => {
   const params = useLocalSearchParams();
@@ -27,10 +36,27 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const contentW = useWindowDimensions().width;
   const [source, setSource] = useState({ html: "" });
-
   const event_id = params.event_id.toString();
+  const [localToken, setLocalToken] = useState(null);
+
+  useEffect(() => {
+    const retrieveToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        return token;
+      } catch (error) {
+        console.error("Error retrieving token:", error);
+      }
+    };
+
+    retrieveToken().then((token) => {
+      setLocalToken(token);
+    });
+  });
+
   useEffect(() => {
     setLoading(true);
+
     GetEventDetail(event_id)
       .then((data) => {
         setSource({ html: data.event.content });
@@ -42,14 +68,48 @@ const EventDetail = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [localToken]);
 
   return (
     <View>
-      
+      <View
+        backgroundColor="$neutral6"
+        style={styles.borderBot}
+        pt={Platform.OS !== "web" ? (Platform.OS == "ios" ? 0 : 20) : 0}
+      >
+        <HStack
+          px={6}
+          py={3}
+          gap={4}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Link href="/explore">
+            <ChevronLeft
+              size={35}
+              absoluteStrokeWidth
+              strokeWidth={3}
+              color="#ffffff"
+            />
+          </Link>
+
+          <View
+            flexDirection="row"
+            gap={10}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <NotiAction />
+            <MenuAction />
+          </View>
+        </HStack>
+      </View>
+
       <ScrollView>
         {loading ? (
-          <ActivityIndicator size="large" color="#" />
+          <View h="full" justifyContent="center">
+            <ActivityIndicator size="large" color="#" />
+          </View>
         ) : (
           eventDetail && (
             <>
@@ -107,7 +167,7 @@ const EventDetail = () => {
                 </ImageBackground>
               </View>
 
-              <View px={6} py={8}>
+              <View px={6} py={8} mb={20} backgroundColor="$gray0">
                 <RenderHtml source={source} contentWidth={contentW} />
               </View>
             </>
@@ -119,27 +179,33 @@ const EventDetail = () => {
         <></>
       ) : (
         <View
-          style={{ position: "absolute", bottom: 0, width: "100%" }}
-          h={Platform.OS !== "web" ? Platform.OS === "ios" ? 50 : 60 : 70}
+          style={{
+            position: "absolute",
+            bottom:
+              Platform.OS !== "web" ? (Platform.OS === "ios" ? 50 : 70) : 70,
+            width: "100%",
+          }}
+          h={Platform.OS !== "web" ? (Platform.OS === "ios" ? 50 : 60) : 70}
           backgroundColor="$neutral6"
           py={10}
           px={10}
         >
-          <HStack gap={10} alignItems="center">
-            <Button backgroundColor="$gray0" w={Platform.OS !== "web" ? Platform.OS === "ios" ? 325 : 280 : 300}>
-              <Text fontSize="$lg" fontWeight="$bold">
-                Join Now!
-              </Text>
-            </Button>
-
-            <Text fontSize="$lg" fontWeight="$bold" color="#fff">
-              {eventDetail.limit_participant} / {eventDetail.limit_participant}
-            </Text>
-          </HStack>
+          {localToken? (
+            <ApplicationAction event={eventDetail} />
+          ) : (
+            <AuthAction />
+          )}
         </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  borderBot: {
+    borderBottomWidth: 4,
+    borderBottomColor: "#F27F0C",
+  },
+});
 
 export default EventDetail;

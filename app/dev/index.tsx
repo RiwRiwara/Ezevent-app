@@ -23,6 +23,7 @@ import { useWindowDimensions } from "react-native";
 import { ChevronDown } from "lucide-react-native";
 import RenderHtml from "react-native-render-html";
 import { API_ENDPOINTS, getApiUrl, Endpoint } from "@constants/api/endpoints";
+import {retrieveToken} from "@utils/RetrieveToken";
 
 function TestAPI() {
   const [selectEndpoint, setSelectEndpoint] = useState<Endpoint>({
@@ -32,6 +33,15 @@ function TestAPI() {
   const [token, setToken] = useState<string>("");
   const [reqBody, setReqBody] = useState<string>("");
   const [apiRes, setApiRes] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await retrieveToken();
+      setToken(token);
+    };
+    setLoading(false);
+  }, []);
 
   function endPointOnSelect(string) {
     setSelectEndpoint(API_ENDPOINTS[string]);

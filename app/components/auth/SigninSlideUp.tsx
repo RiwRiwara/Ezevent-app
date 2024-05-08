@@ -10,6 +10,16 @@ import {
   HStack,
   Input,
   InputField,
+  FormControl,
+  Actionsheet,
+  ActionsheetBackdrop,
+  ActionsheetContent,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetDragIndicator,
+  ActionsheetFlatList,
+  ActionsheetIcon,
+  ActionsheetItem,
+  ActionsheetItemText,
 } from "@gluestack-ui/themed";
 import { Minimize2, ChevronLeft } from "lucide-react-native";
 import CreateAccountForm from "@components/auth/CreateAccountForm";
@@ -17,13 +27,26 @@ import SigninWithEmailForm from "@components/auth/SigninWithEmailForm";
 
 export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
   const [formType, setFormType] = useState(null);
+  const [showActionsheet, setShowActionsheet] = useState(false);
+  const handleCloseBt = () => setShowActionsheet(!showActionsheet);
+
 
   const renderForm = () => {
     switch (formType) {
       case "createAccount":
-        return <CreateAccountForm setFormType={setFormType} handleCloseModal={toggleModal}/>;
+        return (
+          <CreateAccountForm
+            setFormType={setFormType}
+            handleCloseModal={toggleModal}
+          />
+        );
       case "signinWithEmail":
-        return <SigninWithEmailForm setFormType={setFormType} handleCloseModal={toggleModal} />;
+        return (
+          <SigninWithEmailForm
+            setFormType={setFormType}
+            handleCloseModal={toggleModal}
+          />
+        );
       default:
         return (
           <ImageBackground
@@ -86,7 +109,10 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
               }}
             >
               <View alignItems="center" pb={50} pt={50}>
-                <Button width={300} onPress={() => setFormType("signinWithEmail")}>
+                <Button
+                  width={300}
+                  onPress={() => setFormType("signinWithEmail")}
+                >
                   <ButtonText>SignIn with email</ButtonText>
                 </Button>
 
@@ -109,7 +135,6 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
     }
   };
 
-  
   return (
     <Modal
       visible={isPreSigninVisible}
@@ -124,5 +149,20 @@ export const SigninSlideUp = ({ isPreSigninVisible, toggleModal }) => {
         {renderForm()}
       </View>
     </Modal>
+
+    // <Actionsheet isOpen={showActionsheet} onClose={handleCloseBt}>
+    //   <ActionsheetBackdrop />
+    //   <ActionsheetContent>
+    //     <ActionsheetDragIndicatorWrapper>
+    //       <ActionsheetDragIndicator />
+    //     </ActionsheetDragIndicatorWrapper>
+
+    //     <View h="30%">
+    //       <Text fontSize="$md" fontWeight="$bold" color="$primary5">
+    //         Application
+    //       </Text>
+    //     </View>
+    //   </ActionsheetContent>
+    // </Actionsheet>
   );
 };

@@ -16,19 +16,21 @@ import {
   Box,
   Avatar,
   AvatarImage,
+  Image,
   AvatarFallbackText,
 } from "@gluestack-ui/themed";
 import EditName from "@components/Profile/EditName";
 import Shortbio from "@components/Profile/Shortbio";
 import EditDesc from "@components/Profile/EditDesc";
 import Personality from "@components/Profile/Personality";
-import UploadImage from "@components/Profile/UploadImage";
 import UploadImageActionSheet from "@components/Profile/UploadImageActionSheet";
+import UploadMultiImageActionSheet from "@components/Profile/UploadMultiImageActionSheet";
 import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
+import { StyleSheet } from "react-native";
+import { retrieveToken } from "@utils/RetrieveToken";
 
 const EditProfile = () => {
   const styled = useStyled();
-  const { user, session } = useSession();
   const [showEditName, setShowEditName] = useState(false);
   const handleCloseEditName = () => setShowEditName(!showEditName);
   const [showShortbio, setShowShortbio] = useState(false);
@@ -41,275 +43,350 @@ const EditProfile = () => {
   const [userData, setUserData] = useState(null);
 
   const [showUploadImage, setShowUploadImage] = useState(false);
-  const handleCloseUploadImage = () => setShowUploadImage(!showUploadImage);
+
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    GetMyprofile(session)
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const token = await retrieveToken();
+        const data = await GetMyprofile(token);
         setUserData(data.user);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("[EditProfile] : Error fetching profile:", error);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
-  }, [session]);
+      }
+    };
+
+    fetchData();
+  }, [refresh]);
 
   return (
-    <ScrollView>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Profile Image
-          </Text>
-
-          <UploadImageActionSheet />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Avatar bgColor="$amber600" size="xl" borderRadius="$full">
-            <AvatarFallbackText>AP</AvatarFallbackText>
-            <AvatarImage
-              source={{
-                uri:
-                  IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
-                  DEFAULT_IMAGES.userprofile,
-              }}
-              alt="Profile Image"
-            />
-          </Avatar>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Full Name
-          </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
-            </Text>
-          </Button>
-          <EditName
-            isOpen={showEditName}
-            onClose={handleCloseEditName}
-            firstName={userData?.first_name}
-            lastName={userData?.last_name}
-          />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$primary8">
-            {userData?.first_name || "Robert Fox"}{" "}
-            {userData?.last_name || "Fox"}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Email
-          </Text>
-          <Text
-            fontSize="$paragraph"
-            fontWeight="$bold"
-            color="$primary5"
-          ></Text>
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$primary8">
-            {userData?.email || "robert@mail.com"}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Personality
-          </Text>
-          <Button
-            px={9}
-            onPress={handleClosePersonality}
+    <View backgroundColor="$gray0">
+      <ScrollView>
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
             backgroundColor="$gray0"
+            alignItems="center"
           >
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Profile Image
             </Text>
-          </Button>
-          <Personality
-            isOpen={showPersonality}
-            onClose={handleClosePersonality}
-            personality={userData?.personality}
-          />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {userData?.personality || "Personality"}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Short Bio
-          </Text>
-          <Button px={9} onPress={handleCloseShortbio} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
-            </Text>
-          </Button>
-          <Shortbio
-            isOpen={showShortbio}
-            onClose={handleCloseShortbio}
-            shortBio={userData?.short_bio}
-          />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            Hello my name is {userData?.first_name || "Robert Fox"}{" "}
-            {userData?.last_name || "Fox"}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Description
-          </Text>
-          <Button px={9} onPress={handleCloseDesc} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
-            </Text>
-          </Button>
-          <EditDesc
-            isOpen={showDesc}
-            onClose={handleCloseDesc}
-            description={userData?.description}
-          />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {userData?.description ||
-              "Hello My name is Robert i study in thailand and i love cat , My hobbies is playing game and let adventure in real world i can’t do anything that it will improve the world"}
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Other Images
-          </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
-            </Text>
-          </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <HStack space="2xl" p="$3">
-            <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-              <Text color="$primary8">IMAGE1</Text>
-            </Box>
-            <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-              <Text color="$primary8">IMAGE2</Text>
-            </Box>
-            <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-              <Text color="$primary8">IMAGE3</Text>
-            </Box>
+
+            <UploadImageActionSheet
+              refresh={refresh}
+              setRefresh={setRefresh}
+              imgUrl={
+                IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
+                DEFAULT_IMAGES.userprofile
+              }
+            />
           </HStack>
+
+          <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
+            <Avatar bgColor="$amber600" size="2xl" borderRadius="$full">
+              {loading ? (
+                <AvatarImage
+                  source={{
+                    uri: DEFAULT_IMAGES.userprofile,
+                  }}
+                  alt="Profile Image"
+                />
+              ) : (
+                <AvatarImage
+                  source={{
+                    uri:
+                      IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
+                      DEFAULT_IMAGES.userprofile,
+                  }}
+                  alt="Profile Image"
+                />
+              )}
+            </Avatar>
+          </VStack>
         </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Social Media
-          </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            backgroundColor="$gray0"
+            alignItems="center"
+            px={10}
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Full Name
             </Text>
-          </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            Social Media
-          </Text>
-        </VStack>
-      </VStack>
-      <VStack reversed={false}>
-        <HStack
-          justifyContent="space-between"
-          p={10}
-          h={50}
-          backgroundColor="$gray0"
-          alignItems="center"
-        >
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-            Address
-          </Text>
-          <Button px={9} onPress={handleCloseEditName} backgroundColor="$gray0">
-            <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
-              Edit
+            <Button
+              px={9}
+              onPress={handleCloseEditName}
+              backgroundColor="$gray0"
+            >
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <EditName
+              isOpen={showEditName}
+              onClose={handleCloseEditName}
+              firstName={userData?.first_name}
+              lastName={userData?.last_name}
+            />
+          </HStack>
+          <VStack
+            alignItems="center"
+            bg="$gray0"
+            w="$full"
+            mb={10}
+            gap={10}
+            flexDirection="row"
+            justifyContent="center"
+          >
+            <Text fontSize="$md"  color="$primary8">
+              {userData?.first_name || "...."}
             </Text>
-          </Button>
-          <EditName isOpen={showEditName} onClose={handleCloseEditName} />
-        </HStack>
-        <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-          <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-            {userData?.address || "Address"}
-          </Text>
+            <Text fontSize="$md"  color="$primary8">
+              {userData?.last_name || "...."}
+            </Text>
+          </VStack>
         </VStack>
-      </VStack>
-    </ScrollView>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8" mt={10}>
+              Email
+            </Text>
+            <Text
+              fontSize="$paragraph"
+              fontWeight="$bold"
+              color="$primary5"
+            ></Text>
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
+            <Text fontSize="$md"  color="$primary8">
+              {userData?.email || "...."}
+            </Text>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Personality
+            </Text>
+            <Button
+              px={9}
+              onPress={handleClosePersonality}
+              backgroundColor="$gray0"
+            >
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <Personality
+              isOpen={showPersonality}
+              onClose={handleClosePersonality}
+              personality={userData?.personality}
+            />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
+            <Text fontSize="$md" color="$neutral8">
+              {userData?.personality || "...."}
+            </Text>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Short Bio
+            </Text>
+            <Button
+              px={9}
+              onPress={handleCloseShortbio}
+              backgroundColor="$gray0"
+            >
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <Shortbio
+              isOpen={showShortbio}
+              onClose={handleCloseShortbio}
+              shortBio={userData?.short_bio}
+            />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
+            <Text fontSize="$md"  color="$neutral8">
+              Hello my name is {userData?.first_name || "Robert Fox"}{" "}
+              {userData?.last_name || "...."}
+            </Text>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Description
+            </Text>
+            <Button px={9} onPress={handleCloseDesc} backgroundColor="$gray0">
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <EditDesc
+              isOpen={showDesc}
+              onClose={handleCloseDesc}
+              description={userData?.description}
+            />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
+            <Text fontSize="$md"  color="$neutral8">
+              {userData?.description || "...."}
+            </Text>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Images
+            </Text>
+
+            <UploadMultiImageActionSheet
+              refresh={refresh}
+              setRefresh={setRefresh}
+              imgUrl={
+                IMAGE_URLS.userprofile + "/" + userData?.profile_img ||
+                DEFAULT_IMAGES.userprofile
+              }
+            />
+            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="full" p="3" mb={10}>
+            <HStack space="2xl">
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri:  DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image1"
+              />
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri:  DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image2"
+              />
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri:  DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image3"
+              />
+            </HStack>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Social Media
+            </Text>
+            <Button
+              px={9}
+              onPress={handleCloseEditName}
+              backgroundColor="$gray0"
+            >
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
+            <Text fontSize="$md" color="$neutral8">
+              Social Media
+            </Text>
+          </VStack>
+        </VStack>
+
+        <VStack style={styles.borderbt}>
+          <HStack
+            justifyContent="space-between"
+            px={10}
+            backgroundColor="$gray0"
+            alignItems="center"
+          >
+            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
+              Address
+            </Text>
+            <Button
+              px={9}
+              onPress={handleCloseEditName}
+              backgroundColor="$gray0"
+            >
+              <Text fontSize="$paragraph"  color="$primary5">
+                Edit
+              </Text>
+            </Button>
+            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
+          </HStack>
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
+            <Text fontSize="$md"  color="$neutral8">
+              {userData?.address || "Address"}
+            </Text>
+          </VStack>
+        </VStack>
+        <Box h={100}></Box>
+      </ScrollView>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  borderbt: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EBEBEB",
+  },
+});
 
 export default EditProfile;

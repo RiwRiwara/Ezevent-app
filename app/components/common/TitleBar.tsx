@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Text, HStack } from "@gluestack-ui/themed";
 import { CalendarCheck } from "lucide-react-native";
 import { useStyled } from "@gluestack-ui/themed";
+import { StyleSheet } from "react-native";
 
 const TitleBar = ({ title, button = false }) => {
   const styled = useStyled();
@@ -17,6 +18,7 @@ const TitleBar = ({ title, button = false }) => {
       height={45}
       bg="$gray0"
       alignItems="center"
+      style={styles.borderbt}
     >
       <Text fontSize="$title_4" fontWeight="$bold" color="$neutral9">
         {title}
@@ -25,5 +27,12 @@ const TitleBar = ({ title, button = false }) => {
     </HStack>
   );
 };
+
+const styles = StyleSheet.create({
+  borderbt: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EBEBEB",
+  },
+});
 
 export default TitleBar;

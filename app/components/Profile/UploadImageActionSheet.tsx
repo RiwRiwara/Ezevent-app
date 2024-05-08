@@ -35,11 +35,12 @@ import * as FileSystem from "expo-file-system";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function UploadImageActionSheet() {
+function UploadImageActionSheet({ refresh, setRefresh, imgUrl }) {
   const [showActionsheet, setShowActionsheet] = React.useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
   const [image, setImage] = useState(null);
   const [imateData, setImageData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -54,12 +55,10 @@ function UploadImageActionSheet() {
       setImage(result.assets[0].uri);
       setImageData(result.assets[0]);
     }
-
   };
 
   const handleUpload = async () => {
-
-    // send the image to the server
+    setLoading(true);
     try {
       var token = await AsyncStorage.getItem("token");
       const url = getApiUrl(API_ENDPOINTS.UPLOAD_PROFILE_IMAGE);
@@ -75,20 +74,25 @@ function UploadImageActionSheet() {
         )
         .then((response) => {
           console.log(response.data);
+
+          setLoading(false);
+          handleClose();
+          setRefresh(!refresh);
         })
         .catch((error) => {
           console.log(error);
+          setLoading(false);
         });
-      handleClose();
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   return (
     <>
       <Button px={9} backgroundColor="$gray0" onPress={handleClose}>
-        <Text fontSize="$paragraph" fontWeight="$bold" color="$primary5">
+        <Text fontSize="$paragraph"  color="$primary5">
           Edit
         </Text>
       </Button>
@@ -105,22 +109,25 @@ function UploadImageActionSheet() {
               <AvatarFallbackText>Upload Image</AvatarFallbackText>
               <AvatarImage
                 source={{
-                  uri: image || DEFAULT_IMAGES.userprofile,
+                  uri: image || (imgUrl || DEFAULT_IMAGES.userprofile),
                 }}
                 alt="Profile Image"
               />
             </Avatar>
           </View>
 
-          <ActionsheetItem onPress={pickImage} mb={20}>
+          <ActionsheetItem onPress={pickImage} mb={20} isDisabled={loading}>
             <View flex={1} flexDirection="row" gap={10} alignItems="center">
               <ImageUp />
               <Text fontWeight="bold">Choose profile picture</Text>
             </View>
+
             {image && (
-              <Button onPress={handleUpload}>
-                <Text color="$gray0">Upload</Text>
-              </Button>
+              <>
+                <Button onPress={handleUpload}>
+                  <Text color="$gray0">Upload</Text>
+                </Button>
+              </>
             )}
           </ActionsheetItem>
         </ActionsheetContent>
