@@ -27,7 +27,6 @@ export default function ApplicationScroll(page) {
     GetAppMyEvents(session, page)
       .then((data) => {
         setappData(data.applications.data);
-        console.log(data.applications.data);
       })
       .catch((error) => {
         console.error(
@@ -38,7 +37,7 @@ export default function ApplicationScroll(page) {
       .finally(() => {
         setLoading(false);
       });
-  }, [session, page]);
+  }, [page]);
 
   // const handleNextPage = () => {
   //   setCurrentPage(currentPage + 1);

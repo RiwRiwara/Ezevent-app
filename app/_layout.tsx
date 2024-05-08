@@ -1,15 +1,15 @@
 // app/_layout.jsx
 
-import { Stack } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import FontLoader from '../services/FontLoader';
-import SplashScreenComponent from './splash';
+import { Stack, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import FontLoader from "../services/FontLoader";
+import SplashScreenComponent from "./splash";
 import { config } from "../config/gluestack-ui.config";
 import { GluestackUIProvider, Text, Image, View } from "@gluestack-ui/themed";
-import { SafeAreaView } from '@gluestack-ui/themed';
-import { SessionProvider } from '../providers/ctx';
+import { SafeAreaView } from "@gluestack-ui/themed";
+import { SessionProvider } from "../providers/ctx";
 import { useTranslation } from "react-i18next";
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
 export default function StackLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -38,39 +38,39 @@ export default function StackLayout() {
     }
   };
 
+
   return (
     <FontLoader>
       <GluestackUIProvider config={config}>
-        <SafeAreaView 
-        flex={1} 
-        pt={Platform.OS !== 'web' ? Platform.OS === 'ios' ? 0 : 0 : 0}
-
-        backgroundColor='$neutral6'>
+        <SafeAreaView
+          flex={1}
+          pt={Platform.OS !== "web" ? (Platform.OS === "ios" ? 0 : 0) : 0}
+          backgroundColor="$neutral6"
+        >
           <SessionProvider>
-            <Stack >
-              <Stack.Screen name="(tabs)"
+            <Stack>
+              <Stack.Screen
+                name="(tabs)"
                 options={{
-                  title: 'Home',
-                  headerShown: false
+                  title: "Explore",
+                  headerShown: false,
                 }}
               />
 
-              <Stack.Screen name="event"
+              <Stack.Screen
+                name="event"
                 options={{
-                  title: 'Event',
+                  title: "",
                   headerStyle: {
-                    backgroundColor: 'transparent',
-                  
+                    backgroundColor: "transparent",
                   },
-                  headerShown: true,
+                  headerShown: false,
                 }}
               />
-
-            </Stack >
+            </Stack>
           </SessionProvider>
         </SafeAreaView>
       </GluestackUIProvider>
     </FontLoader>
   );
 }
-

@@ -30,17 +30,14 @@ const EditDesc: React.FC<ModalProps & { description?: string }> = ({ isOpen, onC
   const [Description, setDescription] = useState(description || "");
 
   const updateOnClicked = () => {
-    console.log("update clicked");
     UpdateProfile(session,"personality", Description)
       .then((data) => {
-        console.log("Description updated");
         onClose();
       })
       .catch((error) => {
         console.error("Error updating Description:", error);
       })
       .finally(() => {
-        console.log("Description updated");
       });
   };
   return (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "@i18n/i18n.config";
-import { Settings } from "lucide-react-native";
+import { Settings, Pencil } from "lucide-react-native";
 import { CalendarCheck2, Building2 } from "lucide-react-native";
 import { IMAGE_URLS, DEFAULT_IMAGES } from "@constants/azure/azureimageurl";
-import { Redirect, Link, useLocalSearchParams } from "expo-router";
+import { Redirect, Link, useLocalSearchParams, router } from "expo-router";
 import {
   useStyled,
   VStack,
@@ -17,13 +17,15 @@ import {
   AvatarImage,
   AvatarFallbackText,
   Spinner,
+  Image,
 } from "@gluestack-ui/themed";
 import { retrieveToken } from "@utils/RetrieveToken";
 import axios from "axios";
 import { API_ENDPOINTS, getApiUrl, WEB_URL } from "@constants/api/endpoints";
-import { Linking, RefreshControl } from "react-native";
+import { Linking, RefreshControl, Platform, StyleSheet } from "react-native";
 
 const Me = () => {
+  
   const styled = useStyled();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -53,7 +55,8 @@ const Me = () => {
           },
         });
         if (isMounted) {
-          response.data.user.profile_img = response.data.user.profile_img + "?" + timestamp;
+          response.data.user.profile_img =
+            response.data.user.profile_img + "?" + timestamp;
           setUser(response.data.user);
           setLoading(false);
         }
@@ -70,7 +73,7 @@ const Me = () => {
   }, [refreshing]);
 
   return (
-    <View>
+    <View mt={Platform.OS !== "web" ? (Platform.OS === "ios" ? 0 : 20) : 0}>
       <HStack
         justifyContent="space-between"
         p={10}
@@ -81,13 +84,23 @@ const Me = () => {
         <Text fontSize="$title_4" fontWeight="$bold" color="$neutral8">
           My Profile
         </Text>
-        <Link href={"/(app)/me/Setting"} asChild>
-          <Settings
-            size={30}
-            strokeWidth={2}
-            color={styled.config.tokens.colors.neutral8}
-          />
-        </Link>
+
+        <View alignItems="center" flexDirection="row" gap={10}>
+          <Link href={"/(app)/me/EditProfile"} asChild>
+            <Pencil
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.neutral8}
+            />
+          </Link>
+          <Link href={"/(app)/me/Setting"} asChild>
+            <Settings
+              size={30}
+              strokeWidth={2}
+              color={styled.config.tokens.colors.neutral8}
+            />
+          </Link>
+        </View>
       </HStack>
       <Button
         w="$full"
@@ -98,6 +111,7 @@ const Me = () => {
           Go to organizing portal
         </Text>
       </Button>
+
       <ScrollView
         bg="$gray0"
         h="100%"
@@ -109,59 +123,48 @@ const Me = () => {
           />
         }
       >
-        <VStack reversed={false}>
-          <VStack>
-            <HStack justifyContent="space-between">
-              <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
+        <VStack >
+          <HStack justifyContent="center" style={styles.borderbt}>
+            <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
+              {loading ? (
                 <Avatar
                   bgColor="$amber600"
-                  size="xl"
+                  size="2xl"
                   borderRadius="$full"
                   mb={5}
                 >
-                  {loading ? (
-                    <Spinner size="small" />
-                  ) : (
-                    <>
-                      <AvatarFallbackText>loading . . .</AvatarFallbackText>
-                      {user?.profile_img === null ? (
-                        <AvatarImage
-                          source={{
-                            uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                          }}
-                          alt="Profile Image"
-                        />
-                      ) : (
-                        <AvatarImage
-                          source={{
-                            uri:
-                              IMAGE_URLS.userprofile +
-                                "/" +
-                                user?.profile_img 
-                          }}
-                          alt="Profile Image"
-                        />
-                      )}
-                    </>
-                  )}
+                  <AvatarImage
+                    source={{
+                      uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                    }}
+                    alt="Profile Image"
+                  />
                 </Avatar>
+              ) : (
+                <Avatar
+                  bgColor="$amber600"
+                  size="2xl"
+                  borderRadius="$full"
+                  mb={5}
+                >
+                  <AvatarImage
+                    source={{
+                      uri: IMAGE_URLS.userprofile + "/" + user?.profile_img,
+                    }}
+                    alt="Profile Image"
+                  />
+                </Avatar>
+              )}
 
+              <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
+                {user?.first_name || "loading . . ."} {user?.last_name || "..."}
+              </Text>
 
-                <Text fontSize="$sm" fontWeight="$bold" color="$neutral8">
-                  {user?.first_name || "loading . . ."}{" "}
-                  {user?.last_name || "..."}
-                </Text>
-
-                <Text fontSize="$xs" color="$neutral8">
-                  {user?.email || "robert@mail.com"}
-                </Text>
-              </VStack>
-
-              <VStack bg="$primary0" w="$2/4" p="$3" alignItems="center">
-                <Text color="$neutral8">{user?.personality || "INTP"}</Text>
-              </VStack>
-            </HStack>
-          </VStack>
+              <Text fontSize="$sm" color="$neutral8">
+                {user?.email || "robert@mail.com"}
+              </Text>
+            </VStack>
+          </HStack>
 
           <Box bg="$gray0" w="$full" alignItems="center" p="$3">
             <Text fontSize="$sm" color="$gray9">
@@ -170,20 +173,41 @@ const Me = () => {
           </Box>
           <VStack alignItems="center">
             <HStack space="2xl" p="$3">
-              <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-                <Text color="$primary8">IMAGE1</Text>
-              </Box>
-              <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-                <Text color="$primary8">IMAGE2</Text>
-              </Box>
-              <Box w="$20" h="$20" bg="$gray1" alignItems="center">
-                <Text color="$primary8">IMAGE3</Text>
-              </Box>
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri: DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image1"
+              />
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri: DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image2"
+              />
+              <Image
+                size="lg"
+                borderRadius={10}
+                source={{
+                  uri: DEFAULT_IMAGES.userprofile,
+                }}
+                alt="Image3"
+              />
             </HStack>
           </VStack>
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3">
-            <Text fontSize="$sm" fontWeight="$bold" color="$neutral9">
+
+          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
+            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               Badges
+            </Text>
+          </Box>
+          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
+            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+              History
             </Text>
           </Box>
           <HStack justifyContent="space-between" p="$2">
@@ -218,15 +242,18 @@ const Me = () => {
               </Text>
             </HStack>
           </HStack>
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3">
-            <Text fontSize="$sm" fontWeight="$bold" color="$neutral9">
-              Spider Chart
-            </Text>
-          </Box>
+
         </VStack>
       </ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  borderbt: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EBEBEB",
+  },
+});
 
 export default Me;
