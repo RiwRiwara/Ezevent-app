@@ -49,7 +49,6 @@ const Me = () => {
 
   useEffect(() => {
     setLoading(true);
-
     let isMounted = true;
     const fetchData = async () => {
       try {
@@ -134,37 +133,28 @@ const Me = () => {
         <VStack>
           <HStack justifyContent="center" style={styles.borderbt}>
             <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
-              {loading ? (
-                <Avatar
-                  bgColor="$amber600"
-                  size="2xl"
-                  borderRadius="$full"
-                  mb={5}
-                >
+              <Avatar
+                bgColor="$amber600"
+                size="2xl"
+                borderRadius="$full"
+                mb={5}
+              >
+                {loading ? (
                   <AvatarImage
                     source={{
                       uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     }}
                     alt="Profile Image"
                   />
-                </Avatar>
-              ) : (
-                <Avatar
-                  bgColor="$amber600"
-                  size="2xl"
-                  borderRadius="$full"
-                  mb={5}
-                >
+                ) : (
                   <AvatarImage
                     source={{
                       uri: IMAGE_URLS.userprofile + "/" + user?.profile_img,
                     }}
                     alt="Profile Image"
                   />
-                </Avatar>
-              )}
-
-
+                )}
+              </Avatar>
 
               <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
                 {user?.first_name || "loading . . ."} {user?.last_name || "..."}
