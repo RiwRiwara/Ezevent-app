@@ -8,6 +8,7 @@ import { SigninSlideUp } from "@components/auth/SigninSlideUp";
 import {
   CalendarCheck,
   Inbox,
+  Mail,
   FolderClosed,
   UserRound,
   QrCode,
@@ -203,7 +204,7 @@ export default () => {
             tabBarIcon: ({ focused }) => {
               return (
                 <View alignItems="center">
-                  <Inbox
+                  <Mail
                     size={focused ? 36 : 30}
                     strokeWidth={2}
                     fill={focused ? gray0 : "none"}

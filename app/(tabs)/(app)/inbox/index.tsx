@@ -2,11 +2,13 @@ import { Redirect, Stack, Link } from "expo-router";
 import React, { useState, useEffect } from "react";
 import { useSession } from "@providers/ctx";
 import {
-  View,
   FlatList,
-  Box,
+  View,
+  Button,
+  ButtonText,
   Heading,
   HStack,
+  Spinner,
   VStack,
   Text,
   Center,
@@ -17,8 +19,8 @@ import {
 } from "@gluestack-ui/themed";
 import { Ellipsis } from "lucide-react-native";
 import { GetMyInbox } from "@services/api/inbox/ApiGetMyInbox";
-
-type InboxProps = { title: string };
+import TitleBar from "@components/common/TitleBar";
+import { RefreshControl } from "react-native";
 
 const Inbox = () => {
   const styled = useStyled();
@@ -28,23 +30,18 @@ const Inbox = () => {
   const [InboxData, setInboxData] = useState([]);
   const [filteredInboxData, setFilteredInboxData] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
-  
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
-  
+
     let filteredData = [];
-    
+
     if (category === "Unread") {
-      filteredData = InboxData.filter(
-        (item) => item.status === "Unread"
-      );
+      filteredData = InboxData.filter((item) => item.status === "Unread");
     } else {
-      filteredData = InboxData.filter(
-        (item) => item.inbox_type === category
-      );
+      filteredData = InboxData.filter((item) => item.inbox_type === category);
     }
-    
+
     setFilteredInboxData(filteredData);
   };
 
@@ -53,11 +50,11 @@ const Inbox = () => {
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-indexed
     const year = date.getFullYear();
-  
+
     // Add leading zeros if needed
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
-  
+
     return `${formattedDay}-${formattedMonth}-${year}`;
   };
 
@@ -77,131 +74,149 @@ const Inbox = () => {
       });
   }, [session]);
 
+  const [refreshing, setRefreshing] = useState(false);
+  const [componentRefreshing, setComponentRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    if (!refreshing) {
+      setRefreshing(true);
+      setComponentRefreshing(!componentRefreshing);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    }
+  };
+
   return (
     <View>
-      <Box py="$5">
-        <Heading size="xl" p="$4" pb="$3" color="$neutral9">
-          Inbox
-        </Heading>
-        <HStack justifyContent="space-between" mr="$3">
-          <HStack>
-            <Box
-              bg={activeCategory === "Unread" ? "$neutral9" : "$warning2"}
+      <View>
+        <TitleBar title="Inbox" />
+
+        <HStack
+          justifyContent="space-between"
+          py={10}
+          px={5}
+          backgroundColor="$gray0"
+        >
+          <HStack flexDirection="row" gap={10}>
+            <Button
+              bg={activeCategory === "Unread" ? "$neutral9" : "$neutral1"}
               borderRadius={5}
-              ml="$3"
               justifyContent="center"
+              px={20}
+              py={4}
+              onPress={() => handleCategoryClick("Unread")}
             >
-              <Text
-                fontSize="$small_3"
+              <ButtonText
+                fontSize={16}
                 fontWeight="$bold"
                 color={activeCategory === "Unread" ? "$white" : "$neutral9"}
-                mx={10}
-                p="$0.5"
-                onPress={() => handleCategoryClick("Unread")}
               >
-                Unread
-              </Text>
-            </Box>
-            <Box
-              bg={activeCategory === "Staff" ? "$neutral9" : "$warning2"}
+                All
+              </ButtonText>
+            </Button>
+            <Button
+              bg={activeCategory === "Staff" ? "$neutral9" : "$neutral1"}
               borderRadius={5}
-              mx="$2"
               justifyContent="center"
+              px={20}
+              py={4}
+              onPress={() => handleCategoryClick("Staff")}
             >
-              <Text
-                fontSize="$small_3"
+              <ButtonText
+                fontSize={16}
                 fontWeight="$bold"
                 color={activeCategory === "Staff" ? "$white" : "$neutral9"}
-                mx={10}
-                p="$0.5"
-                onPress={() => handleCategoryClick("Staff")}
               >
                 For Staff
-              </Text>
-            </Box>
-            <Box 
-              bg={activeCategory === "Participant" ? "$neutral9" : "$warning2"}
-              borderRadius={5} 
-              justifyContent="center">
-              <Text
-                fontSize="$small_3"
+              </ButtonText>
+            </Button>
+            <Button
+              bg={activeCategory === "Participant" ? "$neutral9" : "$neutral1"}
+              borderRadius={5}
+              justifyContent="center"
+              px={20}
+              py={4}
+              onPress={() => handleCategoryClick("Participant")}
+            >
+              <ButtonText
+                fontSize={16}
                 fontWeight="$bold"
-                color={activeCategory === "Participant" ? "$white" : "$neutral9"}
-                mx={10}
-                p="$0.5"
-                onPress={() => handleCategoryClick("Participant")}
+                color={
+                  activeCategory === "Participant" ? "$white" : "$neutral9"
+                }
               >
                 For Participant
-              </Text>
-            </Box>
+              </ButtonText>
+            </Button>
           </HStack>
-          <Ellipsis size={25} strokeWidth={2} color={neutral9} />
         </HStack>
-      </Box>
+      </View>
+
       {loading ? (
         // Render loading indicator
         <>
-          {[...Array(1)].map((_, index) => (
-            <View key={index} alignItems="center">
-              <Image
-                w={200}
-                h={90}
-                alt="Loading..."
-                mr={10}
-                source={{
-                  uri: "https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=6c09b95233eb5ffk4f46u9soryvb0lwvdtee43ke6oe6mkol&ep=v1_gifs_search&rid=200w.gif&ct=g",
-                }}
-              />
-            </View>
-          ))}
+          <Spinner size="large" />
         </>
       ) : (
         <>
           <View>
-            <Box py="$0">
+            <View py="$0" h="$full">
               <FlatList
-                data={filteredInboxData.length > 0 ? filteredInboxData : InboxData}
+                data={
+                  filteredInboxData.length > 0 ? filteredInboxData : InboxData
+                }
                 renderItem={({ item }) => (
-                  <Box
+                  <View
+                    backgroundColor="$gray0"
                     borderBottomWidth="$2"
                     borderColor="$warning5"
-                    $base-pl={0}
-                    $base-pr={0}
-                    $sm-pl="$4"
-                    $sm-pr="$5"
-                    py="$2"
+                    py={4}
                   >
                     <Link href="(app)/inbox/inbox_detail" asChild>
-                      <HStack space="md" justifyContent="space-between">
-                        <Center>
-                          <AlertIcon
-                            as={CheckCircleIcon}
+                      <HStack alignItems="center" flexDirection="row">
+                        <AlertIcon
+                          as={CheckCircleIcon}
+                          color="$neutral9"
+                          size="xl"
+                          mx={10}
+                        />
+
+                        <VStack flexDirection="column" gap={10}>
+                          <Text
                             color="$neutral9"
-                            size="xl"
-                            mr="$3"
-                            ml="$3"
-                          />
-                        </Center>
-                        <VStack>
-                          <Text color="$neutral9" fontWeight="$bold">
+                            fontSize={18}
+                            fontWeight="$bold"
+                          >
                             {item.subject}
                           </Text>
-                          <Text color="$black">{item.body}</Text>
+
+                          <Text fontSize={12} color="$black">
+                            {item.body}
+                          </Text>
+
+                          <Text
+                            fontSize="$xs"
+                            color="$coolGray800"
+                            alignSelf="center"
+                            bold
+                          >
+                            {formattedDate(item.created_at)}
+                          </Text>
                         </VStack>
-                        <Text
-                          fontSize="$xs"
-                          color="$coolGray800"
-                          alignSelf="center"
-                          bold
-                        >
-                          {formattedDate(item.created_at)}
-                        </Text>
                       </HStack>
                     </Link>
-                  </Box>
+                  </View>
                 )}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    tintColor="#000"
+                  />
+                }
               />
-            </Box>
+            </View>
           </View>
         </>
       )}
