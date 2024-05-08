@@ -29,11 +29,11 @@ import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
 import { StyleSheet } from "react-native";
 import { retrieveToken } from "@utils/RetrieveToken";
 import EditNameAction from "@components/Profile/EditNameAction";
+import { router } from "expo-router";
 
 const EditProfile = () => {
   const styled = useStyled();
   const [showEditName, setShowEditName] = useState(false);
-  const handleCloseEditName = () => setShowEditName(!showEditName);
   const [showShortbio, setShowShortbio] = useState(false);
   const handleCloseShortbio = () => setShowShortbio(!showShortbio);
   const [showDesc, setShowDesc] = useState(false);
@@ -46,6 +46,15 @@ const EditProfile = () => {
   const [showUploadImage, setShowUploadImage] = useState(false);
 
   const [refresh, setRefresh] = useState(false);
+
+  const handleCloseEditName = () => {
+
+    setShowEditName(!showEditName);
+  
+  };
+
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +71,9 @@ const EditProfile = () => {
     };
 
     fetchData();
-  }, [refresh]);
+  }, [refresh, showEditName, showShortbio, showDesc, showPersonality]);
+
+
 
   return (
     <View backgroundColor="$gray0">
@@ -135,8 +146,8 @@ const EditProfile = () => {
             <EditName
               isOpen={showEditName}
               onClose={handleCloseEditName}
-              firstName={userData?.first_name}
-              lastName={userData?.last_name}
+              setRefresh={setRefresh}
+              refresh={refresh}
             />
           </HStack>
           <VStack

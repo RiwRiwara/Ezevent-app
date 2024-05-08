@@ -62,14 +62,15 @@ const Me = () => {
           },
         });
         if (isMounted) {
-          response.data.user.profile_img =
-            response.data.user.profile_img ;
+          response.data.user.profile_img = response.data.user.profile_img;
           setUser(response.data.user);
-          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
-        setLoading(false);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
@@ -169,13 +170,17 @@ const Me = () => {
                   ) : (
                     <AvatarImage
                       source={{
-                        uri: IMAGE_URLS.userprofile + "/" + user?.profile_img + "?timestamp=" + timestamp,
+                        uri:
+                          IMAGE_URLS.userprofile +
+                          "/" +
+                          user?.profile_img +
+                          "?timestamp=" +
+                          timestamp,
                       }}
-                      alt= {user?.profile_img}
+                      alt={user?.profile_img || "mock Image2"}
                     />
                   )}
                 </Avatar>
-     
 
                 <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
                   {user?.first_name || "-"} {user?.last_name || "-"}
@@ -337,9 +342,7 @@ const Me = () => {
               </HStack>
             </HStack>
           </VStack>
-          <View h={200}>
-
-          </View>
+          <View h={200}></View>
         </ScrollView>
       </View>
     </View>

@@ -20,12 +20,9 @@ import { useSession } from "@providers/ctx";
 import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
 import {retrieveToken} from "@utils/RetrieveToken";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+
+const EditName  = ({ isOpen, onClose, setRefresh, refresh }) => {
   const { user } = useSession();
   const styled = useStyled();
   const [firstName, setFirstName] = useState(user?.first_name || "");
