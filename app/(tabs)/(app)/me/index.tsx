@@ -224,7 +224,9 @@ const Me = () => {
               Badges
             </Text>
             <HStack>
+              <Link href={`/me/BadgeID`}>
               <Badge badge_name="Community" image_src="./assets/combadge.png" />
+              </Link>
               <Badge badge_name="BrainStorm" image_src="./assets/brainbadge.png" />
               <Badge badge_name="Social" image_src="./assets/socialbadge.png" />
               <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
