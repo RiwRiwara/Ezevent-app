@@ -51,13 +51,9 @@ const Me = () => {
 
   useEffect(() => {
     setLoading(true);
-    GetBadgeById(id)
-      .then((data) => {
-        console.log(data.badge);
-      })
-      .catch((error) => {
-        console.error("[BadgeDetail] : Error fetching badge detail:", error);
-      });
+
+
+
     let isMounted = true;
     const fetchData = async () => {
       try {
