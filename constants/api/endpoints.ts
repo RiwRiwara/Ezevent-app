@@ -47,7 +47,10 @@ export const API_ENDPOINTS = {
   // Profile
   GET_PROFILE: { url: "/my-profile", method: "GET" },
   UPDATE_PROFILE: { url: "/user", method: "PUT" },
-  UPLOAD_PROFILE_IMAGE: { url: "/uploadprofileimage", method: "POST" },
+  UPLOAD_PROFILE_IMAGE : { url: "/uploadprofileimage", method: "POST" },
+
+  // Inbox
+  GET_INBOX: { url: "/my-inbox", method: "GET" },
 };
 
 export const getApiUrl = (endpoint: Endpoint): string => {
