@@ -1,9 +1,5 @@
-import React from 'react';
-import {
-  VStack,
-  Text,
-  Image,
-} from "@gluestack-ui/themed";
+import React from "react";
+import { VStack, Text, Image } from "@gluestack-ui/themed";
 
 interface BadgeProps {
   badge_name: string;
@@ -12,8 +8,8 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ badge_name, image_src }) => {
   return (
-    <VStack mr="$4">
-      <Image source={{uri: image_src}} alt={badge_name} size='xs'/>
+    <VStack>
+      <Image source={{ uri: image_src }} alt={badge_name} size="xs" />
     </VStack>
   );
 };

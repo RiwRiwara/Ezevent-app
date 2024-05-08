@@ -23,8 +23,6 @@ export const UpdateProfile = (session,field_name, value): Promise<any> => {
               },
             }
           );
-        console.log(response);
-        console.log(response.status);
         
         if (response.status != 200) {
             reject(new Error(response.data.message));

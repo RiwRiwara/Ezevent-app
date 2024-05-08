@@ -29,6 +29,7 @@ export const API_ENDPOINTS = {
 
   // Badge
   BADGE_DETAIL_BY_ID: { url: "/badge/:id", method: "GET" },
+  GET_MY_BADGES: { url: "/mybadges", method: "GET" },
 
   // Get my application
   MY_APPLICATION: { url: "/event/get-my-application", method: "GET" },
@@ -51,6 +52,7 @@ export const API_ENDPOINTS = {
 
   // Inbox
   GET_INBOX: { url: "/my-inbox", method: "GET" },
+  
 };
 
 export const getApiUrl = (endpoint: Endpoint): string => {

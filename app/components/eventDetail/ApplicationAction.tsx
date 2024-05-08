@@ -107,13 +107,12 @@ function ApplicationAction({ event }: { event: Event }) {
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
 
-          <VStack py={30}>
-            <HStack justifyContent="space-evenly" w="100%" alignItems="center">
+          <VStack pb={20}>
+            <HStack justifyContent="space-around" w="$full" alignItems="center">
               <VStack
                 justifyContent="center"
                 alignItems="center"
                 gap={10}
-                mb={10}
               >
                 <Box
                   bg="$gray0"
@@ -134,9 +133,9 @@ function ApplicationAction({ event }: { event: Event }) {
                   <Text fontSize={30} color="$neutral6" fontWeight="$bold">
                     Participants
                   </Text>
-                  <Text fontSize={20} color="$neutral7" fontWeight="$semibold">
+                  {/* <Text fontSize={20} color="$neutral7" fontWeight="$semibold">
                     {event.number_participant}/{event.limit_participant}
-                  </Text>
+                  </Text> */}
                 </Box>
                 {isJoined ? (
                   <></>
@@ -174,9 +173,9 @@ function ApplicationAction({ event }: { event: Event }) {
                   <Text fontSize={30} color="$neutral6" fontWeight="$bold">
                     Staffs
                   </Text>
-                  <Text fontSize={20} color="$neutral7" fontWeight="$semibold">
+                  {/* <Text fontSize={20} color="$neutral7" fontWeight="$semibold">
                     {event.number_staff}/{event.limit_staff}
-                  </Text>
+                  </Text> */}
                 </Box>
                 {isJoined ? (
                   <></>
@@ -194,6 +193,7 @@ function ApplicationAction({ event }: { event: Event }) {
                   </>
                 )}
               </VStack>
+
             </HStack>
 
             <HStack w="100%" alignItems="center">
@@ -203,7 +203,7 @@ function ApplicationAction({ event }: { event: Event }) {
                 </>
               ) : (
                 <>
-                  <Box w="$full" justifyContent="center">
+                  <Box w="$full" justifyContent="center" my={10}>
                     <Text
                       fontSize={15}
                       color="$neutral7"

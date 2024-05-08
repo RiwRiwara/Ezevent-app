@@ -32,10 +32,9 @@ const Me = () => {
   const [user, setUser] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const timestamp = new Date().getTime();
+  const [badges, setBadges] = useState([]);
 
   const params = useLocalSearchParams();
-  const [badgeDetail, setBadgeDetail] = useState([]);
-  const [source, setSource] = useState({ html: "" });
 
   const id = params.id?.toString();
 
@@ -64,7 +63,7 @@ const Me = () => {
         });
         if (isMounted) {
           response.data.user.profile_img =
-            response.data.user.profile_img + "?" + timestamp;
+            response.data.user.profile_img ;
           setUser(response.data.user);
           setLoading(false);
         }
@@ -74,7 +73,28 @@ const Me = () => {
       }
     };
 
+    const fetchBadgeData = async () => {
+      try {
+        const token = await retrieveToken();
+        const response = await axios.get(
+          getApiUrl(API_ENDPOINTS.GET_MY_BADGES),
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "ngrok-skip-browser-warning": "true",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setBadges(response.data.myBadges);
+      } catch (error) {
+        console.error("Error fetching badges:", error);
+      }
+    };
+
     fetchData();
+    fetchBadgeData();
     return () => {
       isMounted = false;
     };
@@ -119,154 +139,209 @@ const Me = () => {
           Go to organizing portal
         </Text>
       </Button>
+      <View>
+        <ScrollView
+          bg="$gray0"
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#000"
+            />
+          }
+        >
+          <VStack>
+            <HStack justifyContent="center" style={styles.borderbt}>
+              <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
+                <Avatar
+                  bgColor="$amber600"
+                  size="2xl"
+                  borderRadius="$full"
+                  mb={5}
+                >
+                  {loading ? (
+                    <AvatarImage
+                      source={{
+                        uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                      }}
+                      alt="mock Image"
+                    />
+                  ) : (
+                    <AvatarImage
+                      source={{
+                        uri: IMAGE_URLS.userprofile + "/" + user?.profile_img + "?timestamp=" + timestamp,
+                      }}
+                      alt= {user?.profile_img}
+                    />
+                  )}
+                </Avatar>
+     
 
-      <ScrollView
-        bg="$gray0"
-        h="100%"
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#000"
-          />
-        }
-      >
-        <VStack>
-          <HStack justifyContent="center" style={styles.borderbt}>
-            <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
-              <Avatar
-                bgColor="$amber600"
-                size="2xl"
-                borderRadius="$full"
-                mb={5}
-              >
-                {loading ? (
-                  <AvatarImage
-                    source={{
-                      uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    }}
-                    alt="Profile Image"
-                  />
-                ) : (
-                  <AvatarImage
-                    source={{
-                      uri: IMAGE_URLS.userprofile + "/" + user?.profile_img,
-                    }}
-                    alt="Profile Image"
-                  />
-                )}
-              </Avatar>
+                <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
+                  {user?.first_name || "-"} {user?.last_name || "-"}
+                </Text>
 
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-                {user?.first_name || "loading . . ."} {user?.last_name || "..."}
+                <Text fontSize="$sm" color="$neutral8">
+                  {user?.email || "-"}
+                </Text>
+              </VStack>
+            </HStack>
+
+            <Box bg="$gray0" w="$full" alignItems="center" p="$3">
+              <Text fontSize="$sm" color="$gray9">
+                {user?.short_bio || "-"}
               </Text>
-
-              <Text fontSize="$sm" color="$neutral8">
-                {user?.email || "robert@mail.com"}
-              </Text>
+            </Box>
+            <VStack alignItems="center">
+              <HStack space="2xl" p="$3">
+                <Image
+                  size="lg"
+                  borderRadius={10}
+                  source={{
+                    uri: DEFAULT_IMAGES.userprofile,
+                  }}
+                  alt="Image1"
+                />
+                <Image
+                  size="lg"
+                  borderRadius={10}
+                  source={{
+                    uri: DEFAULT_IMAGES.userprofile,
+                  }}
+                  alt="Image2"
+                />
+                <Image
+                  size="lg"
+                  borderRadius={10}
+                  source={{
+                    uri: DEFAULT_IMAGES.userprofile,
+                  }}
+                  alt="Image3"
+                />
+              </HStack>
             </VStack>
-          </HStack>
 
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3">
-            <Text fontSize="$sm" color="$gray9">
-              {user?.short_bio || "add a short bio here . . ."}
-            </Text>
-          </Box>
-          <VStack alignItems="center">
-            <HStack space="2xl" p="$3">
-              <Image
-                size="lg"
-                borderRadius={10}
-                source={{
-                  uri: DEFAULT_IMAGES.userprofile,
-                }}
-                alt="Image1"
-              />
-              <Image
-                size="lg"
-                borderRadius={10}
-                source={{
-                  uri: DEFAULT_IMAGES.userprofile,
-                }}
-                alt="Image2"
-              />
-              <Image
-                size="lg"
-                borderRadius={10}
-                source={{
-                  uri: DEFAULT_IMAGES.userprofile,
-                }}
-                alt="Image3"
-              />
+            <Box
+              bg="$gray0"
+              w="$full"
+              alignItems="center"
+              p="$3"
+              style={styles.borderbt}
+            >
+              <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                Badges
+              </Text>
+
+              {badges ? (
+                <>
+                  <ScrollView
+                    horizontal={true}
+                    contentContainerStyle={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <HStack gap={25} py={10}>
+                      {badges.map((badge, index) => (
+                        <VStack key={index} alignItems="center" gap={5}>
+                          <Image
+                            w={60}
+                            h={60}
+                            key={index}
+                            borderRadius={10}
+                            source={{
+                              uri: badge.url,
+                            }}
+                            alt={badge.name_en}
+                          />
+                          <Text
+                            fontSize={16}
+                            fontWeight="bold"
+                            color="$neutral7"
+                          >
+                            {badge.count}
+                          </Text>
+                        </VStack>
+                      ))}
+                    </HStack>
+                  </ScrollView>
+                </>
+              ) : (
+                <>
+                  <Text>asdsd</Text>
+                </>
+              )}
+            </Box>
+            <Box
+              bg="$gray0"
+              w="$full"
+              alignItems="center"
+              p="$3"
+              style={styles.borderbt}
+            >
+              <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                History
+              </Text>
+            </Box>
+            <HStack justifyContent="space-between" p="$2">
+              <HStack>
+                <CalendarCheck2
+                  size={40}
+                  color={styled.config.tokens.colors.neutral8}
+                />
+                <Text
+                  fontSize="$md"
+                  fontWeight="$bold"
+                  color="$neutral9"
+                  p="$3"
+                >
+                  Events
+                </Text>
+              </HStack>
+              <HStack>
+                <Text
+                  fontSize="$md"
+                  fontWeight="$bold"
+                  color="$neutral9"
+                  p="$3"
+                >
+                  5
+                </Text>
+              </HStack>
+            </HStack>
+            <HStack justifyContent="space-between" p="$2">
+              <HStack>
+                <Building2
+                  size={40}
+                  color={styled.config.tokens.colors.neutral8}
+                />
+                <Text
+                  fontSize="$md"
+                  fontWeight="$bold"
+                  color="$neutral9"
+                  p="$3"
+                >
+                  Organizations
+                </Text>
+              </HStack>
+              <HStack>
+                <Text
+                  fontSize="$md"
+                  fontWeight="$bold"
+                  color="$neutral9"
+                  p="$3"
+                >
+                  5
+                </Text>
+              </HStack>
             </HStack>
           </VStack>
+          <View h={200}>
 
-
-          <Box
-            bg="$gray0"
-            w="$full"
-            alignItems="center"
-            p="$3"
-            style={styles.borderbt}
-          >
-            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
-              Badges
-            </Text>
-            <HStack>
-              <Badge badge_name="Community" image_src="./assets/combadge.png" />
-              <Badge badge_name="BrainStorm" image_src="./assets/brainbadge.png" />
-              <Badge badge_name="Social" image_src="./assets/socialbadge.png" />
-              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
-              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
-              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
-              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
-            </HStack>
-          </Box>
-          <Box
-            bg="$gray0"
-            w="$full"
-            alignItems="center"
-            p="$3"
-            style={styles.borderbt}
-          >
-            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
-              History
-            </Text>
-          </Box>
-          <HStack justifyContent="space-between" p="$2">
-            <HStack>
-              <CalendarCheck2
-                size={40}
-                color={styled.config.tokens.colors.neutral8}
-              />
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9" p="$3">
-                Events
-              </Text>
-            </HStack>
-            <HStack>
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9" p="$3">
-                5
-              </Text>
-            </HStack>
-          </HStack>
-          <HStack justifyContent="space-between" p="$2">
-            <HStack>
-              <Building2
-                size={40}
-                color={styled.config.tokens.colors.neutral8}
-              />
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9" p="$3">
-                Organizations
-              </Text>
-            </HStack>
-            <HStack>
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9" p="$3">
-                5
-              </Text>
-            </HStack>
-          </HStack>
-        </VStack>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 };

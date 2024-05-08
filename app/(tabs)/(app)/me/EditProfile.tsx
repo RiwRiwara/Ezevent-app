@@ -28,6 +28,7 @@ import UploadMultiImageActionSheet from "@components/Profile/UploadMultiImageAct
 import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
 import { StyleSheet } from "react-native";
 import { retrieveToken } from "@utils/RetrieveToken";
+import EditNameAction from "@components/Profile/EditNameAction";
 
 const EditProfile = () => {
   const styled = useStyled();
@@ -129,6 +130,8 @@ const EditProfile = () => {
                 Edit
               </Text>
             </Button>
+            {/* <EditNameAction /> */}
+            
             <EditName
               isOpen={showEditName}
               onClose={handleCloseEditName}

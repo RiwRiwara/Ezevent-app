@@ -170,6 +170,10 @@ const EventDetail = () => {
               <View px={6} py={8} mb={20} backgroundColor="$gray0">
                 <RenderHtml source={source} contentWidth={contentW} />
               </View>
+
+              <Box h={100}>
+
+              </Box>
             </>
           )
         )}

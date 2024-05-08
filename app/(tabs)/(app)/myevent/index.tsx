@@ -61,7 +61,7 @@ const MyEvent = () => {
         alignItems="center"
       >
         <HStack alignItems="center" gap={10}>
-          <Text fontSize={16} fontWeight="$bold" color="$gray0">
+          <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             My Events
           </Text>
           <CalendarCheck size={30} strokeWidth={2} color="#fff" />

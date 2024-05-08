@@ -17,6 +17,9 @@ import {
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { useSession } from "@providers/ctx";
+import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
+import {retrieveToken} from "@utils/RetrieveToken";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -27,6 +30,18 @@ const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const styled = useStyled();
   const [firstName, setFirstName] = useState(user?.first_name || "");
   const [lastName, setLastName] = useState(user?.last_name || "");
+
+  const onSaveName = async () => {
+    try {
+      const token = await retrieveToken();
+      await UpdateProfile(token, "first_name", firstName);
+      await UpdateProfile(token, "last_name", lastName);
+      onClose();
+    } catch (error) {
+      console.error("Error updating name:", error);
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalBackdrop />
@@ -83,7 +98,7 @@ const EditName: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 />
               </Input>
             </VStack>
-            <Button ml="auto" onPress={onClose}>
+            <Button ml="auto" onPress={onSaveName}>
               <ButtonText color="$gray0">Save</ButtonText>
             </Button>
           </VStack>
