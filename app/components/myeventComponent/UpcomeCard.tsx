@@ -11,16 +11,15 @@ import {
   View,
   Card,
 } from "@gluestack-ui/themed";
-import StatusButtonSet from "../common/StatusButtonSet";
+import ActionButionSet from "../common/ActionButionSet";
 import ButtonWhiteSet from "../common/ButtonWhiteSet";
 import { Button, ButtonText, ButtonGroup } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 
-export default function MyEventCard({
+export default function UpcomeCard({
   whiteBtn,
   titleBtn,
   colorBtn,
-  button,
   myevent = {
     event_id: "",
     event_name: "",
@@ -30,6 +29,8 @@ export default function MyEventCard({
     venue: "",
     event_participants: {},
   },
+  status,
+  action,
 }) {
   const styled = useStyled();
   return (
@@ -90,9 +91,8 @@ export default function MyEventCard({
             </Text> */}
 
               <HStack justifyContent="flex-end">
-                {button && <ButtonWhiteSet title={whiteBtn}></ButtonWhiteSet>}
-
-                <StatusButtonSet title={titleBtn} color={colorBtn} event_participant_id={myevent.event_participants[0].event_participant_id} status="Cancelled"></StatusButtonSet>
+                <ButtonWhiteSet title={whiteBtn} status={status} event_participant_id={myevent.event_participants[0].event_participant_id} ></ButtonWhiteSet>
+                <ActionButionSet title={titleBtn} color={colorBtn} event_participant_id={myevent.event_participants[0].event_participant_id} action={action}></ActionButionSet>
               </HStack>
             </VStack>
           </HStack>

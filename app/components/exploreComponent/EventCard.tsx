@@ -20,7 +20,13 @@ export default function EventCard({
   },
 }) {
   return (
-    <Link href={`/event/${event.event_id}`} push>
+    <Link
+      href={{
+        pathname: `/event/${event.event_id}`,
+        params: { name: event.event_name},
+      }}
+      push
+    >
       <View>
         <Card p="$2" borderRadius="$lg" w={170} mr={10} h={350}>
           <>

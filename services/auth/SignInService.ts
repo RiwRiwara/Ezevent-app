@@ -10,10 +10,10 @@ class Response {
 }
 
 
-export const useHandleSignInByApi = () => {
+export const useHandleSignInService = () => {
   const { signIn } = useSession();
 
-  const handleSignInByApi = async (
+  const handleSignInService = async (
     email: string,
     password: string,
     callback?: () => void
@@ -50,5 +50,5 @@ export const useHandleSignInByApi = () => {
     }
   };
 
-  return handleSignInByApi;
+  return handleSignInService;
 };

@@ -1,12 +1,7 @@
 // Code: app/(tabs)/_layout.js
 import React, { useState, useEffect } from "react";
 import { Tabs, Stack } from "expo-router";
-import {
-  Platform,
-  Pressable,
-  Modal,
-  Button,
-} from "react-native";
+import { Platform, Pressable, Modal, Button } from "react-native";
 import { Text, View, useStyled } from "@gluestack-ui/themed";
 import { useSession } from "@providers/ctx";
 import { SigninSlideUp } from "@components/auth/SigninSlideUp";
@@ -18,23 +13,19 @@ import {
   QrCode,
 } from "lucide-react-native";
 import QrScan from "@components/qrcode/QrScan";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
   const { session } = useSession();
-  const { verifySession } = useSession();
   const styled = useStyled();
   const tabBackground = styled.config.tokens.colors.neutral6;
   const gray0 = styled.config.tokens.colors.gray0;
   const neutral6 = styled.config.tokens.colors.neutral6;
   const [isHeld, setIsHeld] = useState(false);
   const [isPreSigninVisible, setIsPreSigninVisible] = useState(false);
-
   const [showQr, setShowQr] = React.useState(false);
   const handleCloseQr = () => setShowQr(!showQr);
-
-  useEffect(() => {
-    verifySession();
-  }, []);
+  const [localToken, setLocalToken] = useState(null);
 
   const toggleModal = () => {
     setIsPreSigninVisible(!isPreSigninVisible);
@@ -70,13 +61,32 @@ export default () => {
   };
 
   const onPressTab = (event) => {
-    if (session) {
+    console.log("onPressTab");
+    console.log(localToken);
+    if (localToken) {
       // Do nothing
     } else {
       setIsPreSigninVisible(true);
       event.preventDefault();
     }
   };
+
+
+  useEffect(() => {
+    const retrieveToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        return token;
+      } catch (error) {
+        console.error("Error retrieving token:", error);
+      }
+    };
+
+    retrieveToken().then((token) => {
+      setLocalToken(token);
+    });
+
+  });
 
   return (
     <>
@@ -85,17 +95,17 @@ export default () => {
           headerShown: false,
           tabBarStyle: {
             position: "absolute",
-            bottom: Platform.OS != "web" ? Platform.OS == "ios" ? -35 : 0 : 0,
+            bottom: Platform.OS != "web" ? (Platform.OS == "ios" ? -35 : 0) : 0,
             left: 0,
             right: 0,
-            height: Platform.OS != "web" ?  Platform.OS == "ios" ? 100 : 70 : 70,
+            height:
+              Platform.OS != "web" ? (Platform.OS == "ios" ? 100 : 70) : 70,
             paddingTop: 5,
             elevation: 0,
             backgroundColor: tabBackground,
           },
         }}
       >
-
         <Tabs.Screen
           name="explore/index"
           options={{
@@ -238,7 +248,13 @@ export default () => {
                     bg={isHeld ? "$gray1" : "$gray0"}
                     w={80}
                     h={80}
-                    top={Platform.OS != "web" ? Platform.OS == "ios" ? -10 : -12 : -20}
+                    top={
+                      Platform.OS != "web"
+                        ? Platform.OS == "ios"
+                          ? -10
+                          : -12
+                        : -20
+                    }
                     borderRadius={Platform.OS != "web" ? 35 : 40}
                     alignItems="center"
                     justifyContent="center"

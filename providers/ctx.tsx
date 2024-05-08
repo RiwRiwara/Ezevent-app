@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useStorageState } from "./useStorageState";
 import { API_ENDPOINTS, getApiUrl } from "@constants/api/endpoints";
 import axios from "axios";
-
+import { retrieveToken } from "@utils/RetrieveToken";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 interface User {
   user_id: string;
   first_name: string;
@@ -28,6 +30,13 @@ interface User {
   sub_img_3: string;
 }
 
+const removeToken = async () => {
+  try {
+    await AsyncStorage.removeItem("token");
+  } catch (e) {
+  }
+  console.log("Token removed");
+};
 interface SignInResponse {
   message: string;
   success: boolean;
@@ -70,28 +79,33 @@ export function SessionProvider(props: React.PropsWithChildren) {
   const user = userString ? (JSON.parse(userString) as User) : null;
 
   const signIn = (response: SignInResponse) => {
+    console.log("Signing in");
     setSession(response.token);
     setUserString(JSON.stringify(response.user));
   };
 
-  const signOut = () => {
+  const signOut = async () => {
     setSession(null);
     setUserString(null);
+    await removeToken();
+    router.replace("/explore");
   };
 
   const verifySession = async () => {
-    if (!session) {
-      signOut(); 
+    const token = await retrieveToken();
+    if (!token) {
+      signOut();
       return;
     }
 
     try {
       const apiUrl = getApiUrl(API_ENDPOINTS.CHECK_SESSION);
-      const response = await axios.get(apiUrl, {
+      await axios.get(apiUrl, {
         headers: {
           Authorization: `Bearer ${session}`,
         },
       });
+      console.log("Session verified");
     } catch (error) {
       console.error("Error verifying session:", error);
       signOut();
@@ -108,6 +122,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
         signIn,
         signOut,
         session,
+        setSession,
         user,
         isLoading,
         verifySession,

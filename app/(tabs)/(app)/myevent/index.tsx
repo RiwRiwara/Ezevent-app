@@ -47,7 +47,6 @@ const MyEvent = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-  console.log(currentPage)
   return (
     <VStack bg="$gray0">
       {/* <View bg="$gray0" minHeight={200}></View> */}
