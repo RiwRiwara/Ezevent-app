@@ -27,6 +27,10 @@ export const API_ENDPOINTS = {
   LASTEST_EVENTS: { url: "/last-event", method: "GET" },
   ALL_EVENTS: { url: "/event/all", method: "GET" },
 
+  // Badge
+  BADGE_DETAIL_BY_ID: { url: "/badge/:badge_id/detail", method: "GET" },
+  BADGE_LIST: { url: "/badge/list", method: "GET" },
+
   // Get my application
   MY_APPLICATION: { url: "/event/get-my-application", method: "GET" },
   APPLY_EVENT: { url: "/event/participant-application", method: "POST" },
