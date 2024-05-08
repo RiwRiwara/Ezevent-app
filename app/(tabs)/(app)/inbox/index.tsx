@@ -20,7 +20,7 @@ import {
 import { Ellipsis } from "lucide-react-native";
 import { GetMyInbox } from "@services/api/inbox/ApiGetMyInbox";
 import TitleBar from "@components/common/TitleBar";
-import { RefreshControl } from "react-native";
+import { RefreshControl, Platform } from "react-native";
 
 const Inbox = () => {
   const styled = useStyled();
@@ -48,10 +48,9 @@ const Inbox = () => {
   const formattedDate = (createdAt) => {
     const date = new Date(createdAt);
     const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-indexed
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
-    // Add leading zeros if needed
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
 
@@ -90,7 +89,22 @@ const Inbox = () => {
   return (
     <View>
       <View>
-        <TitleBar title="Inbox" />
+        {/* Header */}
+        <VStack reversed={false}>
+          <HStack
+            justifyContent="start"
+            p={10}
+            h={Platform.OS === "ios" ? 50 : 65}
+            pt={Platform.OS === "ios" ? 0 : 25}
+            top={Platform.OS === "ios" ? 0 : 0}
+            backgroundColor="$neutral6"
+            alignItems="center"
+          >
+            <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
+              Inbox
+            </Text>
+          </HStack>
+        </VStack>
 
         <HStack
           justifyContent="space-between"
@@ -173,7 +187,13 @@ const Inbox = () => {
                     borderColor="$warning5"
                     py={4}
                   >
-                    <Link href="(app)/inbox/inbox_detail" asChild>
+                    <Link
+                      href={{
+                        pathname: `/inbox/${item.inbox_id}`,
+                        params: { item: JSON.stringify(item) },
+                      }}
+                      push
+                    >
                       <HStack alignItems="center" flexDirection="row">
                         <AlertIcon
                           as={CheckCircleIcon}
@@ -195,12 +215,7 @@ const Inbox = () => {
                             {item.body}
                           </Text>
 
-                          <Text
-                            fontSize="$xs"
-                            color="$coolGray800"
-                            alignSelf="center"
-                            bold
-                          >
+                          <Text fontSize="$xs" color="$neutral5">
                             {formattedDate(item.created_at)}
                           </Text>
                         </VStack>
