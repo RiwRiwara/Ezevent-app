@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useStyled } from "@gluestack-ui/themed";
 import Participant_summary_type from "@components/participant_summary_type";
 import Organizer_summary_type from "@components/organizer_summary_type";
-import { Dimensions, useWindowDimensions } from "react-native";
+import { Dimensions, useWindowDimensions, Platform } from "react-native";
 import {
   Text,
   HStack,
@@ -14,7 +14,8 @@ import {
   Image,
   ScrollView,
   Button,
-  Pressable
+  Pressable,
+  Center,
 } from "@gluestack-ui/themed";
 import {
   CalendarCheck,
@@ -48,149 +49,138 @@ const MyEvent = () => {
     }
   };
   return (
-    <VStack bg="$gray0">
-      {/* <View bg="$gray0" minHeight={200}></View> */}
+    <VStack bg="$gray0" h="100%">
+      {/* Header */}
       <HStack
         justifyContent="space-between"
-        px={15}
-        py={10}
-        height={48}
-        bg="$gray0"
+        p={10}
+        h={Platform.OS === "ios" ? 50 : 65}
+        pt={Platform.OS === "ios" ? 0 : 25}
+        top={Platform.OS === "ios" ? 0 : 0}
+        backgroundColor="$neutral6"
         alignItems="center"
       >
-        <HStack alignItems="center">
-          <Text fontSize="$title_5" fontWeight="$bold" color="$neutral9">
+        <HStack alignItems="center" gap={10}>
+          <Text fontSize={16} fontWeight="$bold" color="$gray0">
             My Events
           </Text>
-          <CalendarCheck size={30} strokeWidth={2} color={neutral9} />
+          <CalendarCheck size={30} strokeWidth={2} color="#fff" />
         </HStack>
+
         <Link href={"/(app)/myevent/Saved"}>
-          <Text color="$neutral9">View Saved</Text>
+          <Text color="$gray0" fontSize={16} fontWeight="$bold">
+            View Saved
+          </Text>
         </Link>
       </HStack>
-      <VStack
-        justifyContent="space-between"
-        py={30}
-        alignItems="center"
-        space="4xl"
-      >
-        <HStack space="4xl">
-          <Link href={"/(app)/myevent/UpComing"}>
-            <Box
-              w={120}
-              h={120}
-              bg="$gray0"
-              borderRadius="$lg"
-              alignItems="center"
-              borderWidth="$2"
-              borderColor="$neutral9"
-            >
-              <BellPlus size={80} strokeWidth={1} color={neutral9} />
-              <Text
-                fontSize="$title_5"
-                fontWeight="$semibold"
-                color="$neutral9"
-              >
-                UpComing
-              </Text>
-            </Box>
-          </Link>
-          <Link href={"/(app)/myevent/InProgress"}>
-            <Box
-              w={120}
-              h={120}
-              bg="$gray0"
-              borderRadius="$lg"
-              alignItems="center"
-              borderWidth="$2"
-              borderColor="$neutral9"
-            >
-              <Clock3 size={80} strokeWidth={1} color={neutral9} />
-              <Text
-                fontSize="$title_5"
-                fontWeight="$semibold"
-                color="$neutral9"
-              >
-                In progress
-              </Text>
-            </Box>
-          </Link>
-        </HStack>
-        <HStack space="4xl">
-          <Link href={"/(app)/myevent/Reviewing"}>
-            <Box
-              w={120}
-              h={120}
-              bg="$gray0"
-              borderRadius="$lg"
-              alignItems="center"
-              borderWidth="$2"
-              borderColor="$neutral9"
-            >
-              <ClipboardList size={80} strokeWidth={1} color={neutral9} />
-              <Text
-                fontSize="$title_5"
-                fontWeight="$semibold"
-                color="$neutral9"
-              >
-                Reviewing
-              </Text>
-            </Box>
-          </Link>
-          <Link href={"/(app)/myevent/Complete"}>
-            <Box
-              w={120}
-              h={120}
-              bg="$gray0"
-              borderRadius="$lg"
-              alignItems="center"
-              borderWidth="$2"
-              borderColor="$neutral9"
-            >
-              <CheckCircle2 size={80} strokeWidth={1} color={neutral9} />
 
-              <Text
-                fontSize="$title_5"
-                fontWeight="$semibold"
-                color="$neutral9"
-              >
-                Completed
-              </Text>
-            </Box>
-          </Link>
-        </HStack>
-      </VStack>
+      <MyEventBar title="Track progress" />
+
+      <HStack justifyContent="space-evenly" py={30} gap={10}>
+        <Link href={"/(app)/myevent/UpComing"}>
+          <Center
+            w={90}
+            h={90}
+            bg="$gray0"
+            borderRadius="$lg"
+            alignItems="center"
+            borderWidth="$2"
+            borderColor="$neutral9"
+          >
+            <BellPlus size={30} strokeWidth={1.5} color={neutral9} />
+            <Text fontSize={16} fontWeight="$semibold" color="$neutral9">
+              UpComing
+            </Text>
+          </Center>
+        </Link>
+        <Link href={"/(app)/myevent/InProgress"}>
+          <Center
+            w={90}
+            h={90}
+            bg="$gray0"
+            borderRadius="$lg"
+            alignItems="center"
+            borderWidth="$2"
+            borderColor="$neutral9"
+          >
+            <Clock3 size={30} strokeWidth={1.5} color={neutral9} />
+            <Text fontSize={16} fontWeight="$semibold" color="$neutral9">
+              In progress
+            </Text>
+          </Center>
+        </Link>
+        <Link href={"/(app)/myevent/Reviewing"}>
+          <Center
+            w={90}
+            h={90}
+            bg="$gray0"
+            borderRadius="$lg"
+            alignItems="center"
+            borderWidth="$2"
+            borderColor="$neutral9"
+          >
+            <ClipboardList size={30} strokeWidth={1.5} color={neutral9} />
+            <Text fontSize={16} fontWeight="$semibold" color="$neutral9">
+              Reviewing
+            </Text>
+          </Center>
+        </Link>
+        <Link href={"/(app)/myevent/Complete"}>
+          <Center
+            w={90}
+            h={90}
+            bg="$gray0"
+            borderRadius="$lg"
+            alignItems="center"
+            borderWidth="$2"
+            borderColor="$neutral9"
+          >
+            <CheckCircle2 size={30} strokeWidth={1.5} color={neutral9} />
+
+            <Text fontSize={16} fontWeight="$semibold" color="$neutral9">
+              Completed
+            </Text>
+          </Center>
+        </Link>
+      </HStack>
 
       <MyEventBar title="Recent Requesting" />
-      <HStack justifyContent="space-between" mx="$1" mb="$2">
+
+      <HStack
+        justifyContent="space-between"
+        borderBottomColor="$gray1"
+        borderBottomWidth={1}
+        pb={10}
+      >
         <Pressable onPress={handlePrevPage}>
-          <Box bg="$neutral3" borderRadius={5} alignItems="center" mx={10}>
+          <Box bg="$neutral2" borderRadius={5} alignItems="center" mx={10}>
             <Text
-              fontSize="$small_3"
+              fontSize={16}
               fontWeight="$bold"
               color="$neutral9"
-              p="$0.5"
-              px="$8"
+              p={4}
+              px={10}
             >
               Previous
             </Text>
           </Box>
         </Pressable>
         <Pressable onPress={handleNextPage}>
-          <Box bg="$neutral3" borderRadius={5} alignItems="center" mx={10}>
+          <Box bg="$neutral2" borderRadius={5} alignItems="center" mx={10}>
             <Text
-              fontSize="$small_3"
+              fontSize={16}
               fontWeight="$bold"
               color="$neutral9"
-              p="$0.5"
-              px="$8"
+              p={4}
+              px={10}
             >
               Next
             </Text>
           </Box>
         </Pressable>
       </HStack>
-      <ApplicationScroll page={currentPage}/>
+
+      <ApplicationScroll page={currentPage} />
     </VStack>
   );
 };

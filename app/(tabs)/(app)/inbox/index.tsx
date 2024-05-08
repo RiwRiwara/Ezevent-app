@@ -20,7 +20,7 @@ import {
 import { Ellipsis } from "lucide-react-native";
 import { GetMyInbox } from "@services/api/inbox/ApiGetMyInbox";
 import TitleBar from "@components/common/TitleBar";
-import { RefreshControl } from "react-native";
+import { RefreshControl, Platform } from "react-native";
 
 const Inbox = () => {
   const styled = useStyled();
@@ -60,11 +60,9 @@ const Inbox = () => {
 
   useEffect(() => {
     setLoading(true);
-    console.log("session", session);
     GetMyInbox(session)
       .then((data) => {
         setInboxData(data.data);
-        console.log("data", data);
       })
       .catch((error) => {
         console.error("[Inbox] : Error fetching all inboxs:", error);
@@ -90,7 +88,24 @@ const Inbox = () => {
   return (
     <View>
       <View>
-        <TitleBar title="Inbox" />
+
+        {/* Header */}
+        <VStack reversed={false}>
+          <HStack
+            justifyContent="start"
+            p={10}
+            h={Platform.OS === "ios" ? 50 : 65}
+            pt={Platform.OS === "ios" ? 0 : 25}
+            top={Platform.OS === "ios" ? 0 : 0}
+            backgroundColor="$neutral6"
+            alignItems="center"
+          >
+            <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
+              Inbox
+            </Text>
+
+          </HStack>
+        </VStack>
 
         <HStack
           justifyContent="space-between"
@@ -173,7 +188,7 @@ const Inbox = () => {
                     borderColor="$warning5"
                     py={4}
                   >
-                    <Link href="(app)/inbox/inbox_detail" asChild>
+                    <Link href="(app)/inbox/inbox_detail" push>
                       <HStack alignItems="center" flexDirection="row">
                         <AlertIcon
                           as={CheckCircleIcon}
@@ -195,12 +210,7 @@ const Inbox = () => {
                             {item.body}
                           </Text>
 
-                          <Text
-                            fontSize="$xs"
-                            color="$coolGray800"
-                            alignSelf="center"
-                            bold
-                          >
+                          <Text fontSize="$xs" color="$neutral5">
                             {formattedDate(item.created_at)}
                           </Text>
                         </VStack>

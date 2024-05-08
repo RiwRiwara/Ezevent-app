@@ -24,11 +24,14 @@ const MyEventBar = ({title}) => {
         justifyContent="space-between"
         px={15}
         py={10}
+        mb={10}
         height={48}
         bg="$gray0"
         alignItems="center"
+        borderBottomColor="$gray1"
+        borderBottomWidth={1}
       >
-        <Text fontSize="$title_5" fontWeight="$bold" color="$neutral9">
+        <Text fontSize={20} fontWeight="$bold" color="$neutral9">
           {title}
         </Text>
         <AlignRight size={36} strokeWidth={1} color={neutral9} />

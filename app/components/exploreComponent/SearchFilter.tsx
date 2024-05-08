@@ -33,17 +33,14 @@ interface ActionsheetProps {
 
 const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
   const handlePressOutside = () => {
-    Keyboard.dismiss(); // Dismisses the keyboard when pressed outside
+    Keyboard.dismiss();
   };
-  const [eventName, setEventName] = useState('');
+  const [eventName, setEventName] = useState("");
   const navigation = useNavigation();
 
   const handleFindEvent = async () => {
-    try {
-        navigation.navigate('explore/search_result', { name: eventName });
-    } catch (error) {
-      console.error('Error finding event:', error);
-    }
+    navigation.navigate("explore/search_result", { name: eventName });
+    onClose();
   };
 
   return (
@@ -61,7 +58,7 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
             <ActionsheetDragIndicatorWrapper>
               <ActionsheetDragIndicator />
             </ActionsheetDragIndicatorWrapper>
-            <VStack w="$full" py={20} px={8}>
+            <VStack w="$full" py={20} px={10}>
               <HStack
                 justifyContent="center"
                 alignItems="center"
@@ -69,7 +66,11 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
               ></HStack>
               <FormControl mt={1}>
                 <FormControlLabel>
-                  <FormControlLabelText>
+                  <FormControlLabelText
+                    fontSize="$paragraph"
+                    fontWeight="$bold"
+                    color="$neutral9"
+                  >
                     Find What You Need
                   </FormControlLabelText>
                 </FormControlLabel>
@@ -79,18 +80,18 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
                   space="md"
                 >
                   <Input w="80%">
-                    <InputField 
-                      placeholder="Event Name" 
+                    <InputField
+                      placeholder="Event Name"
                       value={eventName}
-                      onChangeText={text => setEventName(text)}
-                      />
+                      onChangeText={(text) => setEventName(text)}
+                    />
                   </Input>
-                  <Button w="20%" backgroundColor="$neutral6" onPress={onClose} >
-                    <ButtonText 
-                      fontSize="$sm"
-                      onPress={handleFindEvent}>
-                      Find
-                    </ButtonText>
+                  <Button
+                    w="20%"
+                    backgroundColor="$neutral6"
+                    onPress={handleFindEvent}
+                  >
+                    <ButtonText fontSize="$md">Find</ButtonText>
                   </Button>
                 </HStack>
                 <VStack bg="$gray0" w="$full" mt={10}>
@@ -108,7 +109,7 @@ const SearchFilter: React.FC<ActionsheetProps> = ({ isOpen, onClose }) => {
                       <ButtonText fontSize={10}>Entertainment</ButtonText>
                     </Button>
                     <Button w="$40%" variant="search" action="search">
-                      <ButtonText fontSize={10} >Finance&Accounting</ButtonText>
+                      <ButtonText fontSize={10}>Finance&Accounting</ButtonText>
                     </Button>
                     <Button w="$30%" variant="search" action="search">
                       <ButtonText fontSize={10}>Seminar</ButtonText>
