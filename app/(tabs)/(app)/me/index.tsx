@@ -22,6 +22,7 @@ import {
 import { retrieveToken } from "@utils/RetrieveToken";
 import axios from "axios";
 import { API_ENDPOINTS, getApiUrl, WEB_URL } from "@constants/api/endpoints";
+import Badge from "@components/badge";
 
 import { Linking, RefreshControl, Platform, StyleSheet } from "react-native";
 
@@ -200,6 +201,7 @@ const Me = () => {
             </HStack>
           </VStack>
 
+
           <Box
             bg="$gray0"
             w="$full"
@@ -210,6 +212,15 @@ const Me = () => {
             <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               Badges
             </Text>
+            <HStack>
+              <Badge badge_name="Community" image_src="./assets/combadge.png" />
+              <Badge badge_name="BrainStorm" image_src="./assets/brainbadge.png" />
+              <Badge badge_name="Social" image_src="./assets/socialbadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+              <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
+            </HStack>
           </Box>
           <Box
             bg="$gray0"

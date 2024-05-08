@@ -12,9 +12,8 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ badge_name, image_src }) => {
   return (
-    <VStack>
+    <VStack mr="$4">
       <Image source={{uri: image_src}} alt={badge_name} size='xs'/>
-      <Text>{badge_name}</Text>
     </VStack>
   );
 };
