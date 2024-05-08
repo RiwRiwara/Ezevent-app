@@ -25,9 +25,7 @@ import { API_ENDPOINTS, getApiUrl, WEB_URL } from "@constants/api/endpoints";
 
 import { Linking, RefreshControl, Platform, StyleSheet } from "react-native";
 
-
 const Me = () => {
-  
   const styled = useStyled();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -51,8 +49,6 @@ const Me = () => {
 
   useEffect(() => {
     setLoading(true);
-
-
 
     let isMounted = true;
     const fetchData = async () => {
@@ -85,9 +81,7 @@ const Me = () => {
   }, [refreshing]);
 
   return (
-
     <View mt={Platform.OS !== "web" ? (Platform.OS === "ios" ? 0 : 20) : 0}>
-      
       <HStack
         justifyContent="space-between"
         p={10}
@@ -137,7 +131,7 @@ const Me = () => {
           />
         }
       >
-        <VStack >
+        <VStack>
           <HStack justifyContent="center" style={styles.borderbt}>
             <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
               {loading ? (
@@ -169,6 +163,8 @@ const Me = () => {
                   />
                 </Avatar>
               )}
+
+
 
               <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
                 {user?.first_name || "loading . . ."} {user?.last_name || "..."}
@@ -214,12 +210,24 @@ const Me = () => {
             </HStack>
           </VStack>
 
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
+          <Box
+            bg="$gray0"
+            w="$full"
+            alignItems="center"
+            p="$3"
+            style={styles.borderbt}
+          >
             <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               Badges
             </Text>
           </Box>
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
+          <Box
+            bg="$gray0"
+            w="$full"
+            alignItems="center"
+            p="$3"
+            style={styles.borderbt}
+          >
             <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               History
             </Text>
@@ -256,7 +264,6 @@ const Me = () => {
               </Text>
             </HStack>
           </HStack>
-
         </VStack>
       </ScrollView>
     </View>
