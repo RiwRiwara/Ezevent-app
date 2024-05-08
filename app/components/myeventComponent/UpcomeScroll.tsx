@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSession } from "@providers/ctx";
 import {
   ScrollView,
   Box,
@@ -8,11 +7,12 @@ import {
   View,
   VStack,
 } from "@gluestack-ui/themed";
-import MyEventCard from "./MyEventCard";
+import UpcomeCard from "./UpcomeCard";
 import { useLocalSearchParams } from "expo-router";
 import { GetStatusMyEvents } from "@services/api/event/myevent/ApiMyEvent";
+import { retrieveToken } from "@utils/RetrieveToken";
 
-export default function MyEventScroll(props) {
+export default function UpcomeScroll(props) {
   const {
     type,
     progress,
@@ -20,28 +20,33 @@ export default function MyEventScroll(props) {
     titleBtn = "Cancel",
     colorBtn = "$danger5",
     whiteBtn = "Cancel",
-    button = false,
+    statusCheck,
+    action,
   } = props;
   const [loading, setLoading] = useState(true);
-  const { session } = useSession();
   const [eventData, setEventData] = useState([]);
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await retrieveToken();
+      setToken(token);
+    };
 
+    getToken();
+  }, []);
   useEffect(() => {
     setLoading(true);
-    GetStatusMyEvents(type, progress, status, session)
+    GetStatusMyEvents(type, progress, status, token)
       .then((data) => {
         setEventData(data.events);
       })
       .catch((error) => {
-        console.error(
-          "[MyEventScroll] : Error fetching all events:",
-          error
-        );
+        console.error("[MyEventScroll] : Error fetching all events:", error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [session]);
+  }, [token]);
 
   return (
     <ScrollView>
@@ -60,19 +65,20 @@ export default function MyEventScroll(props) {
             />
           </View>
         </VStack>
-      )  : eventData.length === 0 ? (
+      ) : eventData.length === 0 ? (
         <View alignItems="center">
-        <Text>No events found</Text>
+          <Text>No events found</Text>
         </View>
       ) : (
         eventData.map((event, index) => (
-          <MyEventCard
+          <UpcomeCard
             key={index}
             titleBtn={titleBtn}
             colorBtn={colorBtn}
             myevent={event}
             whiteBtn={whiteBtn}
-            button={button}
+            status={statusCheck}
+            action={action}
           />
         ))
       )}

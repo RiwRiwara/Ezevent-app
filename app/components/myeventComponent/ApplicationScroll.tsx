@@ -13,7 +13,7 @@ import {
 import MyEventCard from "./MyEventCard";
 import { useLocalSearchParams } from "expo-router";
 import { GetAppMyEvents } from "@services/api/event/myevent/ApiMyEvent";
-import ButtonSet from "../common/ButtonSet";
+import ButtonSet from "../common/StatusButtonSet";
 import { Link } from "expo-router";
 
 export default function ApplicationScroll(page) {
@@ -72,7 +72,7 @@ export default function ApplicationScroll(page) {
         <>
           {appData.map((appmyevent, index) => {
             return (
-              <View w="$full" alignItems="center">
+              <View key={index} w="$full" alignItems="center">
                 <Link href={`/event/${appmyevent.event.event_id}`} push>
                   <HStack w="$full" h={150}>
                     <HStack
@@ -136,7 +136,9 @@ export default function ApplicationScroll(page) {
                         <HStack justifyContent="flex-end">
                           <ButtonSet
                             title="Cancel"
-                            color="$primary4"
+                            color="$danger5"
+                            event_participant_id=""
+                            status
                           ></ButtonSet>
                         </HStack>
                       </VStack>

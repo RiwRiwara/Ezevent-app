@@ -14,10 +14,7 @@ import {
 } from "@gluestack-ui/themed";
 import { useTranslation } from "react-i18next";
 import MyEventBar from "@components/myeventComponent/MyEventBar";
-import MyEventCard from "@components/myeventComponent/MyEventCard";
-
-import { GetStatusMyEvents } from "@services/api/event/myevent/ApiMyEvent";
-import MyEventScroll from "@components/myeventComponent/MyEventScroll";
+import UpcomeScroll from "@components/myeventComponent/UpcomeScroll";
 
 const UpComing = () => {
   const styled = useStyled();
@@ -72,11 +69,15 @@ const UpComing = () => {
         </Box>
         </Pressable>
       </HStack>
-      <MyEventScroll
+      <UpcomeScroll
         key={reload}
         type={selectedValue}
         progress="Pre"
-        status="Normal"
+        status = "Normal"
+        titleBtn = "Check In"
+        colorBtn = "$primary5"
+        statusCheck ="Cancelled"
+        action="CheckIn"
       />
       {/* <ScrollView bg="$gray0">
         <MyEventCard titleBtn="Cancel" colorBtn="$danger5" />

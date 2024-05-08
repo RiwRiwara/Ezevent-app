@@ -12,7 +12,7 @@ import {
 import MyEventCard from "./MyEventCard";
 import { useLocalSearchParams } from "expo-router";
 import { GetSavedMyEvents } from "@services/api/event/myevent/ApiMyEvent";
-import ButtonSet from "../common/ButtonSet";
+import ButtonSet from "../common/StatusButtonSet";
 
 import { Link } from "expo-router";
 

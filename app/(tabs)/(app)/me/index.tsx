@@ -70,7 +70,9 @@ const Me = () => {
   }, [refreshing]);
 
   return (
+    
     <View>
+      <View h={20}></View>
       <HStack
         justifyContent="space-between"
         p={10}
