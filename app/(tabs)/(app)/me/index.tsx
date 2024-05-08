@@ -26,9 +26,7 @@ import Badge from "@components/badge";
 
 import { Linking, RefreshControl, Platform, StyleSheet } from "react-native";
 
-
 const Me = () => {
-  
   const styled = useStyled();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -51,14 +49,7 @@ const Me = () => {
   };
 
   useEffect(() => {
-    // setLoading(true);
-    // GetBadgeById(id)
-    //   .then((data) => {
-    //     console.log(data.badge);
-    //   })
-    //   .catch((error) => {
-    //     console.error("[BadgeDetail] : Error fetching badge detail:", error);
-    //   });
+    setLoading(true);
     let isMounted = true;
     const fetchData = async () => {
       try {
@@ -90,9 +81,7 @@ const Me = () => {
   }, [refreshing]);
 
   return (
-
     <View mt={Platform.OS !== "web" ? (Platform.OS === "ios" ? 0 : 20) : 0}>
-      
       <HStack
         justifyContent="space-between"
         p={10}
@@ -142,38 +131,31 @@ const Me = () => {
           />
         }
       >
-        <VStack >
+        <VStack>
           <HStack justifyContent="center" style={styles.borderbt}>
             <VStack alignItems="center" bg="$gray0" w="$2/4" p="$3">
-              {loading ? (
-                <Avatar
-                  bgColor="$amber600"
-                  size="2xl"
-                  borderRadius="$full"
-                  mb={5}
-                >
+              <Avatar
+                bgColor="$amber600"
+                size="2xl"
+                borderRadius="$full"
+                mb={5}
+              >
+                {loading ? (
                   <AvatarImage
                     source={{
                       uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     }}
                     alt="Profile Image"
                   />
-                </Avatar>
-              ) : (
-                <Avatar
-                  bgColor="$amber600"
-                  size="2xl"
-                  borderRadius="$full"
-                  mb={5}
-                >
+                ) : (
                   <AvatarImage
                     source={{
                       uri: IMAGE_URLS.userprofile + "/" + user?.profile_img,
                     }}
                     alt="Profile Image"
                   />
-                </Avatar>
-              )}
+                )}
+              </Avatar>
 
               <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
                 {user?.first_name || "loading . . ."} {user?.last_name || "..."}
@@ -219,8 +201,15 @@ const Me = () => {
             </HStack>
           </VStack>
 
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
-            <Text fontSize="$sm" fontWeight="$bold" color="$neutral9" mb="$3">
+
+          <Box
+            bg="$gray0"
+            w="$full"
+            alignItems="center"
+            p="$3"
+            style={styles.borderbt}
+          >
+            <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               Badges
             </Text>
             <HStack>
@@ -233,7 +222,13 @@ const Me = () => {
               <Badge badge_name="Badge 3" image_src="./assets/combadge.png" />
             </HStack>
           </Box>
-          <Box bg="$gray0" w="$full" alignItems="center" p="$3" style={styles.borderbt}>
+          <Box
+            bg="$gray0"
+            w="$full"
+            alignItems="center"
+            p="$3"
+            style={styles.borderbt}
+          >
             <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
               History
             </Text>
@@ -270,7 +265,6 @@ const Me = () => {
               </Text>
             </HStack>
           </HStack>
-
         </VStack>
       </ScrollView>
     </View>
