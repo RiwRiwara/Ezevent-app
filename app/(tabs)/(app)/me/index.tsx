@@ -18,6 +18,7 @@ import {
   AvatarFallbackText,
   Spinner,
   Image,
+  ButtonText,
 } from "@gluestack-ui/themed";
 import { retrieveToken } from "@utils/RetrieveToken";
 import axios from "axios";
@@ -66,7 +67,7 @@ const Me = () => {
           setUser(response.data.user);
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.log("Error fetching user:", error);
       } finally {
         if (isMounted) {
           setLoading(false);
@@ -90,7 +91,7 @@ const Me = () => {
         );
         setBadges(response.data.myBadges);
       } catch (error) {
-        console.error("Error fetching badges:", error);
+        console.log("Error fetching badges:", error);
       }
     };
 
@@ -182,22 +183,57 @@ const Me = () => {
                   )}
                 </Avatar>
 
-                <Text fontSize="$md" fontWeight="$bold" color="$neutral8">
-                  {user?.first_name || "-"} {user?.last_name || "-"}
-                </Text>
+                <VStack gap={6} alignItems="center" mt={4} w={300}>
+                  <Text
+                    fontSize={24}
+                    w="full"
+                    fontWeight="$bold"
+                    color="$neutral8"
+                  >
+                    {user?.first_name || "-"} {user?.last_name || "-"}
+                  </Text>
 
-                <Text fontSize="$sm" color="$neutral8">
-                  {user?.email || "-"}
-                </Text>
+                  <HStack gap={20}>
+                    <Button
+                      color="$neutral8"
+                      onPress={() => Linking.openURL(`mailto:${user?.email}`)}
+                      variant="outline"
+                      action="positive"
+                    >
+                      <ButtonText fontSize={16}>
+                        {user?.email || "-"}
+                      </ButtonText>
+                    </Button>
+
+                    <Button
+                      color="$neutral8"
+                      onPress={() =>
+                        Linking.openURL(`tel:${user?.mobile_number}`)
+                      }
+                      variant="outline"
+                      action="positive"
+                    >
+                      <ButtonText fontSize={16}>
+                        {user?.mobile_number || "-"}
+                      </ButtonText>
+                    </Button>
+                  </HStack>
+                </VStack>
               </VStack>
             </HStack>
 
-            <Box bg="$gray0" w="$full" alignItems="center" p="$3">
-              <Text fontSize="$sm" color="$gray9">
+            <View
+              bg="$neutral0"
+              w="$full"
+              alignItems="center"
+              p="$3"
+              style={{}}
+            >
+              <Text fontSize="$md" color="$gray9">
                 {user?.short_bio || "-"}
               </Text>
-            </Box>
-            <VStack alignItems="center">
+            </View>
+            <VStack alignItems="center" bg="$neutral0">
               <HStack space="2xl" p="$3">
                 <Image
                   size="lg"
@@ -233,13 +269,21 @@ const Me = () => {
               p="$3"
               style={styles.borderbt}
             >
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
-                Badges
-              </Text>
-
+              <View
+                bg="$gray0"
+                w="$full"
+                alignItems="center"
+                p="$3"
+                style={styles.borderbt}
+              >
+                <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                  Badges
+                </Text>
+              </View>
               {badges ? (
                 <>
                   <ScrollView
+                    bg="$neutral0"
                     horizontal={true}
                     contentContainerStyle={{
                       flexDirection: "row",
@@ -249,100 +293,155 @@ const Me = () => {
                   >
                     <HStack gap={25} py={10}>
                       {badges.map((badge, index) => (
-                        <VStack key={index} alignItems="center" gap={5}>
-                          <Image
-                            w={60}
-                            h={60}
-                            key={index}
-                            borderRadius={10}
-                            source={{
-                              uri: badge.url,
-                            }}
-                            alt={badge.name_en}
-                          />
-                          <Text
-                            fontSize={16}
-                            fontWeight="bold"
-                            color="$neutral7"
-                          >
-                            {badge.count}
-                          </Text>
-                        </VStack>
+                        <Link
+                          key={index}
+                          href={{
+                            pathname: `/(app)/me/BadgeDetail?id=${badge.id}`,
+                            params: { name: badge.name_en },
+                          }}
+                          push
+                        >
+                          <VStack alignItems="center" gap={5}>
+                            <Image
+                              w={60}
+                              h={60}
+                              key={index}
+                              borderRadius={10}
+                              source={{
+                                uri: badge.url,
+                              }}
+                              alt={badge.name_en}
+                            />
+                            <Text
+                              fontSize={16}
+                              fontWeight="bold"
+                              color="$neutral7"
+                            >
+                              {badge.count}
+                            </Text>
+                          </VStack>
+                        </Link>
                       ))}
                     </HStack>
                   </ScrollView>
                 </>
               ) : (
                 <>
-                  <Text>asdsd</Text>
+                  <Text>...</Text>
                 </>
               )}
             </Box>
-            <Box
-              bg="$gray0"
-              w="$full"
-              alignItems="center"
-              p="$3"
-              style={styles.borderbt}
+
+            <View justifyContent="start">
+              <View
+                bg="$gray0"
+                w="$full"
+                alignItems="center"
+                p="$3"
+                style={styles.borderbt}
+              >
+                <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                  Personality
+                </Text>
+              </View>
+              <HStack justifyContent="center" p="$2" bg="$neutral0">
+                <HStack>
+                  <Text fontSize="$md" color="$neutral9" p="$3">
+                    {user?.personality || "-"}
+                  </Text>
+                </HStack>
+              </HStack>
+            </View>
+
+            <View justifyContent="start">
+              <View
+                bg="$gray0"
+                w="$full"
+                alignItems="center"
+                p="$3"
+                style={styles.borderbt}
+              >
+                <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                  Address
+                </Text>
+              </View>
+              <HStack justifyContent="center" p="$2" bg="$neutral0">
+                <HStack>
+                  <Text fontSize="$md" color="$neutral9" p="$3">
+                    {user?.address || "-"}
+                  </Text>
+                </HStack>
+              </HStack>
+            </View>
+
+            {/* <View justifyContent="start"
             >
-              <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
-                History
-              </Text>
-            </Box>
-            <HStack justifyContent="space-between" p="$2">
-              <HStack>
-                <CalendarCheck2
-                  size={40}
-                  color={styled.config.tokens.colors.neutral8}
-                />
-                <Text
-                  fontSize="$md"
-                  fontWeight="$bold"
-                  color="$neutral9"
-                  p="$3"
-                >
-                  Events
+              <View
+                bg="$gray0"
+                w="$full"
+                alignItems="center"
+                p="$3"
+                style={styles.borderbt}
+              >
+                <Text fontSize="$md" fontWeight="$bold" color="$neutral9">
+                  History
                 </Text>
+              </View>
+              <HStack justifyContent="space-between" p="$2">
+                <HStack>
+                  <CalendarCheck2
+                    size={40}
+                    color={styled.config.tokens.colors.neutral8}
+                  />
+                  <Text
+                    fontSize="$md"
+                    fontWeight="$bold"
+                    color="$neutral9"
+                    p="$3"
+                  >
+                    Events
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text
+                    fontSize="$md"
+                    fontWeight="$bold"
+                    color="$neutral9"
+                    p="$3"
+                  >
+                    5
+                  </Text>
+                </HStack>
               </HStack>
-              <HStack>
-                <Text
-                  fontSize="$md"
-                  fontWeight="$bold"
-                  color="$neutral9"
-                  p="$3"
-                >
-                  5
-                </Text>
-              </HStack>
-            </HStack>
-            <HStack justifyContent="space-between" p="$2">
-              <HStack>
-                <Building2
-                  size={40}
-                  color={styled.config.tokens.colors.neutral8}
-                />
-                <Text
-                  fontSize="$md"
-                  fontWeight="$bold"
-                  color="$neutral9"
-                  p="$3"
-                >
-                  Organizations
-                </Text>
-              </HStack>
-              <HStack>
-                <Text
-                  fontSize="$md"
-                  fontWeight="$bold"
-                  color="$neutral9"
-                  p="$3"
-                >
-                  5
-                </Text>
-              </HStack>
-            </HStack>
+              <HStack justifyContent="space-between" p="$2">
+                <HStack>
+                  <Building2
+                    size={40}
+                    color={styled.config.tokens.colors.neutral8}
+                  />
+                  <Text
+                    fontSize="$md"
+                    fontWeight="$bold"
+                    color="$neutral9"
+                    p="$3"
+                  >
+                    Organizations
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text
+                    fontSize="$md"
+                    fontWeight="$bold"
+                    color="$neutral9"
+                    p="$3"
+                  >
+                    5
+                  </Text>
+                </HStack>
+              </HStack> 
+            </View>*/}
+            <View h={300}></View>
           </VStack>
-          <View h={200}></View>
         </ScrollView>
       </View>
     </View>

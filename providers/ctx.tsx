@@ -107,7 +107,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
       });
       console.log("Session verified");
     } catch (error) {
-      console.error("Error verifying session:", error);
+      console.log("Error verifying session:", error);
       signOut();
     }
   };

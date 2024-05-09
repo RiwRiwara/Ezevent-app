@@ -181,6 +181,8 @@ const MyEvent = () => {
       </HStack>
 
       <ApplicationScroll page={currentPage} />
+
+
     </VStack>
   );
 };

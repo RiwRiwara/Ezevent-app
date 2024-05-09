@@ -7,7 +7,7 @@ const storeToken = async (token) => {
   try {
     await AsyncStorage.setItem('token', token);
   } catch (error) {
-    console.error('Error storing token:', error);
+    console.log('Error storing token:', error);
   }
 };
 
@@ -39,7 +39,7 @@ export const useHandleSignUpByApi = () => {
         throw new Error(response.error || "Registration failed");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.log("Error during registration:", error);
       throw error; // Re-throw the error for the caller to handle if needed
     }
   };

@@ -35,7 +35,7 @@ const EditDesc: React.FC<ModalProps & { description?: string }> = ({ isOpen, onC
         onClose();
       })
       .catch((error) => {
-        console.error("Error updating Description:", error);
+        console.log("Error updating Description:", error);
       })
       .finally(() => {
       });

@@ -27,7 +27,7 @@ const EventCardScroller = ({
         setEvents(data.events);
       })
       .catch((error) => {
-        console.error(
+        console.log(
           "[EventCardScroller] : Error fetching all events:",
           error
         );

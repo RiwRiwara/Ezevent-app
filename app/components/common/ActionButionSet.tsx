@@ -27,7 +27,7 @@ const ActionButionSet = ({ title, color, action, event_participant_id, }) => {
       })
       .catch((error) => {
         // Handle API call error
-        console.error("API call error:", error);
+        console.log("API call error:", error);
       });
   };
 

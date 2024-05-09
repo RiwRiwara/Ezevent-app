@@ -29,7 +29,7 @@ export default function MyEventSaveScroll() {
         seteventSaveData(data.events);
       })
       .catch((error) => {
-        console.error(
+        console.log(
           "[MyEventSaveScroll] : Error fetching all events:",
           error
         );

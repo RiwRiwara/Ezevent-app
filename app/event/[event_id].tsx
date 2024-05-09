@@ -31,11 +31,11 @@ import AuthAction from "@components/auth/AuthAction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EventDetail = () => {
-  const params = useLocalSearchParams();
   const [eventDetail, setEventDetail] = useState([]);
   const [loading, setLoading] = useState(true);
   const contentW = useWindowDimensions().width;
   const [source, setSource] = useState({ html: "" });
+  const params = useLocalSearchParams();
   const event_id = params.event_id.toString();
   const [localToken, setLocalToken] = useState(null);
 
@@ -45,7 +45,7 @@ const EventDetail = () => {
         const token = await AsyncStorage.getItem("token");
         return token;
       } catch (error) {
-        console.error("Error retrieving token:", error);
+        console.log("Error retrieving token:", error);
       }
     };
 
@@ -63,7 +63,7 @@ const EventDetail = () => {
         setEventDetail(data.event);
       })
       .catch((error) => {
-        console.error("[EventDetail] : Error fetching event detail:", error);
+        console.log("[EventDetail] : Error fetching event detail:", error);
       })
       .finally(() => {
         setLoading(false);

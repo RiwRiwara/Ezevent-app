@@ -1,6 +1,4 @@
 import React from "react"
-import { StyledProvider } from "@gluestack-style/react"
-
 import {
     Box,
     Image,

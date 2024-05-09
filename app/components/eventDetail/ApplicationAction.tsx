@@ -80,6 +80,7 @@ function ApplicationAction({ event }: { event: Event }) {
         .then((data) => {
           console.log("[ApplicationAction]", data);
           setLoading(false);
+          router.replace("(app)/myevent");
         })
         .catch((error) => {
           console.log(

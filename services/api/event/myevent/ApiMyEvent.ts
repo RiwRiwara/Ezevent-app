@@ -32,7 +32,7 @@ export const GetStatusMyEvents = async (
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.log("Error fetching events:", error);
     throw error;
   }
 };
@@ -59,7 +59,7 @@ export const GetSavedMyEvents = async (sessionToken: string): Promise<any> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.log("Error fetching events:", error);
     throw error;
   }
 };
@@ -90,7 +90,7 @@ export const GetAppMyEvents = async (
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching application:", error);
+    console.log("Error fetching application:", error);
     throw error;
   }
 };

@@ -20,7 +20,7 @@ const EventScrollableList = ({
         setLatestEvents(data.events);
       })
       .catch((error) => {
-        console.error(
+        console.log(
           "EventScrollableList] : Error fetching latest events:",
           error
         );

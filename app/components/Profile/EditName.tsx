@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react-native";
 import {
   useStyled,
@@ -18,15 +18,22 @@ import {
 import { useState } from "react";
 import { useSession } from "@providers/ctx";
 import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
-import {retrieveToken} from "@utils/RetrieveToken";
+import { retrieveToken } from "@utils/RetrieveToken";
 
-
-
-const EditName  = ({ isOpen, onClose, setRefresh, refresh }) => {
+const EditName = ({
+  isOpen,
+  onClose,
+  setRefresh,
+  refresh,
+  first_name,
+  last_name,
+}) => {
   const { user } = useSession();
   const styled = useStyled();
-  const [firstName, setFirstName] = useState(user?.first_name || "");
-  const [lastName, setLastName] = useState(user?.last_name || "");
+  const [firstName, setFirstName] = useState(first_name);
+  const [lastName, setLastName] = useState(last_name);
+
+
 
   const onSaveName = async () => {
     try {
@@ -35,7 +42,7 @@ const EditName  = ({ isOpen, onClose, setRefresh, refresh }) => {
       await UpdateProfile(token, "last_name", lastName);
       onClose();
     } catch (error) {
-      console.error("Error updating name:", error);
+      console.log("Error updating name:", error);
     }
   };
 

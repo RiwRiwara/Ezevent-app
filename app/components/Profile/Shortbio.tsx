@@ -19,12 +19,9 @@ import { useState } from "react";
 import { useSession } from "@providers/ctx";
 import { UpdateProfile } from "@services/api/user/ApiUpdateProfile";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const Shortbio: React.FC<ModalProps & { shortBio?: string }> = ({ isOpen, onClose, shortBio }) => {
+
+const Shortbio = ({ isOpen, onClose, shortBio }) => {
   const { session } = useSession();
   const styled = useStyled();
   const [ShortBio, setShortBio] = useState(shortBio || "");
@@ -37,7 +34,7 @@ const Shortbio: React.FC<ModalProps & { shortBio?: string }> = ({ isOpen, onClos
         onClose();
       })
       .catch((error) => {
-        console.error("Error updating:", error);
+        console.log("Error updating:", error);
       })
       .finally(() => {
         console.log("updated");

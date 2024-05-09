@@ -28,8 +28,6 @@ import UploadMultiImageActionSheet from "@components/Profile/UploadMultiImageAct
 import { GetMyprofile } from "@services/api/user/ApiGetMyProfile";
 import { StyleSheet } from "react-native";
 import { retrieveToken } from "@utils/RetrieveToken";
-import EditNameAction from "@components/Profile/EditNameAction";
-import { router } from "expo-router";
 
 const EditProfile = () => {
   const styled = useStyled();
@@ -48,13 +46,8 @@ const EditProfile = () => {
   const [refresh, setRefresh] = useState(false);
 
   const handleCloseEditName = () => {
-
     setShowEditName(!showEditName);
-  
   };
-
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +57,7 @@ const EditProfile = () => {
         const data = await GetMyprofile(token);
         setUserData(data.user);
       } catch (error) {
-        console.error("[EditProfile] : Error fetching profile:", error);
+        console.log("[EditProfile] : Error fetching profile:", error);
       } finally {
         setLoading(false);
       }
@@ -72,8 +65,6 @@ const EditProfile = () => {
 
     fetchData();
   }, [refresh, showEditName, showShortbio, showDesc, showPersonality]);
-
-
 
   return (
     <View backgroundColor="$gray0">
@@ -137,17 +128,19 @@ const EditProfile = () => {
               onPress={handleCloseEditName}
               backgroundColor="$gray0"
             >
-              <Text fontSize="$paragraph"  color="$primary5">
+              <Text fontSize="$paragraph" color="$primary5">
                 Edit
               </Text>
             </Button>
             {/* <EditNameAction /> */}
-            
+
             <EditName
               isOpen={showEditName}
               onClose={handleCloseEditName}
               setRefresh={setRefresh}
               refresh={refresh}
+              first_name = {userData?.first_name}
+              last_name = {userData?.last_name}
             />
           </HStack>
           <VStack
@@ -159,10 +152,10 @@ const EditProfile = () => {
             flexDirection="row"
             justifyContent="center"
           >
-            <Text fontSize="$md"  color="$primary8">
+            <Text fontSize="$md" color="$primary8">
               {userData?.first_name || "...."}
             </Text>
-            <Text fontSize="$md"  color="$primary8">
+            <Text fontSize="$md" color="$primary8">
               {userData?.last_name || "...."}
             </Text>
           </VStack>
@@ -175,7 +168,12 @@ const EditProfile = () => {
             backgroundColor="$gray0"
             alignItems="center"
           >
-            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8" mt={10}>
+            <Text
+              fontSize="$title_5"
+              fontWeight="$bold"
+              color="$neutral8"
+              mt={10}
+            >
               Email
             </Text>
             <Text
@@ -185,7 +183,7 @@ const EditProfile = () => {
             ></Text>
           </HStack>
           <VStack alignItems="center" bg="$gray0" w="$full" p="$3">
-            <Text fontSize="$md"  color="$primary8">
+            <Text fontSize="$md" color="$primary8">
               {userData?.email || "...."}
             </Text>
           </VStack>
@@ -206,7 +204,7 @@ const EditProfile = () => {
               onPress={handleClosePersonality}
               backgroundColor="$gray0"
             >
-              <Text fontSize="$paragraph"  color="$primary5">
+              <Text fontSize="$paragraph" color="$primary5">
                 Edit
               </Text>
             </Button>
@@ -238,7 +236,7 @@ const EditProfile = () => {
               onPress={handleCloseShortbio}
               backgroundColor="$gray0"
             >
-              <Text fontSize="$paragraph"  color="$primary5">
+              <Text fontSize="$paragraph" color="$primary5">
                 Edit
               </Text>
             </Button>
@@ -249,37 +247,8 @@ const EditProfile = () => {
             />
           </HStack>
           <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
-            <Text fontSize="$md"  color="$neutral8">
-              Hello my name is {userData?.first_name || "Robert Fox"}{" "}
-              {userData?.last_name || "...."}
-            </Text>
-          </VStack>
-        </VStack>
-
-        <VStack style={styles.borderbt}>
-          <HStack
-            justifyContent="space-between"
-            px={10}
-            backgroundColor="$gray0"
-            alignItems="center"
-          >
-            <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
-              Description
-            </Text>
-            <Button px={9} onPress={handleCloseDesc} backgroundColor="$gray0">
-              <Text fontSize="$paragraph"  color="$primary5">
-                Edit
-              </Text>
-            </Button>
-            <EditDesc
-              isOpen={showDesc}
-              onClose={handleCloseDesc}
-              description={userData?.description}
-            />
-          </HStack>
-          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
-            <Text fontSize="$md"  color="$neutral8">
-              {userData?.description || "...."}
+            <Text fontSize="$md" color="$neutral8">
+              {userData?.short_bio || "...."}
             </Text>
           </VStack>
         </VStack>
@@ -303,7 +272,6 @@ const EditProfile = () => {
                 DEFAULT_IMAGES.userprofile
               }
             />
-            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
           </HStack>
           <VStack alignItems="center" bg="$gray0" w="full" p="3" mb={10}>
             <HStack space="2xl">
@@ -311,7 +279,7 @@ const EditProfile = () => {
                 size="lg"
                 borderRadius={10}
                 source={{
-                  uri:  DEFAULT_IMAGES.userprofile,
+                  uri: DEFAULT_IMAGES.userprofile,
                 }}
                 alt="Image1"
               />
@@ -319,7 +287,7 @@ const EditProfile = () => {
                 size="lg"
                 borderRadius={10}
                 source={{
-                  uri:  DEFAULT_IMAGES.userprofile,
+                  uri: DEFAULT_IMAGES.userprofile,
                 }}
                 alt="Image2"
               />
@@ -327,7 +295,7 @@ const EditProfile = () => {
                 size="lg"
                 borderRadius={10}
                 source={{
-                  uri:  DEFAULT_IMAGES.userprofile,
+                  uri: DEFAULT_IMAGES.userprofile,
                 }}
                 alt="Image3"
               />
@@ -345,20 +313,22 @@ const EditProfile = () => {
             <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
               Social Media
             </Text>
-            <Button
-              px={9}
-              onPress={handleCloseEditName}
-              backgroundColor="$gray0"
-            >
-              <Text fontSize="$paragraph"  color="$primary5">
+            <Button px={9} backgroundColor="$gray0">
+              <Text fontSize="$paragraph" color="$primary5">
                 Edit
               </Text>
             </Button>
-            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
           </HStack>
-          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
-            <Text fontSize="$md" color="$neutral8">
-              Social Media
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10} gap={10}>
+            <Text fontSize={16} color="$neutral8">
+              {userData?.facebook || "Social Media"}
+            </Text>
+            <Text fontSize={16} color="$neutral8">
+              {userData?.line || "Social Media"}
+            </Text>
+
+            <Text fontSize={16} color="$neutral8">
+              {userData?.instagram || "Social Media"}
             </Text>
           </VStack>
         </VStack>
@@ -373,20 +343,18 @@ const EditProfile = () => {
             <Text fontSize="$title_5" fontWeight="$bold" color="$neutral8">
               Address
             </Text>
-            <Button
-              px={9}
-              onPress={handleCloseEditName}
-              backgroundColor="$gray0"
-            >
-              <Text fontSize="$paragraph"  color="$primary5">
+            <Button px={9} backgroundColor="$gray0">
+              <Text fontSize="$paragraph" color="$primary5">
                 Edit
               </Text>
             </Button>
-            <EditName isOpen={showEditName} onClose={handleCloseEditName} />
           </HStack>
-          <VStack alignItems="center" bg="$gray0" w="$full" mb={10}>
-            <Text fontSize="$md"  color="$neutral8">
+          <VStack alignItems="center" bg="$gray0" w="$full" mb={10} gap={10}>
+            <Text fontSize="$md" color="$neutral8">
               {userData?.address || "Address"}
+            </Text>
+            <Text fontSize="$md" color="$neutral8">
+              {userData?.city || "Address"}
             </Text>
           </VStack>
         </VStack>

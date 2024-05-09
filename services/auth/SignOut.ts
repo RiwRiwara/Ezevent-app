@@ -14,11 +14,11 @@ export const useHandleSignOutByApi = () => {
       if (response.success) {
         signOut();
       } else {
-        console.error("Logout failed:", response);
+        console.log("Logout failed:", response);
         signOut();
       }
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.log("Error during logout:", error);
     }
   };
   return handleSignOutByApi;

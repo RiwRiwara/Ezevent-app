@@ -43,7 +43,7 @@ const ButtonWhiteSet = ({ title, status, event_participant_id }) => {
         console.log("API call successful:", response);
       })
       .catch((error) => {
-        console.error("API call error:", error);
+        console.log("API call error:", error);
       });
   };
   return (

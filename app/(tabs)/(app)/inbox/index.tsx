@@ -65,7 +65,7 @@ const Inbox = () => {
         setInboxData(data.data);
       })
       .catch((error) => {
-        console.error("[Inbox] : Error fetching all inboxs:", error);
+        console.log("[Inbox] : Error fetching all inboxs:", error);
       })
       .finally(() => {
         setLoading(false);

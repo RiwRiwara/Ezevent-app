@@ -33,7 +33,7 @@ export default function MyEventScroll(props) {
         setEventData(data.events);
       })
       .catch((error) => {
-        console.error(
+        console.log(
           "[MyEventScroll] : Error fetching all events:",
           error
         );

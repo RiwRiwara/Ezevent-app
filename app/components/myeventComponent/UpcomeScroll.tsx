@@ -41,7 +41,7 @@ export default function UpcomeScroll(props) {
         setEventData(data.events);
       })
       .catch((error) => {
-        console.error("[MyEventScroll] : Error fetching all events:", error);
+        console.log("[MyEventScroll] : Error fetching all events:", error);
       })
       .finally(() => {
         setLoading(false);

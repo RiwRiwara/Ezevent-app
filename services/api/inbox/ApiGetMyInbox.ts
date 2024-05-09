@@ -25,7 +25,7 @@ export const GetMyInbox = async (sessionToken): Promise<any> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching inboxs:", error);
+    console.log("Error fetching inboxs:", error);
     throw error;
   }
 };

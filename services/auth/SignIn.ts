@@ -38,14 +38,14 @@ export const useHandleSignInByApi = () => {
             }
           });
         } catch (error) {
-          console.error("Error storing token:", error);
+          console.log("Error storing token:", error);
         }
 
       } else {
         throw new Error(response.error || "Login failed");
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.log("Error during login:", error);
       throw error; // Re-throw the error for the caller to handle if needed
     }
   };

@@ -37,7 +37,7 @@ const Personality: React.FC<ModalProps & { personality?: string }> = ({ isOpen, 
         onClose();
       })
       .catch((error) => {
-        console.error("Error updating Personality:", error);
+        console.log("Error updating Personality:", error);
       })
       .finally(() => {
         console.log("Personality updated");
