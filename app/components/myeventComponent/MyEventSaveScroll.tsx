@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "@providers/ctx";
+import {IMAGE_URLS} from "@constants/azure/azureimageurl";
 import {
   ScrollView,
   Box,
@@ -13,31 +14,53 @@ import MyEventCard from "./MyEventCard";
 import { useLocalSearchParams } from "expo-router";
 import { GetSavedMyEvents } from "@services/api/event/myevent/ApiMyEvent";
 import ButtonSet from "../common/StatusButtonSet";
-
+import { retrieveToken } from "@utils/RetrieveToken";
+import axios from "axios";
 import { Link } from "expo-router";
+import { API_ENDPOINTS, getApiUrl } from "@constants/api/endpoints";
 
 export default function MyEventSaveScroll() {
   const [loading, setLoading] = useState(false);
   const { session } = useSession();
   const [eventSaveData, seteventSaveData] = useState([]);
-  const [eventsFound, setEventsFound] = useState(true);
+  const [eventsFound, setEventsFound] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    GetSavedMyEvents(session)
-      .then((data) => {
-        seteventSaveData(data.events);
-      })
-      .catch((error) => {
-        console.log(
-          "[MyEventSaveScroll] : Error fetching all events:",
-          error
-        );
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [session]);
+
+    const GetSavedMyEvents = async () => {
+      setEventsFound(false);
+      const token = await retrieveToken();
+      const url = getApiUrl(API_ENDPOINTS.GET_SAVED_MYEVENT);
+      await axios
+        .get(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "ngrok-skip-browser-warning": "true",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          seteventSaveData(res.data.events);
+          setLoading(true);
+          setEventsFound(true);
+          
+        })
+        .catch((error) => {
+          console.log(
+            "[MyEventSaveScroll] : Error fetching all events:",
+            error
+          );
+          setLoading(false);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    GetSavedMyEvents();
+  }, []);
 
   return (
     <ScrollView>
@@ -59,79 +82,55 @@ export default function MyEventSaveScroll() {
         </>
       ) : (
         <>
-          {eventSaveData.map((saveevent, index) => {
-            return (
-              <View w="$full" alignItems="center">
-                <Link href={`/event/${saveevent.event.event_id}`} push>
-                  <HStack w="$full" h={150}>
-                    <HStack
-                      justifyContent="space-between"
-                      alignItems="center"
-                      w="$1/3"
-                      px={5}
-                    >
-                      <VStack alignItems="center" w="$full">
-                        <Image
-                          h="$32"
-                          w="$24"
-                          alt="IMG"
-                          // m="$10"
-                          borderRadius={10}
-                          borderWidth="$2"
-                          borderColor="$gray7"
-                          source={{
-                            uri:
-                              saveevent.event.banner_image ??
-                              "https://via.placeholder.com/150",
-                          }}
-                        />
-                      </VStack>
-                    </HStack>
-                    <HStack w="$2/3" py={10}>
-                      <VStack justifyContent="space-between" w="$full" px={5}>
-                        <HStack
-                          justifyContent="space-between"
-                          alignItems="center"
-                        >
-                          <Text fontSize="$small_3" color="$danger6">
-                            {saveevent.event.date_start}
+          {eventsFound ? (
+            <>
+              {eventSaveData.map((saveevent, index) => {
+                return (
+                  <View key={index} w="$full" alignItems="center">
+                    <Link href={`/event/${saveevent.event.event_id}`} push>
+                      <HStack w={380}  h={150} justifyContent="space-between" px={10}>
+                        <HStack alignItems="center" px={5}>
+                          <Image
+                            h="$32"
+                            w="$24"
+                            alt={`${saveevent.event.event_id}-image`}
+                            borderRadius={10}
+                            borderWidth="$2"
+                            borderColor="$gray7"
+                            source={{
+                              uri:
+                              `${IMAGE_URLS.eventimgs}/${saveevent.event.banner_image}` ||
+                                "https://via.placeholder.com/150",
+                            }}
+                          />
+                        </HStack>
+         
+
+                        <VStack py={10} gap={5}>
+                          <Text fontWeight="bold">
+                            {saveevent.event.event_name.substring(0, 30)}
+                          </Text>
+                          <Text>
+                           {saveevent.placename}
                           </Text>
 
-                          <Box
-                            bg="$primary0"
-                            borderRadius={5}
-                            alignItems="center"
-                            px={2}
-                          >
-                            <Text
-                              fontSize="$small_3"
-                              fontWeight="$bold"
-                              color="$neutral9"
-                            >
-                              {saveevent.event.venue}
-                            </Text>
-                          </Box>
-                        </HStack>
-                        <Text
-                          fontSize="$paragraph"
-                          fontWeight="$bold"
-                          color="$neutral9"
-                        >
-                          {saveevent.event.event_name.length > 20
-                            ? `${saveevent.event.event_name.substring(0, 25)}`
-                            : saveevent.event.event_name}
-                        </Text>
-
-                        <HStack justifyContent="flex-end">
-                          <ButtonSet title="View" color="$primary4"></ButtonSet>
-                        </HStack>
-                      </VStack>
-                    </HStack>
-                  </HStack>
-                </Link>
-              </View>
-            );
-          })}
+                          <View>
+                            <Text> {saveevent.date_start}</Text>
+                          </View>
+                        </VStack>
+                      </HStack>
+                    </Link>
+                  </View>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <Text h={50} mt={10} px={15}>
+                No Saved Event Found
+              </Text>
+            </>
+          )}
         </>
       )}
     </ScrollView>

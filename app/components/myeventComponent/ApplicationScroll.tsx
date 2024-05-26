@@ -11,6 +11,7 @@ import {
   HStack,
   Badge,
   BadgeText,
+  Spinner,
 } from "@gluestack-ui/themed";
 import MyEventCard from "./MyEventCard";
 import { useLocalSearchParams } from "expo-router";
@@ -23,7 +24,6 @@ import { Link } from "expo-router";
 import axios from "axios";
 import { retrieveToken } from "@utils/RetrieveToken";
 import { useTranslation } from "react-i18next";
-
 
 export default function ApplicationScroll(page) {
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,6 @@ export default function ApplicationScroll(page) {
         })
         .then((res) => {
           setappData(res.data.applications);
-          console.log(res.data.applications);
         })
         .catch((err) => {})
         .finally(() => {
@@ -68,22 +67,23 @@ export default function ApplicationScroll(page) {
     };
 
     getMyApplication();
-  }, [page, null, setComponentRefreshing]);
+  }, [setComponentRefreshing]);
 
   return (
-    <ScrollView h={260}
-    refreshControl={
-      <RefreshControl
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-        tintColor="#000"
-      />
-    }
+    <ScrollView
+      h={260}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor="#000"
+        />
+      }
     >
       {loading ? (
         // Render loading indicator
         <>
-
+        <Spinner />
         </>
       ) : (
         <>
@@ -93,33 +93,27 @@ export default function ApplicationScroll(page) {
                 return (
                   <View key={index} w="$full" alignItems="center">
                     <Link href={`/event/${appmyevent.event.event_id}`} push>
-                      <HStack w="$full" h={150}>
-                        <HStack
-                          justifyContent="space-between"
-                          alignItems="center"
-                          w="$1/3"
-                          px={5}
-                        >
-                          <VStack alignItems="center" w="$full">
-                            <Image
-                              h="$32"
-                              w="$24"
-                              alt="IMG"
-                              // m="$10"
-                              borderRadius={10}
-                              borderWidth="$2"
-                              borderColor="$gray7"
-                              source={{
-                                uri:
-                                  appmyevent.event.getBannerImage ||
-                                  "https://via.placeholder.com/150",
-                              }}
-                            />
-                          </VStack>
+                      <HStack w={380}  h={150} justifyContent="space-between" px={10}>
+                        <HStack alignItems="center" px={5}>
+                          <Image
+                            h="$32"
+                            w="$24"
+                            alt="IMG"
+                            // m="$10"
+                            borderRadius={10}
+                            borderWidth="$2"
+                            borderColor="$gray7"
+                            source={{
+                              uri:
+                                appmyevent.event.getBannerImage ||
+                                "https://via.placeholder.com/150",
+                            }}
+                          />
                         </HStack>
-                        <VStack w="$2/3" py={10} gap={5}>
+
+                        <VStack py={10} gap={5}>
                           <Text fontWeight="bold">
-                            {appmyevent.event.event_name}
+                            {appmyevent.event.event_name.substring(0, 30)}
                           </Text>
                           <Text>
                             Apply Date : {appmyevent.application_date}
@@ -140,9 +134,9 @@ export default function ApplicationScroll(page) {
             </>
           ) : (
             <>
-            <View h={50} alignItems="center">
-              <Text>No Application Found</Text>
-            </View>
+              <View h={50} alignItems="center">
+                <Text>No Application Found</Text>
+              </View>
             </>
           )}
         </>

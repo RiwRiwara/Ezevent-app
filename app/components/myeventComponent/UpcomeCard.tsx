@@ -33,6 +33,10 @@ export default function UpcomeCard({
   action,
 }) {
   const styled = useStyled();
+
+
+
+
   return (
     <View w="$full" alignItems="center">
       <Link href={`/event/${myevent.event_id}`} push>

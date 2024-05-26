@@ -28,14 +28,7 @@ const InProgres = () => {
   };
 
 
-  const handleAction = (action) => {
-    console.log(action)
-    if (action === "CheckOut") {
-      // Automatically proceed to "Review"
-      return "Review";
-    }
-    return action;
-  };
+
 
   return (
     <View bg="$gray0">

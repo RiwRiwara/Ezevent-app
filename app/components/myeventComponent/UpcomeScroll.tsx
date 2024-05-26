@@ -26,6 +26,21 @@ export default function UpcomeScroll(props) {
   const [loading, setLoading] = useState(true);
   const [eventData, setEventData] = useState([]);
   const [token, setToken] = useState(null);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const [componentRefreshing, setComponentRefreshing] = useState(false);
+  
+  const onRefresh = () => {
+    if (!refreshing) {
+      setRefreshing(true);
+      setComponentRefreshing(!componentRefreshing);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 2000);
+    }
+  };
+
+
   useEffect(() => {
     const getToken = async () => {
       const token = await retrieveToken();
@@ -46,7 +61,7 @@ export default function UpcomeScroll(props) {
       .finally(() => {
         setLoading(false);
       });
-  }, [token]);
+  }, [token, refreshing]);
 
   return (
     <ScrollView>
