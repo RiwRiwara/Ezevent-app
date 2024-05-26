@@ -11,16 +11,14 @@ import {
   View,
   Card,
 } from "@gluestack-ui/themed";
-import StatusButtonSet from "../common/StatusButtonSet";
+import ActionButionSet from "../common/ActionButionSet";
 import ButtonWhiteSet from "../common/ButtonWhiteSet";
 import { Button, ButtonText, ButtonGroup } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 
 export default function MyEventCard({
-  whiteBtn,
   titleBtn,
   colorBtn,
-  button,
   myevent = {
     event_id: "",
     event_name: "",
@@ -32,6 +30,8 @@ export default function MyEventCard({
   },
 }) {
   const styled = useStyled();
+  const participantId = myevent.event_participants[0]?.event_participant_id;
+
   return (
     <View w="$full" alignItems="center">
       <Link href={`/event/${myevent.event_id}`} push>
@@ -76,8 +76,8 @@ export default function MyEventCard({
               </HStack>
               <Text fontSize="$paragraph" fontWeight="$bold" color="$neutral9">
                 {myevent.event_name.length > 20
-                ? `${myevent.event_name.substring(0, 25)}`
-                : myevent.event_name}
+                  ? `${myevent.event_name.substring(0, 25)}`
+                  : myevent.event_name}
               </Text>
 
               {/* {myevent.event_location && myevent.event_location.length > 20
@@ -90,9 +90,12 @@ export default function MyEventCard({
             </Text> */}
 
               <HStack justifyContent="flex-end">
-                {button && <ButtonWhiteSet title={whiteBtn}></ButtonWhiteSet>}
-
-                <StatusButtonSet title={titleBtn} color={colorBtn} event_participant_id={myevent.event_participants[0].event_participant_id} status="Cancelled"></StatusButtonSet>
+                <ActionButionSet
+                  title={titleBtn}
+                  color={colorBtn}
+                  event_participant_id={participantId}
+                  action="Complete"
+                ></ActionButionSet>
               </HStack>
             </VStack>
           </HStack>

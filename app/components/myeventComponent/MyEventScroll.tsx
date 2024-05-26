@@ -42,7 +42,7 @@ export default function MyEventScroll(props) {
         setLoading(false);
       });
   }, [session]);
-
+  
   return (
     <ScrollView>
       {loading ? (
@@ -71,8 +71,6 @@ export default function MyEventScroll(props) {
             titleBtn={titleBtn}
             colorBtn={colorBtn}
             myevent={event}
-            whiteBtn={whiteBtn}
-            button={button}
           />
         ))
       )}
