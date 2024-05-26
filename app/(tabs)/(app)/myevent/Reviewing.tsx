@@ -76,7 +76,7 @@ const Reviewing = () => {
         type={selectedValue}
         progress="IsReviewed"
         status="Normal"
-        titleBtn="View" 
+        titleBtn="Review" 
         colorBtn="$primary4"
       />
 

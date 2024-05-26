@@ -74,7 +74,7 @@ const Complete = () => {
         type={selectedValue}
         progress="IsCompleted"
         status="Normal"
-        titleBtn="Contact" 
+        titleBtn="View" 
         colorBtn="$neutral6"
       />
       {/* <MyEventScroll type="All" progress="IsCompleted" status="Normal" titleBtn="Contact" colorBtn="$neutral6"/> */}
