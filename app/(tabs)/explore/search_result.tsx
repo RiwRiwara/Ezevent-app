@@ -15,7 +15,7 @@ import {
   Image,
   Button,
 } from "@gluestack-ui/themed";
-import { Ellipsis } from "lucide-react-native";
+import { Ellipsis, ChevronLeft } from "lucide-react-native";
 import { GetEventsByQuery } from "@services/api/event/ApiEvent";
 import SearchFilter from "@components/exploreComponent/SearchFilter";
 import { Search } from "lucide-react-native";
@@ -32,10 +32,8 @@ type EventItem = {
 const Search_result = () => {
   const styled = useStyled();
   const neutral9 = styled.config.tokens.colors.neutral9;
-  const navigation = useNavigation();
   const params = useLocalSearchParams();
   const [events, setEvents] = useState<EventItem[]>([]);
-  const limitCharacter = (text, limit) => {};
 
   const [showSearchFilter, setShowSearchFilter] = React.useState(false);
   const handleCloseSearchFilter = () => setShowSearchFilter(!showSearchFilter);
@@ -43,12 +41,19 @@ const Search_result = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("params:", params);
+
     setLoading(true);
     var search_query = "";
-    if (params.name !== undefined) {
+    if (params.name !== undefined && params.name !== "") {
       search_query = "&name=" + params.name.toString();
     }
+    if (params.categories !== undefined && params.categories !== "") {
+      search_query = search_query + "&categories=" + params.categories.toString();
+    }
+
     console.log("search_query", search_query);
+
     GetEventsByQuery(1, search_query)
       .then((data) => {
         setEvents(data.events);
@@ -63,37 +68,42 @@ const Search_result = () => {
         setLoading(false);
       });
   }, []);
-
+console.log("events", events);
   return (
     <View>
       {/* Header */}
-      <VStack reversed={false}>
+      <View
+        backgroundColor="$neutral6"
+        pt={Platform.OS !== "web" ? (Platform.OS == "ios" ? 0 : 20) : 0}
+      >
         <HStack
-          justifyContent="space-between"
-          p={10}
-          h={Platform.OS === "ios" ? 50 : 65}
-          pt={Platform.OS === "ios" ? 0 : 25}
-          top={Platform.OS === "ios" ? 0 : 0}
-          backgroundColor="$neutral6"
+          px={6}
+          py={3}
+          gap={4}
           alignItems="center"
+          justifyContent="space-between"
         >
+          <Link href="/explore">
+            <ChevronLeft
+              size={35}
+              absoluteStrokeWidth
+              strokeWidth={3}
+              color="#ffffff"
+            />
+          </Link>
           <Text fontSize="$title_4" fontWeight="$bold" color="$gray0">
             Search Result
           </Text>
-
-          <Button
-            px={9}
-            onPress={handleCloseSearchFilter}
-            backgroundColor="$neutral6"
+          <View
+            flexDirection="row"
+            gap={10}
+            alignItems="center"
+            justifyContent="center"
           >
-            <Search
-              size={30}
-              strokeWidth={2}
-              color={styled.config.tokens.colors.gray0}
-            />
-          </Button>
+          </View>
         </HStack>
-      </VStack>
+      </View>
+
       <View>
         <FlatList
           data={events}
