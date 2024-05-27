@@ -51,7 +51,9 @@
           ]
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-asset",
+      "expo-secure-store"
     ],
     "extra": {
       "router": {

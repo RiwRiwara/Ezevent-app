@@ -23,7 +23,7 @@ import {
   InputField,
   KeyboardAvoidingView,
 } from "@gluestack-ui/themed";
-import { Camera, CameraType, FlashMode } from "expo-camera";
+import { Camera, CameraType, FlashMode } from 'expo-camera/legacy';
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 
